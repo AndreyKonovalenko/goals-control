@@ -1,10 +1,17 @@
 {
   "name": "goals-control",
   "version": "1.0.0",
-  "description": "",
+  "description": "goals-control app",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client-install": "npm install --prefix client",
+    "start": "node server.js ",
+    "server": "nodemon server.js",
+    "client-c9": "REACT_APP_URL=http://goals-control.c9users.io:8081 npm start --prefix client",
+    "client": "npm start --prefix client",
+    "dev-c9": "concurrently \"npm run server\" \"npm run client-c9\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Andrey Konovalenko",
   "license": "MIT",
@@ -20,6 +27,6 @@
     "validator": "^10.11.0"
   },
   "devDependencies": {
-    "nodeman": "^1.1.2"
+    "nodemon": "^1.18.9"
   }
 }
