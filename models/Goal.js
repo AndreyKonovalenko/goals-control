@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const GoalSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'users'
+    ref: 'user'
   },
   title: {
     type: String,
@@ -34,4 +34,4 @@ const GoalSchema = new Schema({
   }]
 });
 
-module.exports = Goal = mongoose.model('goals', GoalSchema);
+module.exports = Goal = mongoose.model('goal', GoalSchema);
