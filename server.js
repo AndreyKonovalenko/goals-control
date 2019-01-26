@@ -25,14 +25,14 @@ app.use((req, res, next) => {
   next();
 });
 
-
 //DB Config
 const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB
 mongoose
   .connect(
-    db, { useNewUrlParser: true }
+    db,
+    { useNewUrlParser: true }
   )
   .then(() => console.log('MongoDB Connected !'))
   .catch(err => console.log(err));
@@ -69,5 +69,9 @@ if (port === '8080') {
 }
 
 app.listen(port, () =>
-  console.log(`Server running on address: ${process.env.C9_HOSTNAME ? process.env.C9_HOSTNAME: null }:${port}`)
+  console.log(
+    `Server running on address: ${
+      process.env.C9_HOSTNAME ? process.env.C9_HOSTNAME : 'localhost'
+    }:${port}`
+  )
 );
