@@ -18,7 +18,7 @@ const User = require('../../models/User');
 
 router.get('/test', (req, res) => res.json({ msg: 'User route works' }));
 
-// route: Post api/user/register
+// route: POST api/user/register
 // desc: Register new user
 // access Public
 
@@ -51,6 +51,61 @@ router.post('/register', (req, res) => {
         });
       });
     }
+  });
+});
+
+// route: POST api/user/login
+// desc: Login user// Returning JWT Token
+// access: Public
+
+router.post('/login', (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  // Check Validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  const email = req.body.email;
+  const password = req.body.password;
+
+  //Find user by email
+  // for this we gonna use mongoose User module
+
+  // User.findOne({email: email}) it is equal User.findOne({email})
+  User.findOne({ email }).then(user => {
+    // Check for user
+
+    if (!user) {
+      errors.email = 'User no found';
+      return res.status(400).json(errors);
+    }
+    // Check Password
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        //User Matched
+
+        const payload = {
+          id: user.id
+        }; // Create JWT Payload
+
+        // Sign Token
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          { expiresIn: 3600 },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: 'Bearer ' + token
+            });
+          }
+        );
+      } else {
+        errors.password = 'Password incorrect';
+        return res.status(400).json(errors);
+      }
+    });
   });
 });
 
