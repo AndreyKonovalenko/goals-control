@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
+import AppLayout from './hoc/layout/AppLayout';
 
 class App extends Component {
   render() {
-  
+
     return (
-      <div>
-        <h1>
-          Goals Control project Front-End
-        </h1>
-      </div>
-      );
+      <AppLayout />
+    );
   }
 }
 
