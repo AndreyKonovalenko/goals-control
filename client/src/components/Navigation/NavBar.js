@@ -1,19 +1,24 @@
-import React from 'react'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
+import React from 'react';
+import AppBar from '@material-ui/core/AppBar';
+//import { withStyle } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button'
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+
 
 const NavBar = () => {
-    return (
-        <div>
-        <AppBar position="static">
-            <Toolbar>
-                <Typography variant="title" color="inherit">
-                Goals - Control App
-                </Typography>
-            </Toolbar>
-        </AppBar>
-        </div>
-    )
+  // const styles = {
+
+  // }
+  return (
+    <AppBar position="static">
+        <Toolbar>
+          <Typography variant="title" color="inherit">
+            Goals - Control App
+          </Typography>
+          <Button>Login</Button>
+        </Toolbar>
+     </AppBar>
+  )
 }
 export default NavBar;
