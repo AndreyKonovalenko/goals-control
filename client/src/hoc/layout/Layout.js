@@ -5,36 +5,30 @@ import lightBlue from '@material-ui/core/colors/lightBlue';
 import pink from '@material-ui/core/colors/pink';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-
 class Layout extends Component {
   render() {
     const theme = createMuiTheme({
       palette: {
         primary: {
-          light: lightBlue[200],
-          main: lightBlue[400],
-          dark: lightBlue[600],
+          main: lightBlue[600]
         },
         secondary: {
-          light: pink[200],
-          main: pink[400],
-          dark: pink[600],
+          main: pink[400]
         }
       },
       typography: {
-        useNextVariants: true,
-      },
+        useNextVariants: true
+      }
     });
 
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <NavBar / >
+        <NavBar />
         <h1>m</h1>
       </MuiThemeProvider>
     );
   }
-
 }
 
 export default Layout;
