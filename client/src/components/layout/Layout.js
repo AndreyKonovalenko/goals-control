@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import NavBar from '../../components/Navigation/NavBar';
+import NavBar from './NavBar';
 import lightBlue from '@material-ui/core/colors/lightBlue';
 import pink from '@material-ui/core/colors/pink';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -25,7 +25,7 @@ class Layout extends Component {
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <NavBar />
-        <h1>m</h1>
+        {this.props.children}
       </MuiThemeProvider>
     );
   }
