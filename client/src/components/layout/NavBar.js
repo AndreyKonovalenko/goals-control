@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import { withStyles } from '@material-ui/core/styles';
-import { withRouter } from 'react-router-dom';
+//import { withRouter } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -18,23 +18,26 @@ const styles = {
 
 class NavBar extends Component {
 
-  onClickHandler = (event, to) => {
-    event.preventDefaul();
+
+
+  onClickHandler = (to, event) => {
+    event.preventDefault();
     this.props.history.push(to);
   }
 
   render() {
     const { classes } = this.props;
+
     return (
       <div className={classes.root}>
         <AppBar position='static'>
           <Toolbar>
             <Typography variant='h6' color='inherit' className={classes.grow}>
-              <Button  onClick={() => this.onClickHandler('/')} Clickcolor='inherit'>
+              <Button href='/' color='inherit'>
                 Goals - Control App
               </Button>
             </Typography>
-            <Button onClick={() => this.onClickHandler('/login')} color='inherit'>
+            <Button href='/login' color='inherit'>
                 Login
             </Button>
           </Toolbar>
@@ -44,4 +47,4 @@ class NavBar extends Component {
   }
 };
 
-export default withRouter(withStyles(styles)(NavBar));
+export default withStyles(styles)(NavBar);
