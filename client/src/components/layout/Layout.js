@@ -22,10 +22,11 @@ class Layout extends Component {
     });
 
     return (
+
       <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <NavBar />
-        {this.props.children}
+          <CssBaseline />
+          <NavBar />
+          {this.props.children}
       </MuiThemeProvider>
     );
   }
