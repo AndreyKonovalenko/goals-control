@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
+const colors = require('colors');
 
 const user = require('./routes/api/user');
-// const profile = require('./routes/api/profile');
+const profile = require('./routes/api/profile');
 // const goal = require('./routes/api/goal');
 
 // using express as a router provider
@@ -30,10 +31,7 @@ const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB
 mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true }
-  )
+  .connect(db, { useNewUrlParser: true })
   .then(() => console.log('MongoDB Connected !'))
   .catch(err => console.log(err));
 
@@ -47,7 +45,7 @@ require('./config/passport')(passport);
 
 // Use Routes
 app.use('/api/user', user);
-// app.use('/api/profile', profile);
+app.use('/api/profile', profile);
 // app.use('/api/goal', goal);
 
 // Server static assets if in production
@@ -68,10 +66,10 @@ if (port === '8080') {
   port = 8081;
 }
 
-app.listen(port, () =>
-  console.log(
-    `Server running on address: ${
-      process.env.C9_HOSTNAME ? process.env.C9_HOSTNAME : 'localhost'
-    }:${port}`
-  )
-);
+app.listen(port, () => {
+  const msg = 'Server running on address: '.cyan.bold;
+  const hostname = process.env.C9_HOSTNAME
+    ? process.env.C9_HOSTNAME
+    : `http://localhost:${port}`.underline;
+  console.log(`${msg}${hostname}`);
+});
