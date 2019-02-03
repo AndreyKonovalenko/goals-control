@@ -37,6 +37,12 @@ class NavBar extends Component {
               </Button>
             </Typography>
             <Button
+              onClick={event => this.onClickHandler('/register', event)}
+              color='inherit'
+            >
+              Sign Up
+            </Button>
+            <Button
               onClick={event => this.onClickHandler('/login', event)}
               color='inherit'
             >

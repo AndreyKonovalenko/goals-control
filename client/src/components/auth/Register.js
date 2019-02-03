@@ -20,7 +20,7 @@ const styles = theme => ({
   }
 });
 
-class Login extends Component {
+class Register extends Component {
   render() {
     const { classes } = this.props;
     return (
@@ -32,7 +32,7 @@ class Login extends Component {
           type='email'
           name='email'
           autoComplete='email'
-          margin='none'
+          margin='normal'
           variant='outlined'
         />
         <TextField
@@ -44,12 +44,16 @@ class Login extends Component {
           margin='normal'
           variant='outlined'
         />
-        <Button
-          variant='outlined'
-          color='secondary'
-          className={classes.button}
+        <TextField
+          id='outlined-password-input'
+          className={classes.textField}
+          label='Confirm password'
+          type='password'
+          name='password2'
           margin='normal'
-        >
+          variant='outlined'
+        />
+        <Button variant='outlined' color='secondary' className={classes.button}>
           Submit
         </Button>
       </form>
@@ -57,4 +61,4 @@ class Login extends Component {
   }
 }
 
-export default withStyles(styles)(Login);
+export default withStyles(styles)(Register);
