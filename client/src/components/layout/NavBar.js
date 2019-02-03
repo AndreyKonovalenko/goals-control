@@ -12,16 +12,14 @@ const styles = {
   },
   grow: {
     flexGrow: 1
-  },
-
-}
+  }
+};
 
 class NavBar extends Component {
-
   onClickHandler = (to, event) => {
     event.preventDefault();
     this.props.history.push(to);
-  }
+  };
 
   render() {
     const { classes } = this.props;
@@ -32,21 +30,23 @@ class NavBar extends Component {
           <Toolbar>
             <Typography color='inherit' className={classes.grow}>
               <Button
-                onClick={(event) => this.onClickHandler('/', event)}
+                onClick={event => this.onClickHandler('/', event)}
                 color='inherit'
-
               >
                 Goals - Control App
               </Button>
             </Typography>
-            <Button onClick={(event)=>this.onClickHandler('/login', event)} color='inherit'>
-                Login
+            <Button
+              onClick={event => this.onClickHandler('/login', event)}
+              color='inherit'
+            >
+              Login
             </Button>
           </Toolbar>
         </AppBar>
       </div>
     );
   }
-};
+}
 
 export default withRouter(withStyles(styles)(NavBar));

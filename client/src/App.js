@@ -8,15 +8,11 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
-       <Route path="/login" component={Login} />
-       <Route path="/" exact component={Home} />
+        <Route path='/login' component={Login} />
+        <Route path='/' exact component={Home} />
       </Switch>
     );
-    return (
-      <Layout>
-        {routes}
-      </Layout>
-    );
+    return <Layout>{routes}</Layout>;
   }
 }
 

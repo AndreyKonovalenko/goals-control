@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import NavBar from './NavBar';
 import lightBlue from '@material-ui/core/colors/lightBlue';
-import pink from '@material-ui/core/colors/pink';
+import green from '@material-ui/core/colors/green';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 class Layout extends Component {
@@ -13,7 +13,7 @@ class Layout extends Component {
           main: lightBlue[600]
         },
         secondary: {
-          main: pink[400]
+          main: green[600]
         }
       },
       typography: {
@@ -22,11 +22,10 @@ class Layout extends Component {
     });
 
     return (
-
       <MuiThemeProvider theme={theme}>
-          <CssBaseline />
-          <NavBar />
-          {this.props.children}
+        <CssBaseline />
+        <NavBar />
+        {this.props.children}
       </MuiThemeProvider>
     );
   }
