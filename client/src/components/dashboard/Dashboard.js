@@ -24,24 +24,35 @@ const springConfig = { stiffness: 300, dapming: 50 };
 const styles = theme => ({
   container: {
     marginTop: '5%',
-    display: 'flex',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
+    width: 320,
+    height: 400,
+    backgroundColor: theme.palette.background.paper,
+    margin: 'auto'
+
   },
   root: {
-    backgroundColor: theme.palette.background.paper,
-    maxWidth: 360,
-    width: '100%'
-  },
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
 
+  },
   button: {
     margin: theme.spacing.unit
+  },
+  item: {
+    position: 'absolute',
+    width: '100%',
+    height: 90,
+    overflow: 'visible',
+    pointerEvents: 'auto',
+    transformOrigin: '50% 50% 0px',
+    borderRadius: 4,
+    lineHeight: 96,
+    paddingLeft: 32,
+    boxSizing: 'border-box'
   }
 });
-
 
 class Dashboard extends Component {
   // this is fake state for fronend testeing
@@ -135,14 +146,13 @@ class Dashboard extends Component {
               <ListItem
                 onMouseDown={this.handleMouseDown.bind(null, i, y)}
                 onTouchStart={this.handleTouchStart.bind(null, i, y)}
-                className={classes.list}
+                className={classes.item}
                 style={{
                   boxShadow: `rgba(0, 0, 0, 0.2) 0px ${shadow}px ${2 * shadow}px 0px`,
                   transform: `translate3d(0, ${y}px, 0) scale(${scale})`,
                   WebkitTransform: `translate3d(0, ${y}px, 0) scale(${scale})`,
                   zIndex: i === originalPosOfLastPressed ? 99 : i,
                   }}>
-                {order.indexOf(i) + 1}
                 <ListItemText primary={this.state.goals[i].title}  />
               </ListItem>
             }
