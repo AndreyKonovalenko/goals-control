@@ -6,6 +6,7 @@ import { Motion, spring } from 'react-motion';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Greed from '@material-ui/core/Grid';
 
 const reinsert = (arr, from, to) => {
   const _arr = arr.slice(0);
@@ -22,10 +23,10 @@ const clamp = (n, min, max) => {
 const springConfig = { stiffness: 300, dapming: 50 };
 
 const styles = theme => ({
+
   root: {
-    width: '100%',
-    maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
+    flexGrow: 1
 
   },
   button: {
@@ -136,27 +137,29 @@ class Dashboard extends Component {
       return (
         <Motion style={style} key={i}>
             {({scale, shadow, y}) =>
-              <ListItem
-                onMouseDown={this.handleMouseDown.bind(null, i, y)}
-                onTouchStart={this.handleTouchStart.bind(null, i, y)}
-                className={classes.item}
-                style={{
-                  boxShadow: `rgba(0, 0, 0, 0.2) 0px ${shadow}px ${2 * shadow}px 0px`,
-                  transform: `translate3d(0, ${y}px, 0) scale(${scale})`,
-                  WebkitTransform: `translate3d(0, ${y}px, 0) scale(${scale})`,
-                  zIndex: i === originalPosOfLastPressed ? 99 : i,
-                  }}>
-                <ListItemText primary={this.state.goals[i].title}  />
-              </ListItem>
+                <ListItem
+                  onMouseDown={this.handleMouseDown.bind(null, i, y)}
+                  onTouchStart={this.handleTouchStart.bind(null, i, y)}
+                  className={classes.item}
+                  style={{
+                    boxShadow: `rgba(0, 0, 0, 0.2) 0px ${shadow}px ${2 * shadow}px 0px`,
+                    transform: `translate3d(0, ${y}px, 0) scale(${scale})`,
+                    WebkitTransform: `translate3d(0, ${y}px, 0) scale(${scale})`,
+                    zIndex: i === originalPosOfLastPressed ? 99 : i,
+                    }}>
+                  <ListItemText primary={this.state.goals[i].title}  />
+                </ListItem>
             }
           </Motion>
       );
     });
 
     const basicList = this.state.goals.map(element => (
-      <ListItem key={element.id}>
-        <ListItemText primary={element.title} />
-      </ListItem>
+      <Greed item xs={12} sm={6}>
+        <ListItem key={element.id}>
+          <ListItemText primary={element.title} />
+        </ListItem>
+      </Greed>
     ));
 
     if (this.state.animation) {
@@ -167,9 +170,11 @@ class Dashboard extends Component {
     }
 
     return (
-      <List  className={classes.root}>
-        {list}
-      </List>
+      <Greed conteiner className={classes.root}>
+        <List   disablePadding>
+          {list}
+        </List>
+      </Greed>
     );
   }
 }

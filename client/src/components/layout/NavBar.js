@@ -6,14 +6,14 @@ import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1
   },
   grow: {
     flexGrow: 1
   }
-};
+});
 
 class NavBar extends Component {
   onClickHandler = (to, event) => {
@@ -36,6 +36,12 @@ class NavBar extends Component {
                 Goals - Control App
               </Button>
             </Typography>
+            <Button
+              onClick={event => this.onClickHandler('/test', event)}
+              color='inherit'
+            >
+              Test material-ui components
+            </Button>
             <Button
               onClick={event => this.onClickHandler('/register', event)}
               color='inherit'
