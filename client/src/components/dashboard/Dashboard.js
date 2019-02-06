@@ -6,7 +6,7 @@ import { Motion, spring } from 'react-motion';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Greed from '@material-ui/core/Grid';
+
 
 const reinsert = (arr, from, to) => {
   const _arr = arr.slice(0);
@@ -23,15 +23,32 @@ const clamp = (n, min, max) => {
 const springConfig = { stiffness: 300, dapming: 50 };
 
 const styles = theme => ({
-
-  root: {
-    backgroundColor: theme.palette.background.paper,
-    flexGrow: 1
-
+  container: {
+    padding: '10%',
+    display: 'flex',
+    justifyContent: 'center'
   },
+  root: {
+    maxWidth: 900,
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
+  },
+
   button: {
     margin: theme.spacing.unit
   },
+  container2: {
+    padding: '10%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  root2: {
+    position: 'absolute',
+    maxWidth: 900,
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
+  },
+
   item: {
     position: 'absolute',
     width: '100%',
@@ -68,7 +85,7 @@ class Dashboard extends Component {
     mouseY: 0,
     isPressed: false,
     originalPosOfLastPressed: 0,
-    animation: false
+    animation: true
   };
 
   componentDidMount() {
@@ -135,32 +152,41 @@ class Dashboard extends Component {
       };
 
       return (
-        <Motion style={style} key={i}>
-            {({scale, shadow, y}) =>
-                <ListItem
-                  onMouseDown={this.handleMouseDown.bind(null, i, y)}
-                  onTouchStart={this.handleTouchStart.bind(null, i, y)}
-                  className={classes.item}
-                  style={{
-                    boxShadow: `rgba(0, 0, 0, 0.2) 0px ${shadow}px ${2 * shadow}px 0px`,
-                    transform: `translate3d(0, ${y}px, 0) scale(${scale})`,
-                    WebkitTransform: `translate3d(0, ${y}px, 0) scale(${scale})`,
-                    zIndex: i === originalPosOfLastPressed ? 99 : i,
-                    }}>
-                  <ListItemText primary={this.state.goals[i].title}  />
-                </ListItem>
-            }
-          </Motion>
+        <div className={classes.container2} >
+          <List className={classes.root2}>
+            <Motion style={style} key={i}>
+                {({scale, shadow, y}) =>
+                    <ListItem
+                      onMouseDown={this.handleMouseDown.bind(null, i, y)}
+                      onTouchStart={this.handleTouchStart.bind(null, i, y)}
+                      className={classes.item}
+                      style={{
+                        boxShadow: `rgba(0, 0, 0, 0.2) 0px ${shadow}px ${2 * shadow}px 0px`,
+                        transform: `translate3d(0, ${y}px, 0) scale(${scale})`,
+                        WebkitTransform: `translate3d(0, ${y}px, 0) scale(${scale})`,
+                        zIndex: i === originalPosOfLastPressed ? 99 : i,
+                        }}>
+                      <ListItemText primary={this.state.goals[i].title}  />
+                    </ListItem>
+                }
+              </Motion>
+            </List>
+          </div>
       );
     });
 
-    const basicList = this.state.goals.map(element => (
-      <Greed item xs={12} sm={6}>
-        <ListItem key={element.id}>
-          <ListItemText primary={element.title} />
-        </ListItem>
-      </Greed>
-    ));
+    const basicList = (
+      <div className={classes.container}>
+        <List className={classes.root} disablePadding>
+          {this.state.goals.map(element => (
+            <ListItem key={element.id} divider>
+              <ListItemText primary={element.title} />
+            </ListItem>
+            ))
+          }
+        </List>
+      </div>
+    );
 
     if (this.state.animation) {
       list = animatedList;
@@ -169,13 +195,7 @@ class Dashboard extends Component {
       list = basicList;
     }
 
-    return (
-      <Greed conteiner className={classes.root}>
-        <List   disablePadding>
-          {list}
-        </List>
-      </Greed>
-    );
+    return list;
   }
 }
 
