@@ -41,24 +41,21 @@ const styles = theme => ({
     padding: '10%',
     display: 'flex',
     justifyContent: 'center',
+    position: 'absolute',
   },
   root2: {
-    position: 'absolute',
-    maxWidth: 900,
-    width: '100%',
+    width: 900,
     backgroundColor: theme.palette.background.paper,
   },
 
   item: {
     position: 'absolute',
     width: '100%',
-    height: 90,
+    height: 47,
     overflow: 'visible',
     pointerEvents: 'auto',
     transformOrigin: '50% 50% 0px',
     borderRadius: 4,
-    lineHeight: 96,
-    paddingLeft: 32,
     boxSizing: 'border-box'
   },
 });
@@ -139,6 +136,8 @@ class Dashboard extends Component {
     let list;
 
     // Animation List
+    const listRootHeight = this.state.itemsCount * 47; // animation style config
+
 
     const animatedList = order.map(i => {
       const style = originalPosOfLastPressed === i && isPressed ? {
@@ -153,7 +152,7 @@ class Dashboard extends Component {
 
       return (
         <div className={classes.container2} >
-          <List className={classes.root2}>
+          <List className={classes.root2} style={{height:`${listRootHeight}px`}}>
             <Motion style={style} key={i}>
                 {({scale, shadow, y}) =>
                     <ListItem
