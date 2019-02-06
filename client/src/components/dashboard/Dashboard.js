@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Motion, spring } from 'react-motion';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-
 
 const reinsert = (arr, from, to) => {
   const _arr = arr.slice(0);
@@ -22,19 +22,10 @@ const clamp = (n, min, max) => {
 const springConfig = { stiffness: 300, dapming: 50 };
 
 const styles = theme => ({
-  container: {
-    marginTop: '5%',
-    width: 320,
-    height: 400,
-    backgroundColor: theme.palette.background.paper,
-    margin: 'auto'
-
-  },
   root: {
-    display: 'flex',
     width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
 
   },
   button: {
@@ -51,7 +42,7 @@ const styles = theme => ({
     lineHeight: 96,
     paddingLeft: 32,
     boxSizing: 'border-box'
-  }
+  },
 });
 
 class Dashboard extends Component {
@@ -76,6 +67,7 @@ class Dashboard extends Component {
     mouseY: 0,
     isPressed: false,
     originalPosOfLastPressed: 0,
+    animation: false
   };
 
   componentDidMount() {
@@ -126,10 +118,11 @@ class Dashboard extends Component {
   render() {
     const { isPressed, mouseY, order, originalPosOfLastPressed } = this.state;
     const { classes } = this.props;
+    let list;
 
     // Animation List
 
-    const list = order.map(i => {
+    const animatedList = order.map(i => {
       const style = originalPosOfLastPressed === i && isPressed ? {
         scale: spring(1.1, springConfig),
         shadow: spring(16, springConfig),
@@ -158,17 +151,31 @@ class Dashboard extends Component {
             }
           </Motion>
       );
-
     });
 
+    const basicList = this.state.goals.map(element => (
+      <ListItem key={element.id}>
+        <ListItemText primary={element.title} />
+      </ListItem>
+    ));
+
+    if (this.state.animation) {
+      list = animatedList;
+    }
+    else {
+      list = basicList;
+    }
+
     return (
-      <div className={classes.container}>
-        <List component='ul' className={classes.root}>
-          {list}
-        </List>
-      </div>
+      <List  className={classes.root}>
+        {list}
+      </List>
     );
   }
 }
+
+Dashboard.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
 export default withStyles(styles)(Dashboard);
