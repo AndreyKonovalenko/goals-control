@@ -9,7 +9,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-const updateOreder = (arr, beg, end) => {
+const updateOrder = (arr, beg, end) => {
   const copy = arr.slice(0);
   const val = copy[beg];
   copy.splice(beg, 1);
@@ -36,6 +36,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
   },
   container2: {
+    position: 'absolute',
     width: '100%',
     height: '100%',
     display: 'flex',
@@ -43,14 +44,14 @@ const styles = theme => ({
     alignItems: 'center',
   },
   list: {
-    width: 900,
-    height: itemHeight * 3 // should add to inline style
+    width: 320,
+    height: 400
   },
   item: {
     position: 'absolute',
-    width: '100%',
-    height: `${itemHeight-3}`,
-    lineHieght: `${itemHeight-3}`,
+    width: '320px',
+    height: `${itemHeight-3}px`,
+    // lineHieght: `${itemHeight-3}`,
     overflow: 'visible',
     pointerEvents: 'auto',
     transformOrigin: '50% 50% 0px',
@@ -86,7 +87,7 @@ class Dashboard extends Component {
     animation: true
   };
 
-  handleTouchStart = (pos, pressY, { touches: [{ pageY }] }) => {
+  andleTouchStart = (pos, pressY, { touches: [{ pageY }] }) => {
     this.setState({
       topDeltaY: pageY - pressY,
       mouseY: pressY,
@@ -94,13 +95,13 @@ class Dashboard extends Component {
       lastPressed: pos
     });
 
-    window.addEventListener('touchmove', this.handleTouchMove);
-    window.addEventListener('touchend', this.handleTouchEnd);
+    window.addEventListener("touchmove", this.handleTouchMove);
+    window.addEventListener("touchend", this.handleTouchEnd);
   };
 
   handleTouchMove = e => {
     e.preventDefault();
-    this.handleTouchMove(e.touches[0]);
+    this.handleMouseMove(e.touches[0]);
   };
 
   handleMouseDown = (pos, pressY, { pageY }) => {
@@ -115,8 +116,8 @@ class Dashboard extends Component {
     window.addEventListener("mouseup", this.handleMouseUp);
   };
 
-  handleTouchMove = ({ pageY }) => {
-    const { isPressed, topDeltaY, lastPressed, itemsCount, order } = this.state;
+  handleMouseMove = ({ pageY }) => {
+    const { isPressed, topDeltaY, order, lastPressed, itemsCount } = this.state;
 
     if (isPressed) {
       const mouseY = pageY - topDeltaY;
@@ -126,24 +127,29 @@ class Dashboard extends Component {
         itemsCount - 1
       );
       let newOrder = order;
+
       if (currentRow !== order.indexOf(lastPressed)) {
-        newOrder = updateOreder(order, order.indexOf(lastPressed), currentRow);
+        newOrder = updateOrder(order, order.indexOf(lastPressed), currentRow);
       }
+
       this.setState({ mouseY, order: newOrder });
     }
   };
 
   handleMouseUp = () => {
     this.setState({ isPressed: false, topDeltaY: 0 });
-    window.removeEventListener('mouseup', this.handleMouseUp);
-    window.removeEventListener('mousemove', this.handleTouchMove);
+
+    window.removeEventListener("mouseup", this.handleMouseUp);
+    window.removeEventListener("mousemove", this.handleMouseMove);
   };
 
   handleTouchEnd = () => {
     this.setState({ isPressed: false, topDeltaY: 0 });
-    window.removeEventListener('touchmove', this.handleTouchMove);
-    window.removeEventListener('touchend', this.handleTouchEnd);
+
+    window.removeEventListener("touchmove", this.handleTouchMove);
+    window.removeEventListener("touchend", this.handleTouchEnd);
   };
+
 
   render() {
 
@@ -174,7 +180,6 @@ class Dashboard extends Component {
           {nodes => (
             <div className={classes.list}>
               {nodes.map(({key, data, state }) => {
-                console.log(nodes);
                 const {shadow, scale, y} = state;
                 const transY = lastPressed === data && isPressed ? mouseY : y;
                 return (
