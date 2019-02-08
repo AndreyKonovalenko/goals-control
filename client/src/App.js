@@ -20,7 +20,9 @@ class App extends Component {
     return (
       <React.Fragment>
         <CssBaseline />
-        <Layout>{routes}</Layout>;
+        <Layout>
+          {routes}
+        </Layout>
       </React.Fragment>
     );
   }

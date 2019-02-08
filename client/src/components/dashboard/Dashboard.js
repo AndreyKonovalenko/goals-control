@@ -22,7 +22,7 @@ const clamp = (n, min, max) => {
   return Math.max(Math.min(n, max), min);
 };
 
-const itemHeight = 75;
+const itemHeight = 47;
 
 const styles = theme => ({
   container: {
@@ -37,6 +37,7 @@ const styles = theme => ({
   },
   container2: {
     position: 'absolute',
+    padding: '0%',
     width: '100%',
     height: '100%',
     display: 'flex',
@@ -45,7 +46,8 @@ const styles = theme => ({
   },
   list: {
     width: 320,
-    height: 400
+    height: `${itemHeight * 3}px`,
+    backgroundColor: theme.palette.background.paper,
   },
   item: {
     position: 'absolute',
@@ -56,8 +58,6 @@ const styles = theme => ({
     pointerEvents: 'auto',
     transformOrigin: '50% 50% 0px',
     color: 'red',
-    borderRadius: 4,
-    boxSizing: 'border-box'
   }
 });
 
@@ -84,7 +84,7 @@ class Dashboard extends Component {
     mouseY: 0,
     isPressed: false,
     lastPressed: 0,
-    animation: true
+    animation: false
   };
 
   andleTouchStart = (pos, pressY, { touches: [{ pageY }] }) => {
@@ -153,7 +153,7 @@ class Dashboard extends Component {
 
   render() {
 
-    let list;
+    let list = null;
     const { classes } = this.props;
     const { mouseY, isPressed, lastPressed, order, itemsCount } = this.state;
 
@@ -164,7 +164,6 @@ class Dashboard extends Component {
           keyAccessor={d => `item-key-${d}`}
           start={d => ({
             scale:1,
-            shadow:1,
             y: order.indexOf(d)*itemHeight
           })}
           update={d => {
@@ -178,30 +177,30 @@ class Dashboard extends Component {
           }}
         >
           {nodes => (
-            <div className={classes.list}>
+            <List className={classes.list} disablePadding>
               {nodes.map(({key, data, state }) => {
-                const {shadow, scale, y} = state;
+                const {scale, y} = state;
                 const transY = lastPressed === data && isPressed ? mouseY : y;
                 return (
-                  <div
+                  <ListItem
+                    divider
                     className={classes.item}
                     key={key}
                     onMouseDown={e => this.handleMouseDown(data, y, e)}
                     onTouchStart={e => this.handleTouchStart(data, y, e)}
                     style={{
-                      boxShadow: `rgba(0, 0, 0, 0.4) 0px ${shadow}px ${2 *
-                        shadow}px 0px`,
                       transform: `translate3d(0, ${transY}px, 0) scale(${scale})`,
                       WebkitTransform: `translate3d(0, ${transY}px, 0) scale(${scale})`,
                       zIndex: data === lastPressed ? 99 : data
                     }}
                   >
                     {order.indexOf(data) +1}
+                    {' For test'}
                     {this.state.goals[order.indexOf(data)].title}
-                  </div>
+                  </ListItem>
                 );
               })}
-            </div>
+            </List>
           )}
         </NodeGroup>
       </div>
@@ -226,8 +225,8 @@ class Dashboard extends Component {
     else {
       list = basicList;
     }
-    console.log(animatedList);
-    return animatedList;
+
+    return list;
   }
 }
 
