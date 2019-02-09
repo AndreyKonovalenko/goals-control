@@ -7,7 +7,7 @@ const colors = require('colors');
 
 const user = require('./routes/api/user');
 const profile = require('./routes/api/profile');
-// const goal = require('./routes/api/goal');
+const goal = require('./routes/api/goal');
 
 // using express as a router provider
 const app = express();
@@ -46,7 +46,7 @@ require('./config/passport')(passport);
 // Use Routes
 app.use('/api/user', user);
 app.use('/api/profile', profile);
-// app.use('/api/goal', goal);
+app.use('/api/goal', goal);
 
 // Server static assets if in production
 
