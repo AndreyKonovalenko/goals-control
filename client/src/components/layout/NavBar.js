@@ -8,8 +8,6 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
-    position: 'fixed',
     width: '100%',
     zIndex: 10000,
     boxShadow: 'none'
@@ -29,36 +27,36 @@ class NavBar extends Component {
     const { classes } = this.props;
 
     return (
-      <AppBar position='static' className={classes.root}>
-          <Toolbar>
-            <Typography color='inherit' className={classes.grow}>
-              <Button
-                onClick={event => this.onClickHandler('/', event)}
-                color='inherit'
-              >
-                Goals - Control App
-              </Button>
-            </Typography>
+      <AppBar className={classes.root}>
+        <Toolbar>
+          <Typography color='inherit' className={classes.grow}>
             <Button
-              onClick={event => this.onClickHandler('/test', event)}
+              onClick={event => this.onClickHandler('/', event)}
               color='inherit'
             >
-              Test material-ui components
+              Goals App
             </Button>
-            <Button
-              onClick={event => this.onClickHandler('/register', event)}
-              color='inherit'
-            >
-              Sign Up
-            </Button>
-            <Button
-              onClick={event => this.onClickHandler('/login', event)}
-              color='inherit'
-            >
-              Login
-            </Button>
-          </Toolbar>
-        </AppBar>
+          </Typography>
+          <Button
+            onClick={event => this.onClickHandler('/test', event)}
+            color='inherit'
+          >
+            Test
+          </Button>
+          <Button
+            onClick={event => this.onClickHandler('/register', event)}
+            color='inherit'
+          >
+            Sign Up
+          </Button>
+          <Button
+            onClick={event => this.onClickHandler('/login', event)}
+            color='inherit'
+          >
+            Login
+          </Button>
+        </Toolbar>
+      </AppBar>
     );
   }
 }
