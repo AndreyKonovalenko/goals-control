@@ -83,7 +83,7 @@ class Dashboard extends Component {
     mouseY: 0,
     isPressed: false,
     lastPressed: 0,
-    animation: true
+    animation: false
   };
 
   handleTouchStart = (pos, pressY, { touches: [{ pageY }] }) => {

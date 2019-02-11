@@ -8,7 +8,10 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    position: 'fixed',
+    width: '100%',
+    zIndex: 10000
   },
   grow: {
     flexGrow: 1
@@ -25,8 +28,7 @@ class NavBar extends Component {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
-        <AppBar position='static'>
+      <AppBar position='static' className={classes.root}>
           <Toolbar>
             <Typography color='inherit' className={classes.grow}>
               <Button
@@ -56,7 +58,6 @@ class NavBar extends Component {
             </Button>
           </Toolbar>
         </AppBar>
-      </div>
     );
   }
 }
