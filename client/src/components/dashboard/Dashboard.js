@@ -25,15 +25,27 @@ const itemHeight = 100;
 
 const styles = theme => ({
   container: {
-    padding: '10%',
+    paddingTop: 64,
+    width: '100%',
+    height: '100%',
     display: 'flex',
     justifyContent: 'center'
   },
-  root: {
-    maxWidth: 900,
+
+  item: {
     width: '100%',
+    height: `${itemHeight}px`,
+  },
+
+  list: {
+    width: '80%',
+    [theme.breakpoints.down('xs')]: {
+      width: '100%', // for screens smaller then 600 use 100%
+    },
+    height: `${itemHeight * 3}px`,
     backgroundColor: theme.palette.background.paper,
   },
+
   // this animation list styling css
   container2: {
     paddingTop: 64,
@@ -44,15 +56,7 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'start',
   },
-  list: {
-    width: '80%',
-    [theme.breakpoints.down('xs')]: {
-      width: '100%', // for screens smaller then 600 use 100%
-    },
-    height: `${itemHeight * 3}px`,
-    backgroundColor: theme.palette.background.paper,
-  },
-  item: {
+  item2: {
     position: 'absolute',
     width: '100%',
     height: `${itemHeight}px`,
@@ -187,7 +191,7 @@ class Dashboard extends Component {
                 return (
                   <ListItem
                     divider
-                    className={classes.item}
+                    className={classes.item2}
                     key={key}
                     onMouseDown={e => this.handleMouseDown(data, y, e)}
                     onTouchStart={e => this.handleTouchStart(data, y, e)}
@@ -213,9 +217,9 @@ class Dashboard extends Component {
 
     const basicList = (
       <div className={classes.container}>
-        <List className={classes.root} disablePadding>
+        <List className={classes.list} disablePadding>
           {this.state.goals.map(element => (
-            <ListItem key={element.id} divider>
+            <ListItem key={element.id} divider className={classes.item} >
               <ListItemText primary={element.title} />
             </ListItem>
             ))
