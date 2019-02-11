@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { NodeGroup } from 'react-move';
 import { range } from 'd3-array';
 import { easeExpOut } from 'd3-ease';
+import Typography from '@material-ui/core/Typography';
+import DragHandle from '@material-ui/icons/DragHandle';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -64,8 +66,15 @@ const styles = theme => ({
     overflow: 'visible',
     pointerEvents: 'auto',
     transformOrigin: '50% 50% 0px',
-    color: 'red',
-  }
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  icon: {
+    margin: theme.spacing.unit,
+    fontSize: 32,
+    cursor: 'pointer'
+  },
 });
 
 
@@ -193,8 +202,6 @@ class Dashboard extends Component {
                     divider
                     className={classes.item2}
                     key={key}
-                    onMouseDown={e => this.handleMouseDown(data, y, e)}
-                    onTouchStart={e => this.handleTouchStart(data, y, e)}
                     style={
                       {
                         transform: `translate3d(0, ${transY}px, 0) scale(${scale})`,
@@ -203,9 +210,12 @@ class Dashboard extends Component {
                       }
                     }
                   >
-                    {order.indexOf(data) +1}
-                    {' For test'}
-                    {this.state.goals[order.indexOf(data)].title}
+                    <Typography>{this.state.goals[order.indexOf(data)].title}</Typography>
+                    <DragHandle
+                      className={classes.icon}
+                        onMouseDown={e => this.handleMouseDown(data, y, e)}
+                        onTouchStart={e => this.handleTouchStart(data, y, e)}
+                      />
                   </ListItem>
                 );
               })}
