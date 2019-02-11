@@ -7,6 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 class Layout extends Component {
   render() {
+
     const theme = createMuiTheme({
       palette: {
         primary: {

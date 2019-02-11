@@ -11,7 +11,8 @@ const styles = theme => ({
     flexGrow: 1,
     position: 'fixed',
     width: '100%',
-    zIndex: 10000
+    zIndex: 10000,
+    boxShadow: 'none'
   },
   grow: {
     flexGrow: 1

@@ -15,14 +15,13 @@ const updateOrder = (arr, beg, end) => {
   copy.splice(beg, 1);
   copy.splice(end, 0, val);
   return copy;
-
 };
 
 const clamp = (n, min, max) => {
   return Math.max(Math.min(n, max), min);
 };
 
-const itemHeight = 80;
+const itemHeight = 100;
 
 const styles = theme => ({
   container: {
@@ -35,7 +34,9 @@ const styles = theme => ({
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
+  // this animation list styling css
   container2: {
+    paddingTop: 64,
     position: 'absolute',
     width: '100%',
     height: '100%',
@@ -44,14 +45,17 @@ const styles = theme => ({
     alignItems: 'start',
   },
   list: {
-    width: 320,
+    width: '80%',
+    [theme.breakpoints.down('xs')]: {
+      width: '100%', // for screens smaller then 600 use 100%
+    },
     height: `${itemHeight * 3}px`,
     backgroundColor: theme.palette.background.paper,
   },
   item: {
     position: 'absolute',
-    width: '320px',
-    height: `${itemHeight-3}px`,
+    width: '100%',
+    height: `${itemHeight}px`,
     // lineHieght: `${itemHeight-3}`,
     overflow: 'visible',
     pointerEvents: 'auto',
@@ -83,7 +87,7 @@ class Dashboard extends Component {
     mouseY: 0,
     isPressed: false,
     lastPressed: 0,
-    animation: false
+    animation: true
   };
 
   handleTouchStart = (pos, pressY, { touches: [{ pageY }] }) => {
