@@ -22,7 +22,7 @@ const clamp = (n, min, max) => {
   return Math.max(Math.min(n, max), min);
 };
 
-const itemHeight = 47;
+const itemHeight = 80;
 
 const styles = theme => ({
   container: {
@@ -37,12 +37,11 @@ const styles = theme => ({
   },
   container2: {
     position: 'absolute',
-    padding: '0%',
     width: '100%',
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'start',
   },
   list: {
     width: 320,
@@ -84,10 +83,10 @@ class Dashboard extends Component {
     mouseY: 0,
     isPressed: false,
     lastPressed: 0,
-    animation: false
+    animation: true
   };
 
-  andleTouchStart = (pos, pressY, { touches: [{ pageY }] }) => {
+  handleTouchStart = (pos, pressY, { touches: [{ pageY }] }) => {
     this.setState({
       topDeltaY: pageY - pressY,
       mouseY: pressY,
@@ -188,11 +187,13 @@ class Dashboard extends Component {
                     key={key}
                     onMouseDown={e => this.handleMouseDown(data, y, e)}
                     onTouchStart={e => this.handleTouchStart(data, y, e)}
-                    style={{
-                      transform: `translate3d(0, ${transY}px, 0) scale(${scale})`,
-                      WebkitTransform: `translate3d(0, ${transY}px, 0) scale(${scale})`,
-                      zIndex: data === lastPressed ? 99 : data
-                    }}
+                    style={
+                      {
+                        transform: `translate3d(0, ${transY}px, 0) scale(${scale})`,
+                        WebkitTransform: `translate3d(0, ${transY}px, 0) scale(${scale})`,
+                        zIndex: data === lastPressed ? 99 : data
+                      }
+                    }
                   >
                     {order.indexOf(data) +1}
                     {' For test'}
