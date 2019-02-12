@@ -28,6 +28,9 @@ const itemHeight = 100;
 const styles = theme => ({
   container: {
     paddingTop: 64,
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: 56, // for screens smaller then 600 use 100%
+    },
     width: '100%',
     height: '100%',
     display: 'flex',
@@ -51,6 +54,9 @@ const styles = theme => ({
   // this animation list styling css
   container2: {
     paddingTop: 64,
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: 56, // for screens smaller then 600 use 100%
+    },
     position: 'absolute',
     width: '100%',
     height: '100%',
@@ -76,6 +82,7 @@ const styles = theme => ({
     cursor: 'pointer'
   },
 });
+
 
 
 class Dashboard extends Component {
@@ -168,7 +175,6 @@ class Dashboard extends Component {
 
 
   render() {
-
     let list = null;
     const { classes } = this.props;
     const { mouseY, isPressed, lastPressed, order, itemsCount } = this.state;
