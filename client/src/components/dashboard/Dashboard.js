@@ -26,7 +26,7 @@ const clamp = (n, min, max) => {
 const itemHeight = 100;
 
 const styles = theme => ({
-  container: {
+  root: {
     paddingTop: 64,
     [theme.breakpoints.down('xs')]: {
       paddingTop: 56, // for screens smaller then 600 use 100%
@@ -52,18 +52,7 @@ const styles = theme => ({
   },
 
   // this animation list styling css
-  container2: {
-    paddingTop: 64,
-    [theme.breakpoints.down('xs')]: {
-      paddingTop: 56, // for screens smaller then 600 use 100%
-    },
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'start',
-  },
+
   item2: {
     position: 'absolute',
     width: '100%',
@@ -180,7 +169,7 @@ class Dashboard extends Component {
     const { mouseY, isPressed, lastPressed, order, itemsCount } = this.state;
 
     const animatedList = (
-      <div className={classes.container2}>
+      <div className={classes.root}>
         <NodeGroup
           data={range(itemsCount)} // this is parameter sets the number of nodes
           keyAccessor={d => `item-key-${d}`}
@@ -232,7 +221,7 @@ class Dashboard extends Component {
     );
 
     const basicList = (
-      <div className={classes.container}>
+      <div className={classes.rooot}>
         <List className={classes.list} disablePadding>
           {this.state.goals.map(element => (
             <ListItem key={element.id} divider className={classes.item} >

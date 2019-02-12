@@ -14,6 +14,13 @@ const styles = theme => ({
   },
   grow: {
     flexGrow: 1
+  },
+
+  toolbar: {
+    height: 64,
+    [theme.breakpoints.down('xs')]: {
+      height: 56, // for screens smaller then 600 use 100%
+    },
   }
 });
 
@@ -28,7 +35,7 @@ class NavBar extends Component {
 
     return (
       <AppBar className={classes.root}>
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <Typography color='inherit' className={classes.grow}>
             <Button
               onClick={event => this.onClickHandler('/', event)}
