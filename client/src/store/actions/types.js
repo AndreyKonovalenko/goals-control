@@ -1,0 +1,1 @@
+export const EDIT_GOALS_LIST = 'EDIT_GOALS_LIST';
