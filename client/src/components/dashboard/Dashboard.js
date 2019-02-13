@@ -6,6 +6,7 @@ import { range } from 'd3-array';
 import { easeExpOut } from 'd3-ease';
 import Typography from '@material-ui/core/Typography';
 import DragHandle from '@material-ui/icons/DragHandle';
+import { connect } from 'react-redux';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -37,11 +38,6 @@ const styles = theme => ({
     justifyContent: 'center'
   },
 
-  item: {
-    width: '100%',
-    height: `${itemHeight}px`,
-  },
-
   list: {
     width: '80%',
     [theme.breakpoints.down('xs')]: {
@@ -51,9 +47,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
   },
 
-  // this animation list styling css
-
-  item2: {
+  item: {
     position: 'absolute',
     width: '100%',
     height: `${itemHeight}px`,
@@ -92,11 +86,10 @@ class Dashboard extends Component {
     ],
     order: [0, 1, 2], // from back-end
     itemsCount: 3, // form back- end
-    topDeltaY: 0,
-    mouseY: 0,
-    isPressed: false,
-    lastPressed: 0,
-    animation: true
+    topDeltaY: 0, // animation config
+    mouseY: 0, // animation config
+    isPressed: false, //animatin config
+    lastPressed: 0, //anigmatin config
   };
 
   handleTouchStart = (pos, pressY, { touches: [{ pageY }] }) => {
@@ -164,11 +157,10 @@ class Dashboard extends Component {
 
 
   render() {
-    let list = null;
-    const { classes } = this.props;
+    const { classes, editing } = this.props;
     const { mouseY, isPressed, lastPressed, order, itemsCount } = this.state;
 
-    const animatedList = (
+    const list = (
       <div className={classes.root}>
         <NodeGroup
           data={range(itemsCount)} // this is parameter sets the number of nodes
@@ -195,7 +187,7 @@ class Dashboard extends Component {
                 return (
                   <ListItem
                     divider
-                    className={classes.item2}
+                    className={classes.item}
                     key={key}
                     style={
                       {
@@ -206,11 +198,13 @@ class Dashboard extends Component {
                     }
                   >
                     <Typography>{this.state.goals[order.indexOf(data)].title}</Typography>
-                    <DragHandle
-                      className={classes.icon}
+                    { editing
+                      ? (<DragHandle
+                        className={classes.icon}
                         onMouseDown={e => this.handleMouseDown(data, y, e)}
-                        onTouchStart={e => this.handleTouchStart(data, y, e)}
-                      />
+                        onTouchStart={e => this.handleTouchStart(data, y, e)}/>)
+                      : null
+                    }
                   </ListItem>
                 );
               })}
@@ -220,32 +214,18 @@ class Dashboard extends Component {
       </div>
     );
 
-    const basicList = (
-      <div className={classes.rooot}>
-        <List className={classes.list} disablePadding>
-          {this.state.goals.map(element => (
-            <ListItem key={element.id} divider className={classes.item} >
-              <ListItemText primary={element.title} />
-            </ListItem>
-            ))
-          }
-        </List>
-      </div>
-    );
-
-    if (this.state.animation) {
-      list = animatedList;
-    }
-    else {
-      list = basicList;
-    }
 
     return list;
   }
 }
 
 Dashboard.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  editing: PropTypes.bool.isRequired
 };
 
-export default withStyles(styles)(Dashboard);
+const mapSateToProps = state => ({
+  editing: state.dashboard.editing
+})
+
+export default connect(mapSateToProps)(withStyles(styles)(Dashboard));
