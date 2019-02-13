@@ -50,7 +50,6 @@ class NavBar extends Component {
 
   render() {
     const { classes, editing } = this.props;
-    console.log(typeof this.props.editing)
 
     return (
       <AppBar className={classes.root}>
@@ -64,6 +63,7 @@ class NavBar extends Component {
             </Button>
           </Typography>
           <FormControlLabel
+            disabled={this.props.history.location.pathname === '/' ? false : true}
             classes={
               {
                 label: classes.label,
