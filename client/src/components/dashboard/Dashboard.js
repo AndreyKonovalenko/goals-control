@@ -6,6 +6,8 @@ import { range } from 'd3-array';
 import { easeExpOut } from 'd3-ease';
 import Typography from '@material-ui/core/Typography';
 import DragHandle from '@material-ui/icons/DragHandle';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 import { connect } from 'react-redux';
 
 import List from '@material-ui/core/List';
@@ -65,8 +67,6 @@ const styles = theme => ({
     cursor: 'pointer'
   },
 });
-
-
 
 class Dashboard extends Component {
   // this is fake state for fronend testeing
@@ -197,7 +197,13 @@ class Dashboard extends Component {
                       }
                     }
                   >
-                    <Typography>{this.state.goals[order.indexOf(data)].title}</Typography>
+                    { editing
+                      ? (<IconButton aria-label="Delete" color="secondary">
+                          <DeleteIcon />
+                        </IconButton>)
+                      : null
+                    }
+                    <Typography style={{flexGrow: 1}}>{this.state.goals[order.indexOf(data)].title}</Typography>
                     { editing
                       ? (<DragHandle
                         className={classes.icon}
