@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { NodeGroup } from 'react-move';
 import { range } from 'd3-array';
 import { easeExpOut } from 'd3-ease';
-import Typography from '@material-ui/core/Typography';
+//import Typography from '@material-ui/core/Typography';
 import DragHandle from '@material-ui/icons/DragHandle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
@@ -203,7 +203,7 @@ class Dashboard extends Component {
                         </IconButton>)
                       : null
                     }
-                    <Typography style={{flexGrow: 1}}>{this.state.goals[order.indexOf(data)].title}</Typography>
+                    <ListItemText style={{flexGrow: 1}} primary={this.state.goals[order.indexOf(data)].title} />
                     { editing
                       ? (<DragHandle
                         className={classes.icon}

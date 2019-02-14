@@ -4,7 +4,7 @@ import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import Layout from './components/layout/Layout';
 import Register from './components/auth/Register';
-import Test from './components/test/Test';
+import Add from './components/add/Add';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 class App extends Component {
@@ -14,12 +14,11 @@ class App extends Component {
         <Route path='/' exact component={Dashboard} />
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
-        <Route path='/test' component={Test} />
+        <Route path='/add' component={Add} />
       </Switch>
     );
     return (
-      <React.Fragment>
-        <CssBaseline />
+      <React.Fragment><CssBaseline />
         <Layout>
           {routes}
         </Layout>

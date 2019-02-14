@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
+import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import AddCircle from '@material-ui/icons/AddCircle';
 import Switch from '@material-ui/core/Switch';
 import { connect } from 'react-redux';
 import { editMode } from '../../store/actions/dashboardActions';
@@ -77,12 +79,12 @@ class NavBar extends Component {
             label='EDIT'
             labelPlacement='start'
           />
-          <Button
-            onClick={event => this.onClickHandler('/test', event)}
+          <IconButton
+            onClick={event => this.onClickHandler('/add', event)}
             color='inherit'
           >
-            Test
-          </Button>
+            <AddCircle/>
+          </IconButton>
           <Button
             onClick={event => this.onClickHandler('/register', event)}
             color='inherit'
