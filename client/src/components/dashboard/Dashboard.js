@@ -30,10 +30,6 @@ const itemHeight = 100;
 
 const styles = theme => ({
   root: {
-    paddingTop: 64,
-    [theme.breakpoints.down('xs')]: {
-      paddingTop: 56, // for screens smaller then 600 use 100%
-    },
     width: '100%',
     height: '100%',
     display: 'flex',

@@ -4,10 +4,21 @@ import NavBar from './NavBar';
 import lightBlue from '@material-ui/core/colors/lightBlue';
 import pink from '@material-ui/core/colors/pink';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  root: {
+    paddingTop: 64,
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: 56, // for screens smaller then 600 use 100%
+    },
+  }
+});
 
 class Layout extends Component {
-  render() {
 
+  render() {
+    const { classes } = this.props;
     const theme = createMuiTheme({
       palette: {
         primary: {
@@ -21,15 +32,16 @@ class Layout extends Component {
         useNextVariants: true
       }
     });
-
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <NavBar />
-        {this.props.children}
+        <div className={classes.root}>
+          {this.props.children}
+        </div>
       </MuiThemeProvider>
     );
   }
 }
 
-export default Layout;
+export default withStyles(styles)(Layout);
