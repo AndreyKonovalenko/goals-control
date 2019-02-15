@@ -24,7 +24,6 @@ const styles = theme => {
     grow: {
       flexGrow: 1
     },
-
     toolbar: {
       height: 64,
       [theme.breakpoints.down('xs')]: {
