@@ -6,6 +6,7 @@ import Layout from './components/layout/Layout';
 import Register from './components/auth/Register';
 import Add from './components/add/Add';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Calendar from './components/calendar/Calendar';
 
 class App extends Component {
   render() {
@@ -15,13 +16,13 @@ class App extends Component {
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
         <Route path='/add' component={Add} />
+        <Route path='/calendar' component={Calendar} />
       </Switch>
     );
     return (
-      <React.Fragment><CssBaseline />
-        <Layout>
-          {routes}
-        </Layout>
+      <React.Fragment>
+        <CssBaseline />
+        <Layout>{routes}</Layout>
       </React.Fragment>
     );
   }
