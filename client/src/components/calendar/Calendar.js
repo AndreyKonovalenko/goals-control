@@ -3,7 +3,7 @@ import dateFns from 'date-fns';
 
 import { withStyles } from '@material-ui/core/styles';
 import Months from './Months';
-//import WeekDays from './WeekDays';
+import WeekDays from './WeekDays';
 //import Days from './Days';
 
 
@@ -16,8 +16,9 @@ const styles = (theme) => ({
     },
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
-    justifyContent: 'center'
-  },
+    justifyContent: 'center',
+    flexDirection: 'column'
+  }
 });
 
 class Calendar extends Component {
@@ -45,6 +46,9 @@ class Calendar extends Component {
           currentMonth={this.state.currentMonth}
           nextMonth={this.nextMonth}
           prevMonth={this.prevMonth}
+        />
+        <WeekDays
+          currentMonth={this.state.currentMonth}
         />
       </div>
     );

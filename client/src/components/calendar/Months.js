@@ -1,9 +1,7 @@
 import React from 'react';
 import dateFns from 'date-fns';
-import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-//import IconButton from '@material-ui/core/IconButton';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 
@@ -15,10 +13,8 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center'
-
   }
 });
-
 
 const Months = props => {
   const { classes } = props;
