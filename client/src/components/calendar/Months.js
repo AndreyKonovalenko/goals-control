@@ -9,6 +9,7 @@ const dateFormat = 'MMMM YYYY';
 
 const styles = (theme) => ({
   root: {
+    paddingTop: '1%',
     width: '100%',
     display: 'flex',
     justifyContent: 'space-around',

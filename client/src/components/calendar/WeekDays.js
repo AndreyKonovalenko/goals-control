@@ -12,6 +12,7 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'row',
+    textTransform: 'uppercase'
   },
   text: {
     textAlign: 'center',
