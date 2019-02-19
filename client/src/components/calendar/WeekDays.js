@@ -23,23 +23,22 @@ const styles = (theme) => ({
 
 const WeekDays = (props) => {
   const { classes } = props;
-  const days = [];
-  let dateFormat = "ddd";
-  let startDate = dateFns.startOfWeek(props.currentMonth, { weekStartsOn: 1 });
+  const dateFormat = "ddd";
+  const startDate = dateFns.startOfWeek(props.currentMonth, { weekStartsOn: 1 });
+  const week = Array.from({ length: 7 }, (v, k) => k);
 
-  for (let i = 0; i < 7; i++) {
-    days.push(
-      <ListItem key={i}>
+  const weekDays = week.map(day => (
+    <ListItem key={day}>
         <ListItemText className={classes.text}>
-         {dateFns.format(dateFns.addDays(startDate, i), dateFormat)}
+         {dateFns.format(dateFns.addDays(startDate, day), dateFormat)}
         </ListItemText>
       </ListItem>
-    );
-  }
+  ));
+
   return (
     <List className={classes.root} disablePadding={true}>
-      {days}
-    </List>
+        {weekDays}
+      </List>
   );
 };
 
