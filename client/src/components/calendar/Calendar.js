@@ -4,7 +4,7 @@ import dateFns from 'date-fns';
 import { withStyles } from '@material-ui/core/styles';
 import Months from './Months';
 import WeekDays from './WeekDays';
-//import Days from './Days';
+import Days from './Days';
 
 
 const styles = (theme) => ({
@@ -48,6 +48,9 @@ class Calendar extends Component {
           prevMonth={this.prevMonth}
         />
         <WeekDays
+          currentMonth={this.state.currentMonth}
+        />
+        <Days
           currentMonth={this.state.currentMonth}
         />
       </div>
