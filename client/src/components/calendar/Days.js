@@ -16,11 +16,6 @@ const styles = theme => ({
     maxWidth: '64em',
     padding: 0,
   },
-  text: {
-    textAlign: 'center',
-    padding: 0
-  }
-
 });
 
 class Days extends Component {
@@ -34,13 +29,15 @@ class Days extends Component {
     const daysRange = dateFns.differenceInDays(endDate, startDate) + 1;
     const daysArr = Array.from({ length: daysRange }, (v, k) => k);
 
-    const days = daysArr.map(day => {
+    const days = daysArr.map(element => {
+      const currentDay = dateFns.addDays(startDate, element);
       return (
-        <ListItem key={day} className={classes.listItem}>
-        <ListItemText classNama={classes.text}>
-          {day}
-        </ListItemText>
-      </ListItem>)
+        <ListItem key={element}>
+          <ListItemText>
+            {dateFns.format(currentDay, 'D')}
+          </ListItemText>
+        </ListItem>
+      );
     });
     return (
       <List className={classes.root} disablePadding={true}>
