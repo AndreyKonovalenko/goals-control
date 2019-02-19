@@ -8,13 +8,25 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 
 const styles = theme => ({
+  root: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(7, 1fr)',
+    gridGap: '1em',
+    margin: '0 auto',
+    maxWidth: '64em',
+    padding: 0,
+  },
+  text: {
+    textAlign: 'center',
+    padding: 0
+  }
 
 });
 
 class Days extends Component {
 
   render() {
-    const { currentMonth } = this.props;
+    const { currentMonth, classes } = this.props;
     const monthStart = dateFns.startOfMonth(currentMonth);
     const monthEnd = dateFns.endOfMonth(monthStart);
     const startDate = dateFns.startOfWeek(monthStart, { weekStartsOn: 1 });
@@ -22,14 +34,19 @@ class Days extends Component {
     const daysRange = dateFns.differenceInDays(endDate, startDate) + 1;
     const daysArr = Array.from({ length: daysRange }, (v, k) => k);
 
-    console.log(daysArr);
-    //     const days = daysArr.map(day => (
-    //           <ListItem key={day}>
-    //       {day}
-    //     <ListItem/>
-    // ));
-    return null;
-
+    const days = daysArr.map(day => {
+      return (
+        <ListItem key={day} className={classes.listItem}>
+        <ListItemText classNama={classes.text}>
+          {day}
+        </ListItemText>
+      </ListItem>)
+    });
+    return (
+      <List className={classes.root} disablePadding={true}>
+        {days}
+      </List>
+    );
   }
 }
 
