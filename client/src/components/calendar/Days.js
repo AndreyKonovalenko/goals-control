@@ -11,11 +11,18 @@ const styles = theme => ({
   root: {
     display: 'grid',
     gridTemplateColumns: 'repeat(7, 1fr)',
-    gridGap: '1em',
-    margin: '0 auto',
-    maxWidth: '64em',
-    padding: 0,
+    gridGap: '0.5em',
+    justifyItems: 'space-between',
+
   },
+  item: {
+    border: '1px solid #eaeaea;',
+    textAlign: 'center',
+    borderRadius: '0.5em',
+  },
+  text: {
+    padding: 0
+  }
 });
 
 class Days extends Component {
@@ -32,8 +39,8 @@ class Days extends Component {
     const days = daysArr.map(element => {
       const currentDay = dateFns.addDays(startDate, element);
       return (
-        <ListItem key={element}>
-          <ListItemText>
+        <ListItem key={element} className={classes.item}>
+          <ListItemText className={classes.text}>
             {dateFns.format(currentDay, 'D')}
           </ListItemText>
         </ListItem>
