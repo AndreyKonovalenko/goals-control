@@ -39,7 +39,7 @@ class Days extends Component {
     const days = daysArr.map(element => {
       const currentDay = dateFns.addDays(startDate, element);
       return (
-        <ListItem key={element} className={classes.item}>
+        <ListItem key={element} className={classes.item} disableGutters={true}>
           <ListItemText className={classes.text}>
             {dateFns.format(currentDay, 'D')}
           </ListItemText>

@@ -35,7 +35,7 @@ const WeekDays = (props) => {
   const week = Array.from({ length: 7 }, (v, k) => k);
 
   const weekDays = week.map(day => (
-    <ListItem key={day}className={classes.item}>
+    <ListItem key={day}className={classes.item} disableGutters={true}>
         <ListItemText className={classes.text}>
          {dateFns.format(dateFns.addDays(startDate, day), dateFormat)}
         </ListItemText>
