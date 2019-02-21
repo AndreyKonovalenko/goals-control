@@ -6,7 +6,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-
 const styles = theme => ({
   root: {
     display: 'grid',
@@ -16,7 +15,6 @@ const styles = theme => ({
     paddingLeft: '0.5em',
     paddingRight: '0.5em',
     paddingBottom: '0.5em'
-
   },
   item: {
     border: '1px solid #eaeaea;',
@@ -25,11 +23,11 @@ const styles = theme => ({
   },
   text: {
     padding: 0
-  }
+  },
+
 });
 
 class Days extends Component {
-
   render() {
     const { currentMonth, classes } = this.props;
     const monthStart = dateFns.startOfMonth(currentMonth);
@@ -43,7 +41,10 @@ class Days extends Component {
       const currentDay = dateFns.addDays(startDate, element);
       return (
         <ListItem key={element} className={classes.item} disableGutters={true}>
-          <ListItemText className={classes.text}>
+          <ListItemText
+            className={classes.text}
+            primaryTypographyProps={dateFns.isToday(currentDay) ? { variant:'h6', color: 'secondary'} : {variant:'body1'}}
+            >
             {dateFns.format(currentDay, 'D')}
           </ListItemText>
         </ListItem>

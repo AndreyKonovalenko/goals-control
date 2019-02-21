@@ -23,9 +23,12 @@ const styles = (theme) => {
       flexDirection: 'column',
     },
     title: {
-      backgroundColor: '#F0F0F0',
+      backgroundColor: theme.palette.background.default,
       paddingTop: '0.5em',
-      paddingBottom: '0.5em'
+      paddingBottom: '0.5em',
+      borderRadius: '0.5em',
+      marginLeft: '0.5em',
+      marginRight: '0.5em'
     }
   })
 }
@@ -51,7 +54,7 @@ class Calendar extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Typography variant='h6' align={'center'} className={classes.title}>"Goal.Title from data base"</Typography>
+        <Typography variant={'h6'} align={'center'} className={classes.title}>"Goal.Title from data base"</Typography>
         <Months
           currentMonth={this.state.currentMonth}
           nextMonth={this.nextMonth}

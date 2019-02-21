@@ -38,14 +38,17 @@ const WeekDays = (props) => {
 
   const weekDays = week.map(day => (
     <ListItem key={day}className={classes.item} disableGutters={true}>
-        <ListItemText className={classes.text}>
+        <ListItemText
+          className={classes.text}
+          primaryTypographyProps={{variant:'subtitle1', color: 'secondary'}}
+        >
          {dateFns.format(dateFns.addDays(startDate, day), dateFormat)}
         </ListItemText>
       </ListItem>
   ));
 
   return (
-    <List className={classes.root}>
+    <List className={classes.root} disablePadding={true}>
         {weekDays}
       </List>
   );
