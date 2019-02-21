@@ -5,6 +5,7 @@ import dateFns from 'date-fns';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import classNames from 'classnames';
 
 const styles = theme => ({
   root: {
@@ -20,7 +21,10 @@ const styles = theme => ({
     border: '1px solid #eaeaea;',
     textAlign: 'center',
     borderRadius: '0.5em',
-    backgroundColor: theme.palette.background.default
+
+  },
+  outOfMonth: {
+    backgroundColor: theme.palette.background.default,
   },
   text: {
     padding: 0
@@ -41,7 +45,15 @@ class Days extends Component {
     const days = daysArr.map(element => {
       const currentDay = dateFns.addDays(startDate, element);
       return (
-        <ListItem key={element} className={classes.item} disableGutters={true}>
+        <ListItem
+          key={element}
+            className={
+              (currentDay < monthStart || currentDay > monthEnd) ?
+              classNames(classes.item, classes.outOfMonth) :
+              classes.item
+            }
+            disableGutters={true}
+          >
           <ListItemText
             className={classes.text}
             primaryTypographyProps={dateFns.isToday(currentDay) ? {color:'secondary'} : null}
