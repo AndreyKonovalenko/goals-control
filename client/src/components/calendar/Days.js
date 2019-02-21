@@ -20,6 +20,7 @@ const styles = theme => ({
     border: '1px solid #eaeaea;',
     textAlign: 'center',
     borderRadius: '0.5em',
+    backgroundColor: theme.palette.background.default
   },
   text: {
     padding: 0
