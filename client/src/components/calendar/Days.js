@@ -44,7 +44,7 @@ class Days extends Component {
         <ListItem key={element} className={classes.item} disableGutters={true}>
           <ListItemText
             className={classes.text}
-            primaryTypographyProps={dateFns.isToday(currentDay) ? { variant:'h6', color: 'secondary'} : {variant:'body1'}}
+            primaryTypographyProps={dateFns.isToday(currentDay) ? {color:'secondary'} : null}
             >
             {dateFns.format(currentDay, 'D')}
           </ListItemText>
