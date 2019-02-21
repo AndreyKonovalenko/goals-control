@@ -2,24 +2,33 @@ import React, { Component } from 'react';
 import dateFns from 'date-fns';
 
 import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import Months from './Months';
 import WeekDays from './WeekDays';
 import Days from './Days';
 
 
-const styles = (theme) => ({
-  root: {
-    width: '80%',
-    margin: 'auto',
-    [theme.breakpoints.down('xs')]: {
-      width: '100%', // for screens smaller then 600 use 100%
+const styles = (theme) => {
+  console.log(theme);
+  return ({
+    root: {
+      width: '80%',
+      margin: 'auto',
+      [theme.breakpoints.down('xs')]: {
+        width: '100%', // for screens smaller then 600 use 100%
+      },
+      backgroundColor: theme.palette.background.paper,
+      display: 'flex',
+      justifyContent: 'center',
+      flexDirection: 'column',
     },
-    backgroundColor: theme.palette.background.paper,
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column'
-  }
-});
+    title: {
+      backgroundColor: '#F0F0F0',
+      paddingTop: '0.5em',
+      paddingBottom: '0.5em'
+    }
+  })
+}
 
 class Calendar extends Component {
   state = {
@@ -42,6 +51,7 @@ class Calendar extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
+        <Typography variant='h6' align={'center'} className={classes.title}>"Goal.Title from data base"</Typography>
         <Months
           currentMonth={this.state.currentMonth}
           nextMonth={this.nextMonth}

@@ -15,6 +15,9 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center'
+  },
+  text: {
+    textTransform: 'uppercase'
   }
 });
 
@@ -23,7 +26,7 @@ const Months = props => {
   return (
     <div className={classes.root}>
       <ChevronLeft aria-label="prev month" color="secondary" onClick={props.prevMonth}/>
-      <Typography variant='h6'>{dateFns.format(props.currentMonth, dateFormat)}</Typography>
+        <Typography variant='subtitle1' className={classes.text}>{dateFns.format(props.currentMonth, dateFormat)}</Typography>
       <ChevronRight aria-label="next month" color="secondary" onClick={props.nextMonth}/>
     </div>
   );

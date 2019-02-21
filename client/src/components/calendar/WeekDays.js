@@ -16,6 +16,8 @@ const styles = (theme) => ({
     border: '1px solid #eaeaea;',
     borderRadius: '0.5em',
     marginBottom: '0.5em',
+    marginLeft: '0.5em',
+    marginRight: '0.5em',
 
   },
   item: {

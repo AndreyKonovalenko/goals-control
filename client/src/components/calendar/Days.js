@@ -13,6 +13,9 @@ const styles = theme => ({
     gridTemplateColumns: 'repeat(7, 1fr)',
     gridGap: '0.5em',
     justifyItems: 'space-between',
+    paddingLeft: '0.5em',
+    paddingRight: '0.5em',
+    paddingBottom: '0.5em'
 
   },
   item: {
