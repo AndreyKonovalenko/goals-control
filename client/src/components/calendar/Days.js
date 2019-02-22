@@ -33,6 +33,7 @@ const styles = theme => ({
 });
 
 class Days extends Component {
+
   render() {
     const { currentMonth, classes } = this.props;
     const monthStart = dateFns.startOfMonth(currentMonth);

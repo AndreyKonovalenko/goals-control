@@ -79,7 +79,7 @@ class NavBar extends Component {
             labelPlacement='start'
           />
           <IconButton
-            onClick={event => this.onClickHandler('/add', event)}
+            onClick={event => this.onClickHandler('/newone', event)}
             color='inherit'
           >
             <AddCircle/>
