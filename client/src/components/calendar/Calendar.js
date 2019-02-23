@@ -7,20 +7,19 @@ import Months from './Months';
 import WeekDays from './WeekDays';
 import Days from './Days';
 
-
-const styles = (theme) => {
+const styles = theme => {
   console.log(theme);
-  return ({
+  return {
     root: {
       width: '80%',
       margin: 'auto',
       [theme.breakpoints.down('xs')]: {
-        width: '100%', // for screens smaller then 600 use 100%
+        width: '100%' // for screens smaller then 600 use 100%
       },
       backgroundColor: theme.palette.background.paper,
       display: 'flex',
       justifyContent: 'center',
-      flexDirection: 'column',
+      flexDirection: 'column'
     },
     title: {
       backgroundColor: theme.palette.background.default,
@@ -30,8 +29,8 @@ const styles = (theme) => {
       marginLeft: '0.5em',
       marginRight: '0.5em'
     }
-  })
-}
+  };
+};
 
 class Calendar extends Component {
   state = {
@@ -54,18 +53,16 @@ class Calendar extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Typography variant={'h6'} align={'center'} className={classes.title}>"Goal.Title from data base"</Typography>
+        <Typography variant={'h6'} align={'center'} className={classes.title}>
+          "Goal.Title from data base"
+        </Typography>
         <Months
           currentMonth={this.state.currentMonth}
           nextMonth={this.nextMonth}
           prevMonth={this.prevMonth}
         />
-        <WeekDays
-          currentMonth={this.state.currentMonth}
-        />
-        <Days
-          currentMonth={this.state.currentMonth}
-        />
+        <WeekDays currentMonth={this.state.currentMonth} />
+        <Days currentMonth={this.state.currentMonth} />
       </div>
     );
   }

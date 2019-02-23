@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import dateFns from 'date-fns';
 
-const styles = (theme) => ({
+const styles = theme => ({
   root: {
     display: 'grid',
     gridTemplateColumns: 'repeat(7, 1fr)',
@@ -17,40 +17,40 @@ const styles = (theme) => ({
     borderRadius: '0.5em',
     marginBottom: '0.5em',
     marginLeft: '0.5em',
-    marginRight: '0.5em',
-
+    marginRight: '0.5em'
   },
   item: {
-    textAlign: 'center',
+    textAlign: 'center'
   },
   text: {
     padding: 0,
-    textTransform: 'uppercase',
+    textTransform: 'uppercase'
   }
 });
 
-
-const WeekDays = (props) => {
+const WeekDays = props => {
   const { classes } = props;
-  const dateFormat = "dd";
-  const startDate = dateFns.startOfWeek(props.currentMonth, { weekStartsOn: 1 });
+  const dateFormat = 'dd';
+  const startDate = dateFns.startOfWeek(props.currentMonth, {
+    weekStartsOn: 1
+  });
   const week = Array.from({ length: 7 }, (v, k) => k);
 
   const weekDays = week.map(day => (
-    <ListItem key={day}className={classes.item} disableGutters={true}>
-        <ListItemText
-          className={classes.text}
-          primaryTypographyProps={{variant:'subtitle1', color: 'secondary'}}
-        >
-         {dateFns.format(dateFns.addDays(startDate, day), dateFormat)}
-        </ListItemText>
-      </ListItem>
+    <ListItem key={day} className={classes.item} disableGutters={true}>
+      <ListItemText
+        className={classes.text}
+        primaryTypographyProps={{ variant: 'subtitle1', color: 'secondary' }}
+      >
+        {dateFns.format(dateFns.addDays(startDate, day), dateFormat)}
+      </ListItemText>
+    </ListItem>
   ));
 
   return (
     <List className={classes.root} disablePadding={true}>
-        {weekDays}
-      </List>
+      {weekDays}
+    </List>
   );
 };
 

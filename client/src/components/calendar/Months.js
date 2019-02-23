@@ -7,7 +7,7 @@ import ChevronRight from '@material-ui/icons/ChevronRight';
 
 const dateFormat = 'MMMM YYYY';
 
-const styles = (theme) => ({
+const styles = theme => ({
   root: {
     marginTop: '1em',
     marginBottom: '1em',
@@ -25,9 +25,19 @@ const Months = props => {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <ChevronLeft aria-label="prev month" color="secondary" onClick={props.prevMonth}/>
-        <Typography variant='subtitle1' className={classes.text}>{dateFns.format(props.currentMonth, dateFormat)}</Typography>
-      <ChevronRight aria-label="next month" color="secondary" onClick={props.nextMonth}/>
+      <ChevronLeft
+        aria-label='prev month'
+        color='secondary'
+        onClick={props.prevMonth}
+      />
+      <Typography variant='subtitle1' className={classes.text}>
+        {dateFns.format(props.currentMonth, dateFormat)}
+      </Typography>
+      <ChevronRight
+        aria-label='next month'
+        color='secondary'
+        onClick={props.nextMonth}
+      />
     </div>
   );
 };

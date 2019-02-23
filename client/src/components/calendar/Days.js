@@ -20,20 +20,17 @@ const styles = theme => ({
   item: {
     border: '1px solid #eaeaea;',
     textAlign: 'center',
-    borderRadius: '0.5em',
-
+    borderRadius: '0.5em'
   },
   outOfMonth: {
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.default
   },
   text: {
     padding: 0
-  },
-
+  }
 });
 
 class Days extends Component {
-
   render() {
     const { currentMonth, classes } = this.props;
     const monthStart = dateFns.startOfMonth(currentMonth);
@@ -48,17 +45,19 @@ class Days extends Component {
       return (
         <ListItem
           key={element}
-            className={
-              (currentDay < monthStart || currentDay > monthEnd) ?
-              classNames(classes.item, classes.outOfMonth) :
-              classes.item
-            }
-            disableGutters={true}
-          >
+          className={
+            currentDay < monthStart || currentDay > monthEnd
+              ? classNames(classes.item, classes.outOfMonth)
+              : classes.item
+          }
+          disableGutters={true}
+        >
           <ListItemText
             className={classes.text}
-            primaryTypographyProps={dateFns.isToday(currentDay) ? {color:'secondary'} : null}
-            >
+            primaryTypographyProps={
+              dateFns.isToday(currentDay) ? { color: 'secondary' } : null
+            }
+          >
             {dateFns.format(currentDay, 'D')}
           </ListItemText>
         </ListItem>

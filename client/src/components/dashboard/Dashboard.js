@@ -39,10 +39,10 @@ const styles = theme => ({
   list: {
     width: '80%',
     [theme.breakpoints.down('xs')]: {
-      width: '100%', // for screens smaller then 600 use 100%
+      width: '100%' // for screens smaller then 600 use 100%
     },
     height: `${itemHeight * 3}px`,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.paper
   },
 
   item: {
@@ -61,13 +61,14 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     fontSize: 32,
     cursor: 'pointer'
-  },
+  }
 });
 
 class Dashboard extends Component {
   // this is fake state for fronend testeing
   state = {
-    goals: [{
+    goals: [
+      {
         id: 1,
         title: 'workout 4 time a week'
       },
@@ -85,7 +86,7 @@ class Dashboard extends Component {
     topDeltaY: 0, // animation config
     mouseY: 0, // animation config
     isPressed: false, //animatin config
-    lastPressed: 0, //anigmatin config
+    lastPressed: 0 //anigmatin config
   };
 
   handleTouchStart = (pos, pressY, { touches: [{ pageY }] }) => {
@@ -96,8 +97,8 @@ class Dashboard extends Component {
       lastPressed: pos
     });
 
-    window.addEventListener("touchmove", this.handleTouchMove);
-    window.addEventListener("touchend", this.handleTouchEnd);
+    window.addEventListener('touchmove', this.handleTouchMove);
+    window.addEventListener('touchend', this.handleTouchEnd);
   };
 
   handleTouchMove = e => {
@@ -113,8 +114,8 @@ class Dashboard extends Component {
       lastPressed: pos
     });
 
-    window.addEventListener("mousemove", this.handleMouseMove);
-    window.addEventListener("mouseup", this.handleMouseUp);
+    window.addEventListener('mousemove', this.handleMouseMove);
+    window.addEventListener('mouseup', this.handleMouseUp);
   };
 
   handleMouseMove = ({ pageY }) => {
@@ -140,17 +141,16 @@ class Dashboard extends Component {
   handleMouseUp = () => {
     this.setState({ isPressed: false, topDeltaY: 0 });
 
-    window.removeEventListener("mouseup", this.handleMouseUp);
-    window.removeEventListener("mousemove", this.handleMouseMove);
+    window.removeEventListener('mouseup', this.handleMouseUp);
+    window.removeEventListener('mousemove', this.handleMouseMove);
   };
 
   handleTouchEnd = () => {
     this.setState({ isPressed: false, topDeltaY: 0 });
 
-    window.removeEventListener("touchmove", this.handleTouchMove);
-    window.removeEventListener("touchend", this.handleTouchEnd);
+    window.removeEventListener('touchmove', this.handleTouchMove);
+    window.removeEventListener('touchend', this.handleTouchEnd);
   };
-
 
   render() {
     const { classes, editing } = this.props;
@@ -162,51 +162,51 @@ class Dashboard extends Component {
           data={range(itemsCount)} // this is parameter sets the number of nodes
           keyAccessor={d => `item-key-${d}`}
           start={d => ({
-            scale:1,
-            y: order.indexOf(d)*itemHeight
+            scale: 1,
+            y: order.indexOf(d) * itemHeight
           })}
           update={d => {
             const dragging = lastPressed === d && isPressed;
             return {
               scale: [dragging ? 1.1 : 1],
-              shadow: [dragging ? 5: 1],
+              shadow: [dragging ? 5 : 1],
               y: [order.indexOf(d) * itemHeight],
-              timing: { duration: 350, ease: easeExpOut}
+              timing: { duration: 350, ease: easeExpOut }
             };
           }}
         >
           {nodes => (
             <List className={classes.list} disablePadding>
-              {nodes.map(({key, data, state }) => {
-                const {scale, y} = state;
+              {nodes.map(({ key, data, state }) => {
+                const { scale, y } = state;
                 const transY = lastPressed === data && isPressed ? mouseY : y;
                 return (
                   <ListItem
                     divider
                     className={classes.item}
                     key={key}
-                    style={
-                      {
-                        transform: `translate3d(0, ${transY}px, 0) scale(${scale})`,
-                        WebkitTransform: `translate3d(0, ${transY}px, 0) scale(${scale})`,
-                        zIndex: data === lastPressed ? 99 : data
-                      }
-                    }
+                    style={{
+                      transform: `translate3d(0, ${transY}px, 0) scale(${scale})`,
+                      WebkitTransform: `translate3d(0, ${transY}px, 0) scale(${scale})`,
+                      zIndex: data === lastPressed ? 99 : data
+                    }}
                   >
-                    { editing
-                      ? (<IconButton aria-label="Delete" color="secondary">
-                          <DeleteIcon />
-                        </IconButton>)
-                      : null
-                    }
-                    <ListItemText style={{flexGrow: 1}} primary={this.state.goals[order.indexOf(data)].title} />
-                    { editing
-                      ? (<DragHandle
+                    {editing ? (
+                      <IconButton aria-label='Delete' color='secondary'>
+                        <DeleteIcon />
+                      </IconButton>
+                    ) : null}
+                    <ListItemText
+                      style={{ flexGrow: 1 }}
+                      primary={this.state.goals[order.indexOf(data)].title}
+                    />
+                    {editing ? (
+                      <DragHandle
                         className={classes.icon}
                         onMouseDown={e => this.handleMouseDown(data, y, e)}
-                        onTouchStart={e => this.handleTouchStart(data, y, e)}/>)
-                      : null
-                    }
+                        onTouchStart={e => this.handleTouchStart(data, y, e)}
+                      />
+                    ) : null}
                   </ListItem>
                 );
               })}
@@ -215,7 +215,6 @@ class Dashboard extends Component {
         </NodeGroup>
       </div>
     );
-
 
     return list;
   }
@@ -228,6 +227,6 @@ Dashboard.propTypes = {
 
 const mapSateToProps = state => ({
   editing: state.dashboard.editing
-})
+});
 
 export default connect(mapSateToProps)(withStyles(styles)(Dashboard));
