@@ -15,7 +15,7 @@ import { editMode } from '../../store/actions/dashboardActions';
 
 const styles = theme => {
   const color = theme.palette.primary.contrastText;
-  return ({
+  return {
     root: {
       width: '100%',
       zIndex: 10000,
@@ -27,16 +27,15 @@ const styles = theme => {
     toolbar: {
       height: 64,
       [theme.breakpoints.down('xs')]: {
-        height: 56, // for screens smaller then 600 use 100%
-      },
+        height: 56 // for screens smaller then 600 use 100%
+      }
     },
     label: {
       color: `${color}`,
       fontWeight: 500,
       fontSize: '0.875rem'
-    },
-  })
-
+    }
+  };
 };
 
 class NavBar extends Component {
@@ -45,9 +44,9 @@ class NavBar extends Component {
     this.props.history.push(to);
   };
 
-  onSwitchHandler = (mode) => {
+  onSwitchHandler = mode => {
     this.props.editMode(mode);
-  }
+  };
 
   render() {
     const { classes, editing } = this.props;
@@ -64,25 +63,21 @@ class NavBar extends Component {
             </Button>
           </Typography>
           <FormControlLabel
-            disabled={this.props.history.location.pathname === '/' ? false : true}
-            classes={
-              {
-                label: classes.label,
-              }
+            disabled={
+              this.props.history.location.pathname === '/' ? false : true
             }
-            control={
-              <Switch
-                onChange={() => this.onSwitchHandler(editing)}
-              />
-            }
+            classes={{
+              label: classes.label
+            }}
+            control={<Switch onChange={() => this.onSwitchHandler(editing)} />}
             label='EDIT'
             labelPlacement='start'
           />
           <IconButton
-            onClick={event => this.onClickHandler('/newone', event)}
+            onClick={event => this.onClickHandler('/add', event)}
             color='inherit'
           >
-            <AddCircle/>
+            <AddCircle />
           </IconButton>
           <Button
             onClick={event => this.onClickHandler('/register', event)}
@@ -96,7 +91,6 @@ class NavBar extends Component {
           >
             Login
           </Button>
-
         </Toolbar>
       </AppBar>
     );
@@ -111,4 +105,7 @@ const mapSateToProps = state => ({
   editing: state.dashboard.editing
 });
 
-export default connect(mapSateToProps, { editMode })(withRouter(withStyles(styles)(NavBar)));
+export default connect(
+  mapSateToProps,
+  { editMode }
+)(withRouter(withStyles(styles)(NavBar)));

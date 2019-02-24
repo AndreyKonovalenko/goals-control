@@ -3,7 +3,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import dateFns from 'date-fns';
 
 const styles = theme => ({
   root: {
@@ -34,10 +33,13 @@ class GoalBuilder extends Component {
     from: ''
   };
 
+  onChangeHandler = event => {
+    console.log(event.target, event.target.defaultValue);
+    this.setState({ [event.target.name]: event.target.defaultValue });
+  };
+
   render() {
     const { classes } = this.props;
-    const currentDate = dateFns.format(new Date(), 'DD.MM.YYYY');
-    console.log(typeof currentDate);
     return (
       <Paper className={classes.root}>
         <Typography align='center' variant='h6'>
@@ -48,7 +50,9 @@ class GoalBuilder extends Component {
             id='date'
             label='Start Date'
             type='date'
-            defaultValue={currentDate}
+            name='form'
+            defaultValue={this.state.from}
+            onChange={this.onChangeHandler}
             className={classes.textField}
             InputLabelProps={{
               shrink: true
