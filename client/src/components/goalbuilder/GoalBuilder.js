@@ -11,18 +11,20 @@ const styles = theme => ({
     [theme.breakpoints.down('xs')]: {
       width: '100%' // for screens smaller then 600 use 100%
     },
+    paddingTop: '0.5em',
+    paddingBottom: '0.5em',
     backgroundColor: theme.palette.background.paper
   },
 
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center'
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200
+    width: 320
   }
 });
 
@@ -34,29 +36,49 @@ class GoalBuilder extends Component {
   };
 
   onChangeHandler = event => {
-    console.log(event.target, event.target.defaultValue);
-    this.setState({ [event.target.name]: event.target.defaultValue });
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   };
 
+  // Add save and cancle buttons!!!
   render() {
     const { classes } = this.props;
+    console.log(this.state);
     return (
       <Paper className={classes.root}>
         <Typography align='center' variant='h6'>
-          Set up your new gaol
+          NEW GOAL
         </Typography>
         <form className={classes.container} noValidate>
+          <TextField
+            label="Enter Goal Name"
+            name="title"
+            className={classes.textField}
+            value={this.state.title}
+            onChange={this.onChangeHandler}
+            margin="normal"
+          />
+          <TextField
+            label="How many days to reach the goal?"
+            name="limitation"
+            className={classes.textField}
+            value={this.state.limitation}
+            onChange={this.onChangeHandler}
+            margin="normal"
+          />
           <TextField
             id='date'
             label='Start Date'
             type='date'
-            name='form'
-            defaultValue={this.state.from}
+            name='from'
+            value={this.state.from}
             onChange={this.onChangeHandler}
             className={classes.textField}
             InputLabelProps={{
               shrink: true
             }}
+            margin="normal"
           />
         </form>
       </Paper>
