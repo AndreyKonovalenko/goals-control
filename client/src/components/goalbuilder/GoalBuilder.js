@@ -51,7 +51,7 @@ class GoalBuilder extends Component {
     return (
       <Paper className={classes.root}>
         <form className={classes.container} noValidate>
-          <Typography align='center' variant='h6'>
+          <Typography align='center' variant='h6' className={classes.margin} color='secondary'>
           NEW GOAL
           </Typography>
           <TextField
