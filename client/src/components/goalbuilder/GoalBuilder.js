@@ -3,6 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
@@ -11,11 +12,13 @@ const styles = theme => ({
     [theme.breakpoints.down('xs')]: {
       width: '100%' // for screens smaller then 600 use 100%
     },
-    paddingTop: '0.5em',
+    paddingTop: '1em',
     paddingBottom: '0.5em',
     backgroundColor: theme.palette.background.paper
   },
-
+  margin: {
+    margin: theme.spacing.unit,
+  },
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -24,7 +27,7 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 320
+    width: 300
   }
 });
 
@@ -47,10 +50,10 @@ class GoalBuilder extends Component {
     console.log(this.state);
     return (
       <Paper className={classes.root}>
-        <Typography align='center' variant='h6'>
-          NEW GOAL
-        </Typography>
         <form className={classes.container} noValidate>
+          <Typography align='center' variant='h6'>
+          NEW GOAL
+          </Typography>
           <TextField
             label="Enter Goal Name"
             name="title"
@@ -80,6 +83,14 @@ class GoalBuilder extends Component {
             }}
             margin="normal"
           />
+          <div>
+            <Button size="small" className={classes.margin}>
+              Cancle
+            </Button>
+            <Button size = "small" className = { classes.margin }>
+              Save
+            </Button>
+          </div>
         </form>
       </Paper>
     );
