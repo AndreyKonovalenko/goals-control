@@ -2,13 +2,23 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
+  root: {
+    width: '60%',
+    margin: 'auto',
+    [theme.breakpoints.down('xs')]: {
+      width: '100%' // for screens smaller then 600 use 100%
+    },
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+    backgroundColor: theme.palette.background.paper
+  },
   container: {
-    marginTop: '5%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center'
   },
   textField: {
@@ -17,6 +27,10 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit
+  },
+  text: {
+    margin: theme.spacing.unit,
+    textTransform: 'uppercase'
   }
 });
 
@@ -24,39 +38,41 @@ class Register extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <form className={classes.container}>
-        <TextField
-          id='outlined-email-input'
-          className={classes.textField}
-          label='Email'
-          type='email'
-          name='email'
-          autoComplete='email'
-          margin='normal'
-          variant='outlined'
-        />
-        <TextField
-          id='outlined-password-input'
-          className={classes.textField}
-          label='Password'
-          type='password'
-          name='password'
-          margin='normal'
-          variant='outlined'
-        />
-        <TextField
-          id='outlined-password-input'
-          className={classes.textField}
-          label='Confirm password'
-          type='password'
-          name='password2'
-          margin='normal'
-          variant='outlined'
-        />
-        <Button variant='outlined' color='secondary' className={classes.button}>
-          Submit
-        </Button>
-      </form>
+      <Paper className={classes.root}>
+        <form className={classes.container}>
+          <Typography align='center' variant='h6' className={classes.text} >
+            Sing up
+          </Typography>
+          <TextField
+            className={classes.textField}
+            label='Email'
+            type='email'
+            name='email'
+            autoComplete='email'
+            margin='dense'
+            variant='outlined'
+          />
+          <TextField
+            className={classes.textField}
+            label='Password'
+            type='password'
+            name='password'
+            margin='dense'
+            variant='outlined'
+          />
+          <TextField
+            className={classes.textField}
+            label='Confirm password'
+            type='password'
+            name='password2'
+            margin='dense'
+            variant='outlined'
+          />
+          <Button variant='outlined' className={classes.button}>
+            Submit
+          </Button>
+        </form>
+      </Paper>
     );
   }
 }
