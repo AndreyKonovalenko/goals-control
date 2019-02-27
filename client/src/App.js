@@ -12,14 +12,14 @@ import Welcome from './components/welcome/Welcome';
 
 class App extends Component {
   state = {
-    isAuthenticated: false
+    isAuthenticated: true
   }
   render() {
     let routes;
     if (this.state.isAuthenticated) {
       routes = (
         <Switch>
-          <Route path='/' exact component={Welcome} />
+          <Route path='/' exact component={Dashboard} />
           <Route path='/login' exact component={Login} />
           <Route path='/register' exact component={Register} />
           <Route path='/add' exact component={GoalBuilder} />
