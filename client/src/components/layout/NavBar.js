@@ -106,6 +106,5 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps,
-  { editMode }
+  mapSateToProps, { editMode }
 )(withRouter(withStyles(styles)(NavBar)));
