@@ -8,19 +8,34 @@ import GoalBuilder from './components/goalbuilder/GoalBuilder';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Calendar from './components/calendar/Calendar';
 import NotFound from './components/notfound/NotFound';
+import Welcome from './components/welcome/Welcome';
 
 class App extends Component {
+  state = {
+    isAuthenticated: false
+  }
   render() {
-    let routes = (
-      <Switch>
-        <Route path='/' exact component={Dashboard} />
-        <Route path='/login' exact component={Login} />
-        <Route path='/register' exact component={Register} />
-        <Route path='/add' exact component={GoalBuilder} />
-        <Route path='/calendar' exact component={Calendar} />
-        <Route path='/' component={NotFound} />
-      </Switch>
-    );
+    let routes;
+    if (this.state.isAuthenticated) {
+      routes = (
+        <Switch>
+          <Route path='/' exact component={Welcome} />
+          <Route path='/login' exact component={Login} />
+          <Route path='/register' exact component={Register} />
+          <Route path='/add' exact component={GoalBuilder} />
+          <Route path='/calendar' exact component={Calendar} />
+          <Route path='/' component={NotFound} />
+        </Switch>
+      )
+    }
+    else {
+      routes = (
+        <Switch>
+          <Route path='/' exact component={Welcome} />
+          <Route path='/' component={NotFound} />
+        </Switch>
+      );
+    }
     return (
       <React.Fragment>
         <CssBaseline />
