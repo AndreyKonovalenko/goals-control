@@ -8,6 +8,7 @@ import axios from 'axios';
 let url = 'http://localhost:5000'; // this is for local development
 //const url = 'http://react-bereon.c9users.io:8081'; // this is for C9 IDE development
 
+console.log(process.env);
 if (process.env.REACT_APP_URL === 'http://react-bereon.c9users.io:8081') {
   url = process.env.REACT_APP_URL;
 }
