@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import TextField from '@material-ui/core/TextField';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginUser } from '../../store/actions/authActions';
+
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -36,6 +40,31 @@ const styles = theme => ({
 });
 
 class Login extends Component {
+  state = {
+    email: '',
+    password: ''
+  }
+
+  onChangeHandler = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+  onSubmitHundler = event => {
+    event.preventDefault();
+    const userData = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    this.props.loginUser(userData, this.props.history);
+  };
+
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/');
+    }
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -50,6 +79,7 @@ class Login extends Component {
             type='email'
             name='email'
             autoComplete='email'
+            onChange={this.onChangeHandler}
             margin='none'
             variant='outlined'
           />
@@ -58,6 +88,7 @@ class Login extends Component {
             label='Password'
             type='password'
             name='password'
+            onChange={this.onChangeHandler}
             margin='normal'
             variant='outlined'
           />
@@ -74,4 +105,14 @@ class Login extends Component {
   }
 }
 
-export default withStyles(styles)(Login);
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(mapStateToProps, { loginUser })(withStyles(styles)(Login));
