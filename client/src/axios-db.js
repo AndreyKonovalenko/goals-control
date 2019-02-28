@@ -22,6 +22,8 @@ if (process.env.NODE_ENV === 'production') {
   url = 'https://goals.herokuapp.com/';
 }
 
+console.log(process.env);
+
 const instance = axios.create({
   baseURL: url
 });

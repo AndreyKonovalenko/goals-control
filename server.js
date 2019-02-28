@@ -68,8 +68,9 @@ if (port === '8080') {
 
 app.listen(port, () => {
   const msg = 'Server running on address: '.cyan.bold;
-  const hostname = process.env.C9_HOSTNAME
-    ? process.env.C9_HOSTNAME
-    : `http://localhost:${port}`.underline;
+  console.log(process.env.C9_HOSTNAME);
+  const hostname = process.env.C9_HOSTNAME ?
+    `${process.env.C9_HOSTNAME}:${port}`.underline :
+    `http://localhost:${port}`.underline;
   console.log(`${msg}${hostname}`);
 });

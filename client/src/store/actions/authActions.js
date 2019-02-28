@@ -20,9 +20,9 @@ export const registerUser = (userData, history) => dispatch => {
 export const loginUser = (userData, history) => dispatch => {
   axios
     .post('/api/user/login', userData)
-    .then(response => {
+    .then(res => {
       // Save to localStorage
-      const { token } = response.data;
+      const { token } = res.data;
       // Set token to local storage
       localStorage.setItem('jwtToken', token);
       // Set token to Auth header
@@ -32,7 +32,7 @@ export const loginUser = (userData, history) => dispatch => {
       // Set current user
       dispatch(setCurrentUser(decoded));
       // Redirect to dashboard after succesfull login(my comment)
-      history.push('/dashboard');
+      history.push('/');
     })
     .catch(error =>
       dispatch({
@@ -45,6 +45,7 @@ export const loginUser = (userData, history) => dispatch => {
 // Set logged in user
 
 export const setCurrentUser = decoded => {
+  console.log(decoded);
   return {
     type: SET_CURRENT_USER,
     payload: decoded

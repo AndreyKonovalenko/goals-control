@@ -57,7 +57,7 @@ class Login extends Component {
       password: this.state.password
     };
 
-    console.log(userData);
+    console.log(userData, this.props.history);
     this.props.loginUser(userData, this.props.history);
   };
 
@@ -69,6 +69,7 @@ class Login extends Component {
 
   render() {
     const { classes, errors } = this.props;
+    console.log(errors);
     return (
       <Paper className={classes.root}>
         <form className={classes.container}>
