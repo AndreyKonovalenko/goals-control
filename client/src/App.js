@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import Layout from './components/layout/Layout';
@@ -11,17 +14,14 @@ import NotFound from './components/notfound/NotFound';
 import Welcome from './components/welcome/Welcome';
 
 class App extends Component {
-  state = {
-    isAuthenticated: true
-  }
+
   render() {
     let routes;
-    if (this.state.isAuthenticated) {
+    const { isAuthenticated } = this.props.auth;
+    if (isAuthenticated) {
       routes = (
         <Switch>
           <Route path='/' exact component={Dashboard} />
-          <Route path='/login' exact component={Login} />
-          <Route path='/register' exact component={Register} />
           <Route path='/add' exact component={GoalBuilder} />
           <Route path='/calendar' exact component={Calendar} />
           <Route path='/' component={NotFound} />
@@ -32,6 +32,8 @@ class App extends Component {
       routes = (
         <Switch>
           <Route path='/' exact component={Welcome} />
+          <Route path='/login' exact component={Login} />
+          <Route path='/register' exact component={Register} />
           <Route path='/' component={NotFound} />
         </Switch>
       );
@@ -45,4 +47,12 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+App.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps)(withRouter(App));

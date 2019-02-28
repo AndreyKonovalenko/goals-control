@@ -56,6 +56,8 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
+
+    console.log(userData);
     this.props.loginUser(userData, this.props.history);
   };
 
@@ -66,7 +68,7 @@ class Login extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, errors } = this.props;
     return (
       <Paper className={classes.root}>
         <form className={classes.container}>
@@ -96,6 +98,7 @@ class Login extends Component {
             variant='outlined'
             className={classes.button}
             margin='normal'
+            onClick={this.onSubmitHundler}
           >
             Submit
           </Button>

@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import dashboardReducer from './reducers/dashboardReducer';
 import authReducer from './reducers/authReducer';
+import errorReducer from './reducers/errorReducer';
 
 const composeEnhancers =
   process.env.NODE_ENV === 'development' ?
@@ -10,7 +11,8 @@ const composeEnhancers =
 
 const rootReducer = combineReducers({
   dashboard: dashboardReducer,
-  auth: authReducer
+  auth: authReducer,
+  errors: errorReducer
 });
 const store = createStore(
   rootReducer,
