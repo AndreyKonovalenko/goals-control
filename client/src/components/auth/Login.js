@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../store/actions/authActions';
+import { isEmpty } from '../../utils/is-empty';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -68,7 +69,7 @@ class Login extends Component {
 
   render() {
     const { classes, errors } = this.props;
-    console.log(errors);
+    const error = !isEmpty(errors);
     return (
       <Paper className={classes.root}>
         <form className={classes.container}>
@@ -77,7 +78,9 @@ class Login extends Component {
           </Typography>
           <TextField
             className={classes.textField}
-            label='Email'
+            error={error}
+            label={error? 'Error': 'Email'}
+            helperText={errors.email}
             type='email'
             name='email'
             autoComplete='email'
@@ -87,7 +90,9 @@ class Login extends Component {
           />
           <TextField
             className={classes.textField}
-            label='Password'
+            error={error}
+            label={error? 'Error': 'Password'}
+            helperText={errors.password}
             type='password'
             name='password'
             onChange={this.onChangeHandler}
