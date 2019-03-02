@@ -12,11 +12,11 @@ module.exports = function validateRegisterInput(data) {
     errors.title = 'Name must be at least 1 character';
   }
 
-  if (!Validator.isEmaty(data.title)) {
+  if (!Validator.isEmpty(data.title)) {
     errors.email = 'Name field is required';
   }
 
-  if (!Validator.isEmaty(data.Limitation)) {
+  if (!Validator.isEmpty(data.Limitation)) {
     errors.email = 'Limitation field is required';
   }
 
@@ -24,7 +24,7 @@ module.exports = function validateRegisterInput(data) {
     errors.email = 'Limitation field must contain only numbers';
   }
 
-  if (!Validator.isEmaty(data.from)) {
+  if (!Validator.isEmpty(data.from)) {
     errors.email = 'Sart Date field is required';
   }
 
