@@ -1,7 +1,7 @@
 import axios from '../../axios-db';
 import setAuthToken from '../../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-import { GET_ERRORS, SET_CURRENT_USER } from './types';
+import { GET_ERRORS, SET_CURRENT_USER, LOADING } from './types';
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
@@ -18,6 +18,7 @@ export const registerUser = (userData, history) => dispatch => {
 
 // Login - Get User Token
 export const loginUser = (userData, history) => dispatch => {
+  dispatch(setLoading());
   axios
     .post('/api/user/login', userData)
     .then(res => {
@@ -60,4 +61,11 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // Set current user to empty object !!! {} wich will set isAutenticated to false
   dispatch(setCurrentUser({}));
+};
+
+// Loading
+export const setLoading = () => {
+  return {
+    type: LOADING
+  };
 };
