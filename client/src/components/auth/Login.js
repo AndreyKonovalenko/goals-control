@@ -40,8 +40,10 @@ const styles = theme => ({
     textTransform: 'uppercase'
   },
   progress: {
-    margin: theme.spacing.unit,
-    position: 'absolute'
+    position: 'absolute',
+    marginLeft: -20,
+    left: '50%',
+    top: '25%'
   }
 });
 
@@ -74,10 +76,8 @@ class Login extends Component {
 
   render() {
     const { classes, errors } = this.props;
-    //const { loading } = this.props.loading;
-    const loading = true;
+    const { loading } = this.props.loading;
     const error = !isEmpty(errors);
-    console.log(loading);
     const progress = <CircularProgress className={classes.progress} />;
 
     return (
