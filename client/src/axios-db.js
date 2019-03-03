@@ -6,10 +6,10 @@ let url;
 
 if (process.env.NODE_ENV === 'development') {
   // this is for C9 IDE development
-  if (process.env.REACT_APP_URL === 'http://react-bereon.c9users.io:8081') {
+  // process.env.REACT_APP_URL is a varialbe  which is set in the package.json file
+  if (process.env.REACT_APP_URL) {
     url = process.env.REACT_APP_URL;
-  }
-  else {
+  } else {
     //  this is for local development
     url = 'http://localhost:5000';
   }
