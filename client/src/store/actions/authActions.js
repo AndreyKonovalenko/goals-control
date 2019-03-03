@@ -1,7 +1,8 @@
 import axios from '../../axios-db';
 import setAuthToken from '../../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-import { GET_ERRORS, SET_CURRENT_USER, LOADING } from './types';
+import { GET_ERRORS, SET_CURRENT_USER } from './types';
+import { setLoading, endLoading } from '../actions/loadingActions';
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
@@ -34,13 +35,15 @@ export const loginUser = (userData, history) => dispatch => {
       dispatch(setCurrentUser(decoded));
       // Redirect to dashboard after succesfull login(my comment)
       history.push('/');
+      dispatch(endLoading());
     })
-    .catch(error =>
+    .catch(error => {
       dispatch({
         type: GET_ERRORS,
         payload: error.response.data
-      })
-    );
+      });
+      dispatch(endLoading());
+    });
 };
 
 // Set logged in user
@@ -61,11 +64,4 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // Set current user to empty object !!! {} wich will set isAutenticated to false
   dispatch(setCurrentUser({}));
-};
-
-// Loading
-export const setLoading = () => {
-  return {
-    type: LOADING
-  };
 };
