@@ -40,14 +40,8 @@ const styles = theme => ({
     textTransform: 'uppercase'
   },
   progress: {
-    margin: theme.spacing.unit * 2,
-    width: '100%',
-    height: '100%',
-    position: 'fixed',
-    zIndex: 100,
-    left: 0,
-    top: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    margin: theme.spacing.unit,
+    position: 'absolute'
   }
 });
 
@@ -78,21 +72,13 @@ class Login extends Component {
     }
   }
 
-  // <div>
-  //   <CircularProgress className={classes.progress} />
-  //   <CircularProgress className={classes.progress} color="secondary" />
-  // </div>
-
   render() {
     const { classes, errors } = this.props;
-    const { loading } = this.props.loading;
+    //const { loading } = this.props.loading;
+    const loading = true;
     const error = !isEmpty(errors);
     console.log(loading);
-    const progress = (
-      <div>
-        <CircularProgress className={classes.progress} />
-      </div>
-    );
+    const progress = <CircularProgress className={classes.progress} />;
 
     return (
       <Paper className={classes.root}>
