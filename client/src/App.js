@@ -13,6 +13,8 @@ import Calendar from './components/calendar/Calendar';
 import NotFound from './components/notfound/NotFound';
 import Welcome from './components/welcome/Welcome';
 
+console.log(localStorage);
+
 class App extends Component {
   render() {
     let routes;
