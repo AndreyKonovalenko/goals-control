@@ -51,21 +51,50 @@ class NavBar extends Component {
   };
   onLogoutHandler = () => {
     this.props.logoutUser();
-  }
-
+  };
 
   render() {
     const { classes, editing, isAuthenticated } = this.props;
-    const editButton = (
+    const edit = (
       <FormControlLabel
-        classes={{label: classes.label}}
-        control={<Switch onChange={() => this.onSwitchHandler(editing)} />
-    }
-    label = 'EDIT'
-    labelPlacement = 'start' / > );
+        classes={{ label: classes.label }}
+        control={<Switch onChange={() => this.onSwitchHandler(editing)} />}
+        label='EDIT'
+        labelPlacement='start'
+      />
+    );
+    const add = (
+      <IconButton
+        onClick={event => this.onClickHandler('/add', event)}
+        color='inherit'
+      >
+        <AddCircle />
+      </IconButton>
+    );
+    const register = (
+      <Button
+        onClick={event => this.onClickHandler('/register', event)}
+        color='inherit'
+      >
+        Sign Up
+      </Button>
+    );
+    const login = (
+      <Button
+        onClick={event => this.onClickHandler('/login', event)}
+        color='inherit'
+      >
+        Login
+      </Button>
+    );
+    const logout = (
+      <Button onClick={this.onLogoutHandler} color='inherit'>
+        Logout
+      </Button>
+    );
 
-  return (
-    <AppBar className={classes.root}>
+    return (
+      <AppBar className={classes.root}>
         <Toolbar className={classes.toolbar}>
           <Typography color='inherit' className={classes.grow}>
             <Button
@@ -75,35 +104,15 @@ class NavBar extends Component {
               Goals App
             </Button>
           </Typography>
-          {isAuthenticated? editButton: null}
-          <IconButton
-            onClick={event => this.onClickHandler('/add', event)}
-            color='inherit'
-          >
-            <AddCircle />
-          </IconButton>
-          <Button
-            onClick={event => this.onClickHandler('/register', event)}
-            color='inherit'
-          >
-            Sign Up
-          </Button>
-          <Button
-            onClick={event => this.onClickHandler('/login', event)}
-            color='inherit'
-          >
-            Login
-          </Button>
-          <Button
-            onClick={this.onLogoutHandler}
-            color='inherit'
-          >
-            Logout
-          </Button>
+          {isAuthenticated ? edit : null}
+          {isAuthenticated ? add : null}
+          {!isAuthenticated ? register : null}
+          {!isAuthenticated ? login : null}
+          {isAuthenticated ? logout : null}
         </Toolbar>
       </AppBar>
-  );
-}
+    );
+  }
 }
 
 NavBar.propTypes = {
@@ -118,5 +127,6 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps, { editMode, logoutUser }
+  mapSateToProps,
+  { editMode, logoutUser }
 )(withRouter(withStyles(styles)(NavBar)));

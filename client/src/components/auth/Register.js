@@ -73,10 +73,11 @@ class Register extends Component {
     const { classes, errors, loading } = this.props;
     const error = !isEmpty(errors);
     const progress = <Spinner />;
-    return (<Paper className={classes.root}>
-        {loading? progress: null}
+    return (
+      <Paper className={classes.root}>
+        {loading ? progress : null}
         <form className={classes.container}>
-          <Typography align='center' variant='h6' className={classes.text} >
+          <Typography align='center' variant='h6' className={classes.text}>
             Sing up
           </Typography>
           <TextField
@@ -102,7 +103,7 @@ class Register extends Component {
             margin='normal'
             variant='outlined'
           />
-           <TextField
+          <TextField
             className={classes.textField}
             error={error}
             label={error ? 'Error' : 'Confirm password'}
@@ -122,7 +123,8 @@ class Register extends Component {
             Submit
           </Button>
         </form>
-      </Paper>);
+      </Paper>
+    );
   }
 }
 
@@ -138,4 +140,7 @@ const mapStateToProps = state => ({
   loading: state.loading.loading
 });
 
-export default connect(mapStateToProps, { registerUser })(withStyles(styles)(Register));
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(withStyles(styles)(Register));

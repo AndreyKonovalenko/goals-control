@@ -38,8 +38,7 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
     textTransform: 'uppercase'
-  },
-
+  }
 });
 
 class Login extends Component {
@@ -131,5 +130,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps, { loginUser }
+  mapStateToProps,
+  { loginUser }
 )(withStyles(styles)(Login));
