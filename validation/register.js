@@ -8,12 +8,12 @@ module.exports = function validateRegisterInput(data) {
   data.password = !isEmpty(data.password) ? data.password : '';
   data.password2 = !isEmpty(data.password2) ? data.password2 : ''; //confirmed password
 
-  if (!Validator.isLength(data.password, { min: 4, max: 30 })) {
-    errors.password = 'Password must be at least 4 characters';
-  }
-
   if (!Validator.isEmail(data.email)) {
     errors.email = 'Email is invalid';
+  }
+
+  if (!Validator.isLength(data.password, { min: 4, max: 30 })) {
+    errors.password = 'Password must be at least 4 characters';
   }
 
   if (!Validator.equals(data.password, data.password2)) {

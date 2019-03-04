@@ -6,15 +6,20 @@ import { setLoading, endLoading } from '../actions/loadingActions';
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
+  dispatch(setLoading());
   axios
     .post('/api/user/register', userData)
-    .then(response => history.push('/login'))
-    .catch(error =>
+    .then(response => {
+      history.push('/login');
+      dispatch(endLoading());
+    })
+    .catch(error => {
       dispatch({
         type: GET_ERRORS,
         payload: error.response.data
       })
-    );
+      dispatch(endLoading());
+    });
 };
 
 // Login - Get User Token
