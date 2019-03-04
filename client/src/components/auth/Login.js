@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Spinner from '../spinner/Spinner';
 
 const styles = theme => ({
   root: {
@@ -39,12 +39,7 @@ const styles = theme => ({
     paddingBottom: theme.spacing.unit,
     textTransform: 'uppercase'
   },
-  progress: {
-    position: 'absolute',
-    marginLeft: -20,
-    left: '50%',
-    top: '25%'
-  }
+
 });
 
 class Login extends Component {
@@ -78,7 +73,7 @@ class Login extends Component {
     const { classes, errors } = this.props;
     const { loading } = this.props.loading;
     const error = !isEmpty(errors);
-    const progress = <CircularProgress className={classes.progress} />;
+    const progress = <Spinner />;
 
     return (
       <Paper className={classes.root}>
@@ -136,6 +131,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps,
-  { loginUser }
+  mapStateToProps, { loginUser }
 )(withStyles(styles)(Login));
