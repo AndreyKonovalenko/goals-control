@@ -53,11 +53,19 @@ class NavBar extends Component {
     this.props.logoutUser();
   }
 
-  render() {
-    const { classes, editing } = this.props;
 
-    return (
-      <AppBar className={classes.root}>
+  render() {
+    const { classes, editing, isAuthenticated } = this.props;
+    const editButton = (
+      <FormControlLabel
+        classes={{label: classes.label}}
+        control={<Switch onChange={() => this.onSwitchHandler(editing)} />
+    }
+    label = 'EDIT'
+    labelPlacement = 'start' / > );
+
+  return (
+    <AppBar className={classes.root}>
         <Toolbar className={classes.toolbar}>
           <Typography color='inherit' className={classes.grow}>
             <Button
@@ -67,17 +75,7 @@ class NavBar extends Component {
               Goals App
             </Button>
           </Typography>
-          <FormControlLabel
-            disabled={
-              this.props.history.location.pathname === '/' ? false : true
-            }
-            classes={{
-              label: classes.label
-            }}
-            control={<Switch onChange={() => this.onSwitchHandler(editing)} />}
-            label='EDIT'
-            labelPlacement='start'
-          />
+          {isAuthenticated? editButton: null}
           <IconButton
             onClick={event => this.onClickHandler('/add', event)}
             color='inherit'
@@ -104,8 +102,8 @@ class NavBar extends Component {
           </Button>
         </Toolbar>
       </AppBar>
-    );
-  }
+  );
+}
 }
 
 NavBar.propTypes = {
