@@ -64,14 +64,13 @@ class Login extends Component {
   };
 
   componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
+    if (this.props.isAuthenticated) {
       this.props.history.push('/');
     }
   }
 
   render() {
-    const { classes, errors } = this.props;
-    const { loading } = this.props.loading;
+    const { classes, errors, loading } = this.props;
     const error = !isEmpty(errors);
     const progress = <Spinner />;
 
@@ -121,14 +120,14 @@ class Login extends Component {
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
   errors: PropTypes.object.isRequired,
-  loading: PropTypes.object.isRequired
+  loading: PropTypes.bool.isRequired
 };
 const mapStateToProps = state => ({
-  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
   errors: state.errors,
-  loading: state.loading
+  loading: state.loading.loading
 });
 
 export default connect(

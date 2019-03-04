@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import AppBar from '@material-ui/core/AppBar';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
@@ -12,6 +13,7 @@ import AddCircle from '@material-ui/icons/AddCircle';
 import Switch from '@material-ui/core/Switch';
 import { connect } from 'react-redux';
 import { editMode } from '../../store/actions/dashboardActions';
+import { logoutUser } from '../../store/actions/authActions';
 
 const styles = theme => {
   const color = theme.palette.primary.contrastText;
@@ -47,6 +49,9 @@ class NavBar extends Component {
   onSwitchHandler = mode => {
     this.props.editMode(mode);
   };
+  onLogoutHandler = () => {
+    this.props.logoutUser();
+  }
 
   render() {
     const { classes, editing } = this.props;
@@ -91,6 +96,12 @@ class NavBar extends Component {
           >
             Login
           </Button>
+          <Button
+            onClick={this.onLogoutHandler}
+            color='inherit'
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
     );
@@ -98,13 +109,16 @@ class NavBar extends Component {
 }
 
 NavBar.propTypes = {
-  editing: PropTypes.bool.isRequired
+  editing: PropTypes.bool.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired
 };
 
 const mapSateToProps = state => ({
-  editing: state.dashboard.editing
+  editing: state.dashboard.editing,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(
-  mapSateToProps, { editMode }
+  mapSateToProps, { editMode, logoutUser }
 )(withRouter(withStyles(styles)(NavBar)));
