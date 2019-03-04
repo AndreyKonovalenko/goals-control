@@ -14,7 +14,6 @@ import NotFound from './components/notfound/NotFound';
 import Welcome from './components/welcome/Welcome';
 
 class App extends Component {
-
   render() {
     let routes;
     const { isAuthenticated } = this.props.auth;
@@ -26,9 +25,8 @@ class App extends Component {
           <Route path='/calendar' exact component={Calendar} />
           <Route path='/' component={NotFound} />
         </Switch>
-      )
-    }
-    else {
+      );
+    } else {
       routes = (
         <Switch>
           <Route path='/' exact component={Welcome} />
@@ -48,11 +46,11 @@ class App extends Component {
 }
 
 App.propTypes = {
-  auth: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
-})
+});
 
 export default withRouter(connect(mapStateToProps)(App));
