@@ -24,6 +24,7 @@ class App extends Component {
         <Switch>
           <Route path='/' exact component={Dashboard} />
           <Route path='/add' exact component={GoalBuilder} />
+          <Route path='/login' exact component={Login} />
           <Route path='/calendar' exact component={Calendar} />
           <Route path='/' component={NotFound} />
         </Switch>
