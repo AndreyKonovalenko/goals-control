@@ -5,6 +5,8 @@ import { registerUser } from '../../store/actions/authActions';
 import { isEmpty } from '../../utils/is-empty';
 
 import TextField from '@material-ui/core/TextField';
+import Avatar from '@material-ui/core/Avatar';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -12,6 +14,10 @@ import Typography from '@material-ui/core/Typography';
 import Spinner from '../spinner/Spinner';
 
 const styles = theme => ({
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.secondary.main,
+  },
   root: {
     width: '60%',
     margin: 'auto',
@@ -32,7 +38,8 @@ const styles = theme => ({
     marginRight: theme.spacing.unit
   },
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    marginTop: theme.spacing.unit * 3,
   },
   text: {
     margin: theme.spacing.unit,
@@ -71,7 +78,10 @@ class Register extends Component {
       <Paper className={classes.root}>
         {loading ? progress : null}
         <form className={classes.container}>
-          <Typography align='center' variant='h6' className={classes.text}>
+           <Avatar  className={classes.avatar}>
+              <LockOutlinedIcon />
+          </Avatar>
+          <Typography align='center' component='h1' variant='h6' className={classes.text}>
             Sing up
           </Typography>
           <TextField
@@ -83,7 +93,7 @@ class Register extends Component {
             name='email'
             autoComplete='email'
             onChange={this.onChangeHandler}
-            margin='none'
+            margin='normal'
             variant='outlined'
           />
           <TextField
@@ -109,9 +119,10 @@ class Register extends Component {
             variant='outlined'
           />
           <Button
-            variant='outlined'
             className={classes.button}
-            margin='normal'
+            fullWidth
+            variant='contained'
+            color='primary'
             onClick={this.onSubmitHundler}
           >
             Submit
