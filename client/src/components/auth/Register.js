@@ -133,6 +133,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps,
-  { registerUser }
+  mapStateToProps, { registerUser }
 )(withStyles(styles)(Register));

@@ -14,6 +14,7 @@ import Switch from '@material-ui/core/Switch';
 import { connect } from 'react-redux';
 import { editMode } from '../../store/actions/dashboardActions';
 import { logoutUser } from '../../store/actions/authActions';
+import { clearErrors } from '../../store/actions/errorsActions';
 
 const styles = theme => {
   const color = theme.palette.primary.contrastText;
@@ -43,7 +44,9 @@ const styles = theme => {
 class NavBar extends Component {
   onClickHandler = (to, event) => {
     event.preventDefault();
+    this.props.clearErrors();
     this.props.history.push(to);
+
   };
 
   onSwitchHandler = mode => {
@@ -58,43 +61,44 @@ class NavBar extends Component {
     const edit = (
       <FormControlLabel
         classes={{ label: classes.label }}
-        control={<Switch onChange={() => this.onSwitchHandler(editing)} />}
-        label='EDIT'
-        labelPlacement='start'
-      />
-    );
-    const add = (
-      <IconButton
+        control={<Switch onChange={() => this.onSwitchHandler(editing)} />
+    }
+    label = 'EDIT'
+    labelPlacement = 'start' /
+      >
+  );
+  const add = (
+    <IconButton
         onClick={event => this.onClickHandler('/add', event)}
         color='inherit'
       >
         <AddCircle />
       </IconButton>
-    );
-    const register = (
-      <Button
+  );
+  const register = (
+    <Button
         onClick={event => this.onClickHandler('/register', event)}
         color='inherit'
       >
         Sign Up
       </Button>
-    );
-    const login = (
-      <Button
+  );
+  const login = (
+    <Button
         onClick={event => this.onClickHandler('/login', event)}
         color='inherit'
       >
         Login
       </Button>
-    );
-    const logout = (
-      <Button onClick={this.onLogoutHandler} color='inherit'>
+  );
+  const logout = (
+    <Button onClick={this.onLogoutHandler} color='inherit'>
         Logout
       </Button>
-    );
+  );
 
-    return (
-      <AppBar className={classes.root}>
+  return (
+    <AppBar className={classes.root}>
         <Toolbar className={classes.toolbar}>
           <Typography color='inherit' className={classes.grow}>
             <Button
@@ -111,13 +115,14 @@ class NavBar extends Component {
           {isAuthenticated ? logout : null}
         </Toolbar>
       </AppBar>
-    );
-  }
+  );
+}
 }
 
 NavBar.propTypes = {
   editing: PropTypes.bool.isRequired,
   logoutUser: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired
 };
 
@@ -127,6 +132,5 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps,
-  { editMode, logoutUser }
+  mapSateToProps, { editMode, logoutUser, clearErrors }
 )(withRouter(withStyles(styles)(NavBar)));
