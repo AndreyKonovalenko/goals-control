@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import jwt_decode from 'jwt_decode';
+//import jwt_decode from 'jwt_decode';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -13,32 +13,36 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Calendar from './components/calendar/Calendar';
 import NotFound from './components/notfound/NotFound';
 import Welcome from './components/welcome/Welcome';
-import setAuthToken from './utils/setAuthToken';
-import { setCurrentUser, logoutUser } from './actions/authActions';
+//import setAuthToken from './utils/setAuthToken';
+//import { setCurrentUser, logoutUser } from './actions/authActions';
 
-// Check for token
-if (localStorage.jwtToken) {
-  // Set auth token header auth
-  setAuthToken(localStorage.jwtToken);
-  // Decode token and get user info ad expiration
-  const decoded = jwt_decode(localStorage.jwtToken);
-  // Set user and isAthenticated
+console.log(localStorage);
+// // Check for token
+// if (localStorage.jwtToken) {
+//   // Set auth token header auth
+//   setAuthToken(localStorage.jwtToken);
+//   // Decode token and get user info ad expiration
+//   const decoded = jwt_decode(localStorage.jwtToken);
+//   // Set user and isAthenticated
 
-  store.dispatch(setCurrentUser(decoded));
+//   store.dispatch(setCurrentUser(decoded));
 
-  // Check for expired token
-  const currentTime = Date.now() / 1000;
-  if (decoded.exp < currentTime) {
-    // Logout user
-    store.dispatch(logoutUser());
-    // Clear current Profile
-    store.dispatch(clearCurrentProfile());
-    // Redirect to login
-    window.location.href = '/login';
-  }
-}
+//   // Check for expired token
+//   const currentTime = Date.now() / 1000;
+//   if (decoded.exp < currentTime) {
+//     // Logout user
+//     store.dispatch(logoutUser());
+//     // Clear current Profile
+//     store.dispatch(clearCurrentProfile());
+//     // Redirect to login
+//     window.location.href = '/login';
+//   }
+// }
 
 class App extends Component {
+  componentDidMount() {
+    console.log('App.js Mounted');
+  }
   render() {
     let routes;
     const { isAuthenticated } = this.props.auth;
@@ -52,8 +56,7 @@ class App extends Component {
           <Route path='/' component={NotFound} />
         </Switch>
       );
-    }
-    else {
+    } else {
       routes = (
         <Switch>
           <Route path='/' exact component={Welcome} />
@@ -80,4 +83,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default withRouter(connect(mapStateToProps, { setAuthToken, logoutUser })(App));
+export default withRouter(connect(mapStateToProps)(App));
