@@ -17,7 +17,7 @@ export const registerUser = (userData, history) => dispatch => {
       dispatch({
         type: GET_ERRORS,
         payload: error.response.data
-      })
+      });
       dispatch(endLoading());
     });
 };
@@ -69,4 +69,26 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // Set current user to empty object !!! {} wich will set isAutenticated to false
   dispatch(setCurrentUser({}));
+};
+
+// Auto Login Logic
+export const autoLogin = () => dispatch => {
+  if (localStorage.jwtToken) {
+    // Set auth token header auth
+    setAuthToken(localStorage.jwtToken);
+    // Decode token and get user info ad expiration
+    const decoded = jwt_decode(localStorage.jwtToken);
+    // Set user and isAthenticated
+
+    dispatch(setCurrentUser(decoded));
+
+    // Check for expired token
+    const currentTime = Date.now() / 1000;
+    if (decoded.exp < currentTime) {
+      // Logout user
+      dispatch(logoutUser());
+      // Clear current Profile
+      window.location.href = '/login';
+    }
+  }
 };
