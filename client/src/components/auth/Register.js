@@ -16,7 +16,7 @@ import Spinner from '../spinner/Spinner';
 const styles = theme => ({
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.main
   },
   root: {
     width: '60%',
@@ -39,7 +39,7 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 3
   },
   text: {
     margin: theme.spacing.unit,
@@ -70,6 +70,7 @@ class Register extends Component {
     this.props.registerUser(newUser, this.props.history);
   };
 
+  // Need to adjust butto style
   render() {
     const { classes, errors, loading } = this.props;
     const error = !isEmpty(errors);
@@ -78,10 +79,15 @@ class Register extends Component {
       <Paper className={classes.root}>
         {loading ? progress : null}
         <form className={classes.container}>
-           <Avatar  className={classes.avatar}>
-              <LockOutlinedIcon />
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
           </Avatar>
-          <Typography align='center' component='h1' variant='h6' className={classes.text}>
+          <Typography
+            align='center'
+            component='h1'
+            variant='h6'
+            className={classes.text}
+          >
             Sing up
           </Typography>
           <TextField
@@ -144,5 +150,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps, { registerUser }
+  mapStateToProps,
+  { registerUser }
 )(withStyles(styles)(Register));
