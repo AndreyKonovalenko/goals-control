@@ -19,10 +19,11 @@ const styles = theme => ({
     backgroundColor: theme.palette.secondary.main
   },
   root: {
-    width: '60%',
-    margin: 'auto',
+    width: 400,
+    marginLeft: 'auto',
+    marginRight: 'auto',
     [theme.breakpoints.down('xs')]: {
-      width: '100%' // for screens smaller then 600 use 100%
+      width: '100%' // for screens smaller then 600 use 100%,
     },
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
@@ -30,12 +31,15 @@ const styles = theme => ({
   },
   container: {
     display: 'flex',
+    width: '100%',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
+      .spacing.unit * 3}px`
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit
+    // marginLeft: theme.spacing.unit,
+    // marginRight: theme.spacing.unit
   },
   button: {
     margin: theme.spacing.unit,
@@ -86,6 +90,7 @@ class Register extends Component {
             align='center'
             component='h1'
             variant='h6'
+            fullWidth
             className={classes.text}
           >
             Sing up
@@ -100,6 +105,7 @@ class Register extends Component {
             autoComplete='email'
             onChange={this.onChangeHandler}
             margin='normal'
+            fullWidth
             variant='outlined'
           />
           <TextField
@@ -111,6 +117,7 @@ class Register extends Component {
             name='password'
             onChange={this.onChangeHandler}
             margin='normal'
+            fullWidth
             variant='outlined'
           />
           <TextField
@@ -122,6 +129,7 @@ class Register extends Component {
             name='password2'
             onChange={this.onChangeHandler}
             margin='normal'
+            fullWidth
             variant='outlined'
           />
           <Button
