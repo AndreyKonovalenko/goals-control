@@ -12,22 +12,18 @@ const styles = theme => ({
     [theme.breakpoints.down('xs')]: {
       width: '100%' // for screens smaller then 600 use 100%
     },
-    paddingTop: '1em',
-    paddingBottom: '0.5em',
     backgroundColor: theme.palette.background.paper
   },
-  margin: {
-    margin: theme.spacing.unit,
-  },
   container: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`
   },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 300
+  button: {
+    margin: theme.spacing.unit,
+    marginTop: theme.spacing.unit * 3
   }
 });
 
@@ -55,9 +51,9 @@ class GoalBuilder extends Component {
           NEW GOAL
           </Typography>
           <TextField
+            fullWidth
             label="Enter Goal Name"
             name="title"
-            className={classes.textField}
             value={this.state.title}
             onChange={this.onChangeHandler}
             margin="normal"
@@ -65,7 +61,7 @@ class GoalBuilder extends Component {
           <TextField
             label="How many days to reach the goal?"
             name="limitation"
-            className={classes.textField}
+            fullWidth
             value={this.state.limitation}
             onChange={this.onChangeHandler}
             margin="normal"
@@ -77,17 +73,16 @@ class GoalBuilder extends Component {
             name='from'
             value={this.state.from}
             onChange={this.onChangeHandler}
-            className={classes.textField}
             InputLabelProps={{
               shrink: true
             }}
             margin="normal"
           />
           <div>
-            <Button size="small" className={classes.margin}>
+            <Button size="small" className={classes.button}>
               Cancle
             </Button>
-            <Button size = "small" className = { classes.margin }>
+            <Button size = "small" className = { classes.button }>
               Save
             </Button>
           </div>

@@ -25,8 +25,6 @@ const styles = theme => ({
     [theme.breakpoints.down('xs')]: {
       width: '100%' // for screens smaller then 600 use 100%,
     },
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
     backgroundColor: theme.palette.background.paper
   },
   container: {
@@ -34,8 +32,7 @@ const styles = theme => ({
     width: '100%',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
-      .spacing.unit * 3}px`
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px`
   },
   button: {
     margin: theme.spacing.unit,
