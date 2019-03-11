@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import Paper from '@material-ui/core/Paper';
+import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+
+import { isEmpty } from '../../utils/is-empty';
 
 const styles = theme => ({
   root: {
@@ -40,9 +45,17 @@ class GoalBuilder extends Component {
     });
   };
 
+  onSaveHandler = () => {;
+    const newGoal = {
+      title: this.state.title,
+      limitation: this.state.limitation,
+      from: this.state.from
+    }
+    console.log('this is new', newGoal);
+  }
   // Add save and cancle buttons!!!
   render() {
-    const { classes } = this.props;
+    const { classes, errors } = this.props;
     console.log(this.state);
     return (
       <Paper className={classes.root}>
@@ -82,7 +95,10 @@ class GoalBuilder extends Component {
             <Button size="small" className={classes.button}>
               Cancle
             </Button>
-            <Button size = "small" className = { classes.button }>
+            <Button size = "small"
+              onClick={this.onSaveHandler}
+              className = { classes.button }
+            >
               Save
             </Button>
           </div>
@@ -91,5 +107,12 @@ class GoalBuilder extends Component {
     );
   }
 }
+GoalBuilder.propTyeps = {
+  errors: PropTypes.object.isRequired
+}
 
-export default withStyles(styles)(GoalBuilder);
+const mapStateToProps = state => ({
+  erros: state.errors
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(GoalBuilder));
