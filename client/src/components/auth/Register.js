@@ -37,10 +37,6 @@ const styles = theme => ({
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
       .spacing.unit * 3}px`
   },
-  textField: {
-    // marginLeft: theme.spacing.unit,
-    // marginRight: theme.spacing.unit
-  },
   button: {
     margin: theme.spacing.unit,
     marginTop: theme.spacing.unit * 3
@@ -96,7 +92,6 @@ class Register extends Component {
             Sing up
           </Typography>
           <TextField
-            className={classes.textField}
             error={error}
             label={error ? 'Error' : 'Email'}
             helperText={errors.email}
@@ -109,7 +104,6 @@ class Register extends Component {
             variant='outlined'
           />
           <TextField
-            className={classes.textField}
             error={error}
             label={error ? 'Error' : 'Password'}
             helperText={errors.password}
@@ -121,7 +115,6 @@ class Register extends Component {
             variant='outlined'
           />
           <TextField
-            className={classes.textField}
             error={error}
             label={error ? 'Error' : 'Confirm password'}
             helperText={errors.password}
@@ -158,6 +151,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps,
-  { registerUser }
+  mapStateToProps, { registerUser }
 )(withStyles(styles)(Register));

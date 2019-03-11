@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { loginUser } from '../../store/actions/authActions';
 import { isEmpty } from '../../utils/is-empty';
 
+
+import Avatar from '@material-ui/core/Avatar';
+import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -12,31 +15,36 @@ import Typography from '@material-ui/core/Typography';
 import Spinner from '../spinner/Spinner';
 
 const styles = theme => ({
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.secondary.main
+  },
   root: {
-    width: '60%',
-    margin: 'auto',
+    width: 400,
+    marginLeft: 'auto',
+    marginRight: 'auto',
     [theme.breakpoints.down('xs')]: {
       width: '100%' // for screens smaller then 600 use 100%
     },
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+
   },
   container: {
     display: 'flex',
+    width: '100%',
     flexDirection: 'column',
-    alignItems: 'center'
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
+      .spacing.unit * 3}px`
   },
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    marginTop: theme.spacing.unit * 3
   },
   text: {
     margin: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
     textTransform: 'uppercase'
   }
 });
@@ -77,11 +85,19 @@ class Login extends Component {
       <Paper className={classes.root}>
         {loading ? progress : null}
         <form className={classes.container}>
-          <Typography align='center' variant='h6' className={classes.text}>
+          <Avatar className={classes.avatar}>
+            <LockOpenOutlinedIcon />
+          </Avatar>
+          <Typography
+            align='center'
+            component='h1'
+            variant='h6'
+            className={classes.text}
+          >
             Login
           </Typography>
           <TextField
-            className={classes.textField}
+            fullWidth
             error={error}
             label={error ? 'Error' : 'Email'}
             helperText={errors.email}
@@ -89,11 +105,11 @@ class Login extends Component {
             name='email'
             autoComplete='email'
             onChange={this.onChangeHandler}
-            margin='none'
+            margin='normal'
             variant='outlined'
           />
           <TextField
-            className={classes.textField}
+            fullWidth
             error={error}
             label={error ? 'Error' : 'Password'}
             helperText={errors.password}
@@ -104,9 +120,10 @@ class Login extends Component {
             variant='outlined'
           />
           <Button
-            variant='outlined'
+            fullWidth
             className={classes.button}
-            margin='normal'
+            variant='contained'
+            color='primary'
             onClick={this.onSubmitHundler}
           >
             Submit
@@ -130,6 +147,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps,
-  { loginUser }
+  mapStateToProps, { loginUser }
 )(withStyles(styles)(Login));
