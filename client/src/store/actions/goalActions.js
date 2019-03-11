@@ -7,7 +7,7 @@ import { GET_ERRORS } from './types';
 
 export const createGoal = (goalData, history) => dispatch => {
   axios
-    .post('/api/gaol', goalData)
+    .post('/api/goal', goalData)
     .then(res => history.push('/'))
     .catch(error =>
       dispatch({
