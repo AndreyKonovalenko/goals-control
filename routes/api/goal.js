@@ -23,30 +23,32 @@ const User = require('../../models/User');
 
 router.get('/test', (req, res) => res.json({ msg: 'Goal route works fine' }));
 
-
 // router POST api/goal
 // desc   Create goal
 // access Privete
 
-router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  // const { errors, isValid } = validateGoalInput(req.body);
+router.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    // const { errors, isValid } = validateGoalInput(req.body);
 
-  // // Check validation
-  // if (!isValid) {
-  //   // If any errors, send 400 with errors object
-  //   return res.status(400).json(errors);
-  // }
+    // // Check validation
+    // if (!isValid) {
+    //   // If any errors, send 400 with errors object
+    //   return res.status(400).json(errors);
+    // }
 
-  // const newGoal = new Goal({
-  //   user: req.user.id,
-  //   title: req.body.title,
-  //   limitation: req.body.limitation,
-  //   from: req.body.from
-  // });
-  console.log(req.body);
-  return res.json({ msg: 'Success' });
-  //newPost.save().then(post => res.json(post));
-});
-
+    // const newGoal = new Goal({
+    //   user: req.user.id,
+    //   title: req.body.title,
+    //   limitation: req.body.limitation,
+    //   from: req.body.from
+    // });
+    console.log(req.user.id);
+    return res.json({ msg: req.user.id });
+    //newPost.save().then(post => res.json(post));
+  }
+);
 
 module.exports = router;
