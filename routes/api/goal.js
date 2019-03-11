@@ -45,7 +45,7 @@ router.post(
     //   limitation: req.body.limitation,
     //   from: req.body.from
     // });
-    console.log(req.user.id);
+    console.log(req.user);
     return res.json({ msg: req.user.id });
     //newPost.save().then(post => res.json(post));
   }
