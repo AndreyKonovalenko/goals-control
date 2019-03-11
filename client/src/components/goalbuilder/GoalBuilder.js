@@ -8,7 +8,8 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import { isEmpty } from '../../utils/is-empty';
+import { createGoal } from '../../store/actions/goalActions';
+//import { isEmpty } from '../../utils/is-empty';
 
 const styles = theme => ({
   root: {
@@ -49,13 +50,14 @@ class GoalBuilder extends Component {
     const newGoal = {
       title: this.state.title,
       limitation: this.state.limitation,
-      from: this.state.from
+      from: this.state.from,
     }
     console.log('this is new', newGoal);
+    this.props.createGoal(newGoal, this.props.history);
   }
   // Add save and cancle buttons!!!
   render() {
-    const { classes, errors } = this.props;
+    const { classes, } = this.props;
     console.log(this.state);
     return (
       <Paper className={classes.root}>
@@ -108,11 +110,11 @@ class GoalBuilder extends Component {
   }
 }
 GoalBuilder.propTyeps = {
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-  erros: state.errors
+  erros: state.errors,
 })
 
-export default connect(mapStateToProps)(withStyles(styles)(GoalBuilder));
+export default connect(mapStateToProps, { createGoal })(withStyles(styles)(GoalBuilder));

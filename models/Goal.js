@@ -16,7 +16,7 @@ const GoalSchema = new Schema({
     type: Date,
     required: true
   },
-  period: {
+  limitation: {
     type: Number,
     required: true
   },
