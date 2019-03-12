@@ -1,10 +1,11 @@
-// const dateFns = require('date-fns');
+const dateFns = require('date-fns');
 
-// const daysBuilder = (from, limitation) => {
-//   let days = [];
-//   const start = from;
-// };
+const daysBuilder = (from) => {
+  let days = [];
+  const start = dateFns.parse(from);
+  return start;
+};
 
 
 
-// module.exports = daysBuilder;
+module.exports = daysBuilder;

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
+const daysArray = require('../../utils/daysarray');
 
 // Optional. Use this if you create a lot of connections and don't want
 // to copy/paste `{ useNewUrlParser: true }`.
@@ -31,15 +32,16 @@ router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateGoalInput(req.body);
+    //    const { errors, isValid } = validateGoalInput(req.body);
 
     // Check validation
-    if (!isValid) {
-      // If any errors, send 400 with errors object
-      return res.status(400).json(errors);
-    }
+    // if (!isValid) {
+    //   // If any errors, send 400 with errors object
+    //   return res.status(400).json(errors);
+    // }
 
     // const daysArray =
+    const start = daysArray(req.body.from);
 
     const newGoal = new Goal({
       user: req.user.id,
@@ -47,8 +49,9 @@ router.post(
       limitation: req.body.limitation,
       from: req.body.from
     });
-    console.log(newGoal);
-    return res.json({ msg: req.user.id });
+
+    console.log(start);
+
     //   newPost.save().then(post => res.json(post));
   }
 );
