@@ -20,18 +20,11 @@ const GoalSchema = new Schema({
     type: Number,
     required: true
   },
-  days: [{
-    day: {
-      success: {
-        type: Boolean,
-        default: false
-      },
-      touched: {
-        type: Boolean,
-        default: false
-      }
-    }
-  }]
+  days: {
+    type: Array,
+    required: true
+  }
+
 });
 
 module.exports = Goal = mongoose.model('goal', GoalSchema);

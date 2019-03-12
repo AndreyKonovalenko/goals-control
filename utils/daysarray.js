@@ -1,11 +1,21 @@
 const dateFns = require('date-fns');
 
-const daysBuilder = (from) => {
+const daysBuilder = (from, limitation) => {
+  limitation = parseInt(limitation, 10);
   let days = [];
-  const start = dateFns.parse(from);
-  return start;
+  let start = dateFns.parse(from);
+  let n = 0;
+  while (n < limitation) {
+    let currentDay = dateFns.addDays(start, n);
+    days.push({
+      date: currentDay,
+      touched: false,
+      success: false
+    });
+    n++;
+  }
+  return days;
 };
-
 
 
 module.exports = daysBuilder;

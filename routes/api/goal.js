@@ -41,18 +41,16 @@ router.post(
     // }
 
     // const daysArray =
-    const start = daysArray(req.body.from);
+    const daysArr = daysArray(req.body.from, req.body.limitation);
 
     const newGoal = new Goal({
       user: req.user.id,
       title: req.body.title,
       limitation: req.body.limitation,
-      from: req.body.from
+      days: daysArr
     });
-
-    console.log(start);
-
-    //   newPost.save().then(post => res.json(post));
+    console.log(newGoal);
+    newGoal.save().then(goal => res.json(goal));
   }
 );
 
