@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
-const daysArray = require('../../utils/daysarray');
+const daysArrayBuilder = require('../../utils/daysArrayBuilder');
 
 // Optional. Use this if you create a lot of connections and don't want
 // to copy/paste `{ useNewUrlParser: true }`.
@@ -41,13 +41,14 @@ router.post(
     // }
 
     // const daysArray =
-    const daysArr = daysArray(req.body.from, req.body.limitation);
+    const days = daysArrayBuilder(req.body.from, req.body.limitation);
 
     const newGoal = new Goal({
       user: req.user.id,
       title: req.body.title,
+      from: req.body.from,
       limitation: req.body.limitation,
-      days: daysArr
+      days: days
     });
     console.log(newGoal);
     newGoal.save().then(goal => res.json(goal));

@@ -1,6 +1,6 @@
 const dateFns = require('date-fns');
 
-const daysBuilder = (from, limitation) => {
+const daysArrayBuilder = (from, limitation) => {
   limitation = parseInt(limitation, 10);
   let days = [];
   let start = dateFns.parse(from);
@@ -18,4 +18,4 @@ const daysBuilder = (from, limitation) => {
 };
 
 
-module.exports = daysBuilder;
+module.exports = daysArrayBuilder;
