@@ -53,7 +53,8 @@ class NavBar extends Component {
     this.props.editMode(mode);
   };
   onLogoutHandler = () => {
-    this.props.logoutUser(this.props.history);
+    this.props.logoutUser();
+    this.props.history.push('/');
   };
 
   render() {

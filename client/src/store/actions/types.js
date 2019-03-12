@@ -4,3 +4,5 @@ export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const LOADING = 'LOADING';
 export const LOADED = 'LOADED';
+export const JWT_EXPIRED = 'JWT_EXPIRED';
+export const LOGOUT = 'LOGOUT';

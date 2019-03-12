@@ -32,7 +32,8 @@ class App extends Component {
           <Route path='/' component={NotFound} />
         </Switch>
       );
-    } else {
+    }
+    else {
       routes = (
         <Switch>
           <Route path='/' exact component={Welcome} />
@@ -62,7 +63,6 @@ const mapStateToProps = state => ({
 
 export default withRouter(
   connect(
-    mapStateToProps,
-    { autoLogin }
+    mapStateToProps, { autoLogin }
   )(App)
 );

@@ -1,7 +1,7 @@
 import axios from '../../axios-db';
 import setAuthToken from '../../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-import { GET_ERRORS, SET_CURRENT_USER } from './types';
+import { GET_ERRORS, SET_CURRENT_USER, LOGOUT, JWT_EXPIRED } from './types';
 import { setLoading, endLoading } from '../actions/loadingActions';
 
 // Register User
@@ -61,15 +61,27 @@ export const setCurrentUser = decoded => {
   };
 };
 
+export const logouted = () => {
+  return {
+    type: LOGOUT
+  }
+}
+
+export const autoLoginFailed = () => {
+  return {
+    type: JWT_EXPIRED
+  }
+}
+
 // Log user out
-export const logoutUser = (history) => dispatch => {
+export const logoutUser = () => dispatch => {
   // Remove token from localStorage
   localStorage.removeItem('jwtToken');
   // Remove auth header for future request
   setAuthToken(false);
   // Set current user to empty object !!! {} wich will set isAutenticated to false
   dispatch(setCurrentUser({}));
-  history.push('/');
+  dispatch(logouted());
 };
 
 // Auto Login Logic
@@ -86,9 +98,9 @@ export const autoLogin = () => dispatch => {
     // Check for expired token
     const currentTime = Date.now() / 1000;
     if (decoded.exp < currentTime) {
+      dispatch(autoLoginFailed());
       // Logout user
       dispatch(logoutUser());
-      // Clear current Profile
       window.location.href = '/login';
     }
   }

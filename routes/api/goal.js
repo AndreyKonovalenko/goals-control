@@ -9,7 +9,7 @@ const passport = require('passport');
 mongoose.set('useFindAndModifify', false);
 
 // Load Input validaition
-const validateGoalInput = require('../../validation/goalbuilder');
+const validateGoalInput = require('../../validation/goal');
 
 // Load Goal Model
 const Goal = require('../../models/Goal');
@@ -31,23 +31,25 @@ router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    // const { errors, isValid } = validateGoalInput(req.body);
+    const { errors, isValid } = validateGoalInput(req.body);
 
-    // // Check validation
-    // if (!isValid) {
-    //   // If any errors, send 400 with errors object
-    //   return res.status(400).json(errors);
-    // }
+    // Check validation
+    if (!isValid) {
+      // If any errors, send 400 with errors object
+      return res.status(400).json(errors);
+    }
 
-    // const newGoal = new Goal({
-    //   user: req.user.id,
-    //   title: req.body.title,
-    //   limitation: req.body.limitation,
-    //   from: req.body.from
-    // });
-    console.log(req.user);
+    // const daysArray =
+
+    const newGoal = new Goal({
+      user: req.user.id,
+      title: req.body.title,
+      limitation: req.body.limitation,
+      from: req.body.from
+    });
+    console.log(newGoal);
     return res.json({ msg: req.user.id });
-    //newPost.save().then(post => res.json(post));
+    //   newPost.save().then(post => res.json(post));
   }
 );
 
