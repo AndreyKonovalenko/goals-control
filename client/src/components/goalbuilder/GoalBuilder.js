@@ -8,8 +8,8 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import { isEmpty } from '../../utils/is-empty';
 import { createGoal } from '../../store/actions/goalActions';
-//import { isEmpty } from '../../utils/is-empty';
 
 const styles = theme => ({
   root: {
@@ -57,8 +57,9 @@ class GoalBuilder extends Component {
   }
   // Add save and cancle buttons!!!
   render() {
-    const { classes, } = this.props;
-    console.log(this.state);
+    const { classes, errors } = this.props;
+    const error = !isEmpty(errors);
+
     return (
       <Paper className={classes.root}>
         <form className={classes.container} noValidate>
@@ -66,15 +67,19 @@ class GoalBuilder extends Component {
           NEW GOAL
           </Typography>
           <TextField
+            error = {error}
+            label={error ? 'Error' : 'Enter Goal Name'}
+            helperText={errors.title}
             fullWidth
-            label="Enter Goal Name"
             name="title"
             value={this.state.title}
             onChange={this.onChangeHandler}
             margin="normal"
           />
           <TextField
-            label="How many days to reach the goal?"
+            error = {error}
+            label={error ? 'Error' : 'How many days to reach the goal?'}
+            helperText={errors.limitation}
             name="limitation"
             fullWidth
             value={this.state.limitation}
@@ -82,8 +87,9 @@ class GoalBuilder extends Component {
             margin="normal"
           />
           <TextField
-            id='date'
-            label='Start Date'
+            error = {error}
+            label={error ? 'Error' : 'Start Date'}
+            helperText={errors.from}
             type='date'
             name='from'
             value={this.state.from}
@@ -114,7 +120,7 @@ GoalBuilder.propTyeps = {
 }
 
 const mapStateToProps = state => ({
-  erros: state.errors,
+  errors: state.errors,
 })
 
 export default connect(mapStateToProps, { createGoal })(withStyles(styles)(GoalBuilder));

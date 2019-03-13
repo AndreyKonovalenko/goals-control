@@ -32,13 +32,13 @@ router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    //    const { errors, isValid } = validateGoalInput(req.body);
+    const { errors, isValid } = validateGoalInput(req.body);
 
     // Check validation
-    // if (!isValid) {
-    //   // If any errors, send 400 with errors object
-    //   return res.status(400).json(errors);
-    // }
+    if (!isValid) {
+      // If any errors, send 400 with errors object
+      return res.status(400).json(errors);
+    }
 
     // const daysArray =
     const days = daysArrayBuilder(req.body.from, req.body.limitation);
