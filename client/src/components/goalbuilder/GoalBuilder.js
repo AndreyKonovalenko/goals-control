@@ -9,7 +9,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import { isEmpty } from '../../utils/is-empty';
+import { clearErrors } from '../../store/actions/errorsActions';
 import { createGoal } from '../../store/actions/goalActions';
+
+import Spinner from '../spinner/Spinner';
 
 const styles = theme => ({
   root: {
@@ -55,20 +58,33 @@ class GoalBuilder extends Component {
     console.log('this is new', newGoal);
     this.props.createGoal(newGoal, this.props.history);
   }
-  // Add save and cancle buttons!!!
+
+  onCancleHundler = () => {
+    this.props.clearErrors();
+    this.setState({
+      title: '',
+      limitation: '',
+      from: ''
+    })
+  }
+
   render() {
-    const { classes, errors } = this.props;
-    const error = !isEmpty(errors);
+    const { classes, errors, loading } = this.props;
+    const errorTitle = !isEmpty(errors.title);
+    const errorLimitation = !isEmpty(errors.limitation);
+    const errorFrom = !isEmpty(errors.from);
+    const progress = <Spinner />;
 
     return (
       <Paper className={classes.root}>
+        {loading ? progress : null}
         <form className={classes.container} noValidate>
           <Typography align='center' variant='h6' className={classes.margin} color='secondary'>
           NEW GOAL
           </Typography>
           <TextField
-            error = {error}
-            label={error ? 'Error' : 'Enter Goal Name'}
+            error = {errorTitle}
+            label={errorTitle ? 'Error' : 'Enter Goal Name'}
             helperText={errors.title}
             fullWidth
             name="title"
@@ -77,8 +93,8 @@ class GoalBuilder extends Component {
             margin="normal"
           />
           <TextField
-            error = {error}
-            label={error ? 'Error' : 'How many days to reach the goal?'}
+            error = {errorLimitation}
+            label={errorLimitation ? 'Error' : 'How many days to reach the goal?'}
             helperText={errors.limitation}
             name="limitation"
             fullWidth
@@ -87,8 +103,8 @@ class GoalBuilder extends Component {
             margin="normal"
           />
           <TextField
-            error = {error}
-            label={error ? 'Error' : 'Start Date'}
+            error = {errorFrom}
+            label={errorFrom ? 'Error' : 'Start Date'}
             helperText={errors.from}
             type='date'
             name='from'
@@ -100,7 +116,9 @@ class GoalBuilder extends Component {
             margin="normal"
           />
           <div>
-            <Button size="small" className={classes.button}>
+            <Button size="small"
+              onClick={this.onCancleHundler}
+              className={classes.button}>
               Cancle
             </Button>
             <Button size = "small"
@@ -117,10 +135,13 @@ class GoalBuilder extends Component {
 }
 GoalBuilder.propTyeps = {
   errors: PropTypes.object.isRequired,
-}
+  clearError: PropTypes.func.isRequired,
+  createGoal: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
   errors: state.errors,
+  loading: state.loading.loading
 })
 
-export default connect(mapStateToProps, { createGoal })(withStyles(styles)(GoalBuilder));
+export default connect(mapStateToProps, { createGoal, clearErrors })(withStyles(styles)(GoalBuilder));
