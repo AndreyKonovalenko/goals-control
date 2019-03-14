@@ -1,10 +1,12 @@
 import {
-  EDIT_GOALS_LIST
+  EDIT_GOALS_LIST,
+  GET_GOALS_LIST
 }
 from '../actions/types';
 
 const initialState = {
-  editing: false
+  editing: false,
+  goalsList: {}
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,6 +16,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         editing: action.payload
       };
+    case GET_GOALS_LIST:
+      return {
+        ...state,
+        goalsList: action.payload
+      }
     default:
       return state;
   }
