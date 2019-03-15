@@ -33,19 +33,15 @@ router.get('/',
   passport.authenticate('jwt', { session: false }), (req, res) => {
     const errors = {};
     console.log(req.user._id);
-    Goal.find()
+    Goal.find({ 'user': req.user._id })
       .then(list => {
         if (!list) {
           errors.nogoallist = 'There is no goals for this user',
             res.status(404).json(errors); // 404 maeans not found
         }
-        const goalslist = list.map(element => {
-          return (
-            element['title']);
-        })
-        list
-        console.log(goalslist);
-        res.json(goalslist)
+        list = list.map(element => element['title']);
+        console.log(list);
+        res.json(list)
       })
       .catch(err =>
         res.status(404).json({ list: 'Thter is no goals for this user' })
