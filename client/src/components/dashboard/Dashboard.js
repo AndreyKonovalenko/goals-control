@@ -14,6 +14,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import { getGoalsList } from '../../store/actions/dashboardActions';
+
 const updateOrder = (arr, beg, end) => {
   const copy = arr.slice(0);
   const val = copy[beg];
@@ -67,8 +69,7 @@ const styles = theme => ({
 class Dashboard extends Component {
   // this is fake state for fronend testeing
   state = {
-    goals: [
-      {
+    goals: [{
         id: 1,
         title: 'workout 4 time a week'
       },
@@ -152,6 +153,11 @@ class Dashboard extends Component {
     window.removeEventListener('touchend', this.handleTouchEnd);
   };
 
+
+  componentDidMount() {
+    this.props.getGoalsList();
+  }
+
   render() {
     const { classes, editing } = this.props;
     const { mouseY, isPressed, lastPressed, order, itemsCount } = this.state;
@@ -222,11 +228,12 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
-  editing: PropTypes.bool.isRequired
+  editing: PropTypes.bool.isRequired,
 };
 
 const mapSateToProps = state => ({
-  editing: state.dashboard.editing
+  editing: state.dashboard.editing,
+  list: state.dashboard.list
 });
 
-export default connect(mapSateToProps)(withStyles(styles)(Dashboard));
+export default connect(mapSateToProps, { getGoalsList })(withStyles(styles)(Dashboard));

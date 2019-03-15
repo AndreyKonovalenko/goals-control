@@ -31,7 +31,8 @@ router.get('/test', (req, res) =>
 
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   const errors = {};
-  Goal.find({ user: req.req.params.user_id })
+  console.log(req.params);
+  Goal.find({ user: req.params.user_id })
     .then(list => {
       if (!list) {
         errors.nogoallist = 'There is no goals for this user',
