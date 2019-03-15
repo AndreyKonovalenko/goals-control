@@ -39,9 +39,12 @@ router.get('/',
           errors.nogoallist = 'There is no goals for this user',
             res.status(404).json(errors); // 404 maeans not found
         }
-        list = list.map(element => element['title']);
+        list = list.map(element => ({
+          id: element['_id'],
+          title: element['title']
+        }));
         console.log(list);
-        res.json(list)
+        res.json(list);
       })
       .catch(err =>
         res.status(404).json({ list: 'Thter is no goals for this user' })
