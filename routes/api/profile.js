@@ -29,21 +29,28 @@ router.get('/test', (req, res) =>
 // desc: get user's goals List
 // access: Privet
 
-router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const errors = {};
-  console.log(req.params);
-  Goal.find({ user: req.params.user_id })
-    .then(list => {
-      if (!list) {
-        errors.nogoallist = 'There is no goals for this user',
-          res.status(404).json(errors); // 404 maeans not found
-      }
-      res.json(list)
-    })
-    .catch(err =>
-      res.status(404).json({ list: 'Thter is no goals for this. user' })
-    );
-});
+router.get('/',
+  passport.authenticate('jwt', { session: false }), (req, res) => {
+    const errors = {};
+    console.log(req.user._id);
+    Goal.find()
+      .then(list => {
+        if (!list) {
+          errors.nogoallist = 'There is no goals for this user',
+            res.status(404).json(errors); // 404 maeans not found
+        }
+        const goalslist = list.map(element => {
+          return (
+            element['title']);
+        })
+        list
+        console.log(goalslist);
+        res.json(goalslist)
+      })
+      .catch(err =>
+        res.status(404).json({ list: 'Thter is no goals for this user' })
+      );
+  });
 
 
 module.exports = router;
