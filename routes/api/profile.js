@@ -29,27 +29,33 @@ router.get('/test', (req, res) =>
 // desc: get user's goals List
 // access: Privet
 
-router.get('/',
-  passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
     const errors = {};
     console.log(req.user._id);
-    Goal.find({ 'user': req.user._id })
+    Goal.find({ user: req.user._id })
       .then(list => {
         if (!list) {
-          errors.nogoallist = 'There is no goals for this user',
+          (errors.nogoallist = 'There is no goals for this user'),
             res.status(404).json(errors); // 404 maeans not found
         }
         list = list.map(element => ({
           id: element['_id'],
           title: element['title']
         }));
-        console.log(list);
-        res.json(list);
+        const newProfile = new Profile({
+          user: req.user._id,
+          goals: list
+        });
+        console.log(newProfile);
+        res.json(newProfile);
       })
       .catch(err =>
         res.status(404).json({ list: 'Thter is no goals for this user' })
       );
-  });
-
+  }
+);
 
 module.exports = router;

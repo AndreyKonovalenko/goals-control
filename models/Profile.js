@@ -4,20 +4,12 @@ const Schema = mongoose.Schema;
 const ProfileSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'users'
+    ref: 'user'
   },
-  goals: [
-    {
-      id: {
-        type: Schema.Types.ObjectId,
-        ref: 'goals' // this is ref to mdb collection goals
-      },
-      title: {
-        type: String,
-        required: true
-      }
-    }
-  ]
+  goals: {
+    type: Array,
+    require: true
+  }
 });
 
 module.exports = Profile = mongoose.model('porfile', ProfileSchema);
