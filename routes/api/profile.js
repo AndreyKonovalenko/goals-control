@@ -34,27 +34,38 @@ router.get(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const errors = {};
+    let goalsArr = [];
     console.log(req.user._id);
-    Goal.find({ user: req.user._id })
-      .then(list => {
-        if (!list) {
-          (errors.nogoallist = 'There is no goals for this user'),
-            res.status(404).json(errors); // 404 maeans not found
-        }
-        list = list.map(element => ({
-          id: element['_id'],
-          title: element['title']
-        }));
-        const newProfile = new Profile({
-          user: req.user._id,
-          goals: list
-        });
-        console.log(newProfile);
-        res.json(newProfile);
-      })
-      .catch(err =>
-        res.status(404).json({ list: 'Thter is no goals for this user' })
-      );
+    Goal.find({ user: req.user._id }).then(list => {
+      if (list) {
+        goalsArr = [...list];
+      }
+    });
+    console.log(goalsArr);
+    // Profile.find({ user: req.user._id })
+    //   .then(profile => {
+    //     if (!profile) {
+    //       Goal.find({ user: req.user._id }).then(list => {
+    //         if (!list) {
+    //           errors.noGoals = 'User does not have saved goals';
+    //           res.status(404).json(errors);
+    //         } else {
+    //           list = list.map(element => ({
+    //             id: element['_id'],
+    //             title: element['title']
+    //           }));
+    //           const newProfile = new Profile({
+    //             user: req.user._id,
+    //             goals: list
+    //           });
+    //           console.log(newProfile);
+    //           res.json(newProfile);
+    //         }
+    //       });
+    //     } else {
+    //     }
+    //   })
+    //   .catch(err => res.status(404).json(err));
   }
 );
 
