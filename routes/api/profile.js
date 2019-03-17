@@ -36,11 +36,7 @@ router.get(
     const errors = {};
     let goalsArr = [];
     console.log(req.user._id);
-    Goal.find({ user: req.user._id }).then(list => {
-      if (list) {
-        goalsArr = [...list];
-      }
-    });
+    goalsArr = Goal.find({ user: req.user._id });
     console.log(goalsArr);
     // Profile.find({ user: req.user._id })
     //   .then(profile => {
