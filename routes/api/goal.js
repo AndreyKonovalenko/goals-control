@@ -18,6 +18,9 @@ const Goal = require('../../models/Goal');
 // Load User Model
 const User = require('../../models/User');
 
+// Load Profile Model
+const Profile = require('../../models/Profile');
+
 // route: GET api/goal/test
 // desc: Tests goal route
 // access Public
@@ -51,7 +54,19 @@ router.post(
       days: days
     });
     console.log(newGoal);
-    newGoal.save().then(goal => res.json(goal));
+    newGoal.save().then(goal => {
+      // Profile update with new goal id and title;
+      Profile.findOne({ user: req.user.id })
+        .then(profile => {
+          const newGoal = {
+            id: goal._id,
+            title: req.body.title
+          };
+          profile.goals.unshift(newGoal);
+          profile.save();
+        });
+      res.json(goal);
+    });
   }
 );
 
