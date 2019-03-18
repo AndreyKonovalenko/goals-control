@@ -12,6 +12,9 @@ const validateLoginInput = require('../../validation/login');
 // Load User model
 const User = require('../../models/User');
 
+// Load Profile Model
+const Profile = require('../../models/Profile');
+
 // route: GET api/user/test
 // desc: Tests user route
 // access: Public
@@ -47,7 +50,14 @@ router.post('/register', (req, res) => {
           newUser.password = hash;
           newUser
             .save() // .save() is mongoose method
-            .then(user => res.json(user))
+            .then(user => {
+              // Creating empty profile for new user
+              new Profile({
+                user: user._id,
+                goals: []
+              }).save();
+              res.json(user);
+            })
             .catch(err => console.log(err));
         });
       });
