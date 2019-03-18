@@ -14,7 +14,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import { getGoalsList } from '../../store/actions/dashboardActions';
+import { fetchGoalsList } from '../../store/actions/dashboardActions';
 
 const updateOrder = (arr, beg, end) => {
   const copy = arr.slice(0);
@@ -69,21 +69,22 @@ const styles = theme => ({
 class Dashboard extends Component {
   // this is fake state for fronend testeing
   state = {
-    goals: [{
-        id: 1,
-        title: 'workout 4 time a week'
-      },
-      {
-        id: 2,
-        title: 'code everyday'
-      },
-      {
-        id: 3,
-        title: 'Fide the right pass'
-      }
-    ],
-    order: [0, 1, 2], // from back-end
-    itemsCount: 3, // form back- end
+    // //goals: [
+    //   {
+    //     id: 1,
+    //     title: 'workout 4 time a week'
+    //   },
+    //   {
+    //     id: 2,
+    //     title: 'code everyday'
+    //   },
+    //   {
+    //     id: 3,
+    //     title: 'Fide the right pass'
+    //   }
+    // ],
+    order: [], // from back-end
+    itemsCount: 0, // form back- end
     topDeltaY: 0, // animation config
     mouseY: 0, // animation config
     isPressed: false, //animatin config
@@ -153,14 +154,20 @@ class Dashboard extends Component {
     window.removeEventListener('touchend', this.handleTouchEnd);
   };
 
-
   componentDidMount() {
-    this.props.getGoalsList();
+    this.props.fetchGoalsList();
   }
 
   render() {
     const { classes, editing } = this.props;
     const { mouseY, isPressed, lastPressed, order, itemsCount } = this.state;
+    const { goals } = this.props.goalsList;
+    console.log(this.props);
+    // if (this.props.goalsList) {
+    //   const n = this.props.goalsList.goals.lenght;
+    //   const newOrder = Array.from({ length: n }, (v, k) => k);
+    //   this.setState({ intemCount: n, order: newOrder });
+    // }
 
     const list = (
       <div className={classes.root}>
@@ -204,7 +211,7 @@ class Dashboard extends Component {
                     ) : null}
                     <ListItemText
                       style={{ flexGrow: 1 }}
-                      primary={this.state.goals[order.indexOf(data)].title}
+                      primary={goals[order.indexOf(data)].title}
                     />
                     {editing ? (
                       <DragHandle
@@ -228,12 +235,15 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
-  editing: PropTypes.bool.isRequired,
+  editing: PropTypes.bool.isRequired
 };
 
 const mapSateToProps = state => ({
   editing: state.dashboard.editing,
-  list: state.dashboard.list
+  goalsList: state.dashboard.goalsList
 });
 
-export default connect(mapSateToProps, { getGoalsList })(withStyles(styles)(Dashboard));
+export default connect(
+  mapSateToProps,
+  { fetchGoalsList }
+)(withStyles(styles)(Dashboard));
