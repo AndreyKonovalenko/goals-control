@@ -34,34 +34,42 @@ router.get(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const errors = {};
-    let goalsArr = [];
-    console.log(req.user._id);
-    goalsArr = Goal.find({ user: req.user._id });
-    console.log(goalsArr);
-    // Profile.find({ user: req.user._id })
-    //   .then(profile => {
-    //     if (!profile) {
-    //       Goal.find({ user: req.user._id }).then(list => {
-    //         if (!list) {
-    //           errors.noGoals = 'User does not have saved goals';
-    //           res.status(404).json(errors);
-    //         } else {
-    //           list = list.map(element => ({
-    //             id: element['_id'],
-    //             title: element['title']
-    //           }));
-    //           const newProfile = new Profile({
-    //             user: req.user._id,
-    //             goals: list
-    //           });
-    //           console.log(newProfile);
-    //           res.json(newProfile);
-    //         }
-    //       });
-    //     } else {
-    //     }
-    //   })
-    //   .catch(err => res.status(404).json(err));
+
+    Goal.find({ user: req.user.id }).then(list => {
+        console.log(list);
+      })
+      // // Test profile for existance
+      // Profile.find({ user: req.user.id })
+      //   .then(profile => {
+      //     if (!profile) {
+      //       // Text goals for existance
+      //       Goal.find({ user: req.user.id }).then(list => {
+      //         if (!list) {
+      //           errors.noGoals = 'User does not have saved goals';
+      //           res.status(404).json(errors);
+      //         }
+      //         else {
+      //           list = list.map(element => ({
+      //             id: element['_id'],
+      //             title: element['title']
+      //           }));
+      //           const newProfile = new Profile({
+      //             user: req.user._id,
+      //             goals: list
+      //           });
+      //           console.log(newProfile);
+      //           res.json(newProfile);
+      //         }
+      //       });
+      //     }
+      //     // if porfile = true
+      //     else if (profile.goals.length > 0) {
+      //       Goal.find({user: req.user.id}).then(list => {
+
+      //       })
+      //     }
+      //   })
+      .catch(err => res.status(404).json(err));
   }
 );
 
