@@ -38,9 +38,10 @@ router.get(
     Profile.findOne({ user: req.user.id })
       .then(profile => {
         if (profile.goals.length === 0) {
-          errors.noGoals = 'User does not have saved goals';
+          errors.no_goals = 'User does not have saved goals';
           res.status(404).json(errors);
-        } else {
+        }
+        else {
           console.log(profile.goals);
           res.json(profile);
         }

@@ -1,4 +1,4 @@
-import { EDIT_GOALS_LIST, GET_GOALS_LIST } from './types';
+import { EDIT_GOALS_LIST, GET_GOALS_LIST, GET_ERRORS } from './types';
 import { setLoading, endLoading } from '../actions/loadingActions';
 import axios from '../../axios-db';
 
@@ -24,6 +24,10 @@ export const fetchGoalsList = () => dispatch => {
       dispatch({
         type: GET_GOALS_LIST,
         payload: {}
+      });
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
       });
       dispatch(endLoading());
     });

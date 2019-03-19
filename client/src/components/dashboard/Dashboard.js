@@ -4,15 +4,16 @@ import { withStyles } from '@material-ui/core/styles';
 import { NodeGroup } from 'react-move';
 import { range } from 'd3-array';
 import { easeExpOut } from 'd3-ease';
-//import Typography from '@material-ui/core/Typography';
 import DragHandle from '@material-ui/icons/DragHandle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Spinner from '../spinner/Spinner';
 
 import { fetchGoalsList } from '../../store/actions/dashboardActions';
 
@@ -65,7 +66,6 @@ const styles = theme => ({
 });
 
 class Dashboard extends Component {
-  // this is fake state for fronend testeing
   state = {
     order: [], // calculated value
     itemsCount: 0, // calculatd value
@@ -143,7 +143,7 @@ class Dashboard extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.goalsList.goals !== prevProps.goalsList.goals) {
+    if (this.props.goalsList.goals !== prevProps.goalsList.goals && this.props.goalsList.goals !== undefined) {
       const l = this.props.goalsList.goals.length;
       const listOrder = Array.from({ length: l }, (v, k) => k);
       this.setState({ itemsCount: l, order: listOrder });
@@ -151,9 +151,22 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { classes, editing } = this.props;
+    const { classes, editing, loading, errors } = this.props;
     const { mouseY, isPressed, lastPressed, order, itemsCount } = this.state;
     const { goals } = this.props.goalsList;
+
+    const message = (
+      <Typography
+          align='center'
+          component='h1'
+          variant='h6'
+        >
+          you have not set goals yet
+        </Typography>
+    );
+
+    const progress = <Spinner />;
+
     const list = (
       <div className={classes.root}>
         <NodeGroup
@@ -214,19 +227,27 @@ class Dashboard extends Component {
       </div>
     );
 
-    return list;
+    return (
+      <React.Fragment>
+      {loading? progress: null}
+      {errors.no_goals ? message: null}
+      {list}
+    </React.Fragment>);
   }
 }
 
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
   editing: PropTypes.bool.isRequired,
-  goalsList: PropTypes.object.isRequired
+  goalsList: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
 const mapSateToProps = state => ({
+  errors: state.errors,
   editing: state.dashboard.editing,
-  goalsList: state.dashboard.goalsList
+  goalsList: state.dashboard.goalsList,
+  loading: state.loading.loading
 });
 
 export default connect(
