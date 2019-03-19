@@ -69,22 +69,8 @@ const styles = theme => ({
 class Dashboard extends Component {
   // this is fake state for fronend testeing
   state = {
-    // //goals: [
-    //   {
-    //     id: 1,
-    //     title: 'workout 4 time a week'
-    //   },
-    //   {
-    //     id: 2,
-    //     title: 'code everyday'
-    //   },
-    //   {
-    //     id: 3,
-    //     title: 'Fide the right pass'
-    //   }
-    // ],
-    order: [], // from back-end
-    itemsCount: 0, // form back- end
+    order: [], // calculated value
+    itemsCount: 0, // calculatd value
     topDeltaY: 0, // animation config
     mouseY: 0, // animation config
     isPressed: false, //animatin config
@@ -156,26 +142,20 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.props.fetchGoalsList();
-    const { goals } = this.props.goalsList;
-    console.log(goals);
-    if (goals !== undefined) {
-      this.setState({ itemsCount: goals.length });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.goalsList.goals !== prevProps.goalsList.goals) {
+      const l = this.props.goalsList.goals.length;
+      const listOrder = Array.from({ length: l }, (v, k) => k);
+      this.setState({ itemsCount: l, order: listOrder });
     }
   }
 
   render() {
-    let goalsArr = [];
     const { classes, editing } = this.props;
     const { mouseY, isPressed, lastPressed, order, itemsCount } = this.state;
-    //console.log(this.props.goalsList.goals);
     const { goals } = this.props.goalsList;
-    console.log(this.state.itemsCount);
-
-    // if (this.props.goalsList) {
-    //   const n = this.props.goalsList.goals.lenght;
-    //   const newOrder = Array.from({ length: n }, (v, k) => k);
-    //   this.setState({ intemCount: n, order: newOrder });
-    // }
     const list = (
       <div className={classes.root}>
         <NodeGroup
@@ -242,7 +222,8 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
-  editing: PropTypes.bool.isRequired
+  editing: PropTypes.bool.isRequired,
+  goalsList: PropTypes.object.isRequired
 };
 
 const mapSateToProps = state => ({

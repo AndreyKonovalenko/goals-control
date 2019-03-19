@@ -83,7 +83,6 @@ class Register extends Component {
             align='center'
             component='h1'
             variant='h6'
-            fullWidth
             className={classes.text}
           >
             Sing up
