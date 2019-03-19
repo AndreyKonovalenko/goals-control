@@ -156,19 +156,26 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.props.fetchGoalsList();
+    const { goals } = this.props.goalsList;
+    console.log(goals);
+    if (goals !== undefined) {
+      this.setState({ itemsCount: goals.length });
+    }
   }
 
   render() {
+    let goalsArr = [];
     const { classes, editing } = this.props;
     const { mouseY, isPressed, lastPressed, order, itemsCount } = this.state;
+    //console.log(this.props.goalsList.goals);
     const { goals } = this.props.goalsList;
-    console.log(this.props);
+    console.log(this.state.itemsCount);
+
     // if (this.props.goalsList) {
     //   const n = this.props.goalsList.goals.lenght;
     //   const newOrder = Array.from({ length: n }, (v, k) => k);
     //   this.setState({ intemCount: n, order: newOrder });
     // }
-
     const list = (
       <div className={classes.root}>
         <NodeGroup
@@ -244,6 +251,5 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps,
-  { fetchGoalsList }
+  mapSateToProps, { fetchGoalsList }
 )(withStyles(styles)(Dashboard));
