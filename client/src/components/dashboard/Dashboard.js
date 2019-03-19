@@ -43,7 +43,6 @@ const styles = theme => ({
     [theme.breakpoints.down('xs')]: {
       width: '100%' // for screens smaller then 600 use 100%
     },
-    height: `${itemHeight * 3}px`,
     backgroundColor: theme.palette.background.paper
   },
 
@@ -51,7 +50,6 @@ const styles = theme => ({
     position: 'absolute',
     width: '100%',
     height: `${itemHeight}px`,
-    // lineHieght: `${itemHeight-3}`,
     overflow: 'visible',
     pointerEvents: 'auto',
     transformOrigin: '50% 50% 0px',
@@ -176,7 +174,7 @@ class Dashboard extends Component {
           }}
         >
           {nodes => (
-            <List className={classes.list} disablePadding>
+            <List className={classes.list} disablePadding style={{height: itemHeight * itemsCount }}>
               {nodes.map(({ key, data, state }) => {
                 const { scale, y } = state;
                 const transY = lastPressed === data && isPressed ? mouseY : y;
