@@ -149,9 +149,16 @@ class Dashboard extends Component {
       this.setState({ itemsCount: l, order: listOrder });
     }
 
-    if (this.props.editing === false && prevProps.editing === true) {
-      console.log(this.state.order, this.props.editing)
-    }
+    // // if (this.props.editing === false && prevProps.editing === true) {
+    //   //   console.log(this.state.order, this.props.editing)
+    //   //   const reorderedArray = this.state.order.map(element => {
+    //   //     element = this.props.goalsList.goals[element]
+    //   //     console.log(element)
+    //   //     return element;
+    //   //   });
+    //   //   console.log(reorderedArray)
+
+    // }
   }
 
   render() {
