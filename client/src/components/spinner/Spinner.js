@@ -7,7 +7,8 @@ const styles = theme => ({
     position: 'absolute',
     marginLeft: -20,
     left: '50%',
-    top: '50%'
+    top: '30%',
+    zIndex: 10000
   }
 });
 

@@ -148,13 +148,16 @@ class Dashboard extends Component {
       const listOrder = Array.from({ length: l }, (v, k) => k);
       this.setState({ itemsCount: l, order: listOrder });
     }
+
+    if (this.props.editing === false && prevProps.editing === true) {
+      console.log(this.state.order, this.props.editing)
+    }
   }
 
   render() {
     const { classes, editing, loading, errors } = this.props;
     const { mouseY, isPressed, lastPressed, order, itemsCount } = this.state;
     const { goals } = this.props.goalsList;
-
     const message = (
       <Typography
           align='center'
