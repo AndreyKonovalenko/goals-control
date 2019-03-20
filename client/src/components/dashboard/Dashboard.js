@@ -140,6 +140,7 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.props.fetchGoalsList();
+    console.log('did mount!!')
   }
 
   componentDidUpdate(prevProps) {
@@ -149,22 +150,22 @@ class Dashboard extends Component {
       this.setState({ itemsCount: l, order: listOrder });
     }
 
-    // // if (this.props.editing === false && prevProps.editing === true) {
-    //   //   console.log(this.state.order, this.props.editing)
-    //   //   const reorderedArray = this.state.order.map(element => {
-    //   //     element = this.props.goalsList.goals[element]
-    //   //     console.log(element)
-    //   //     return element;
-    //   //   });
-    //   //   console.log(reorderedArray)
-
-    // }
+    if (this.props.editing === false && prevProps.editing === true) {
+      console.log(this.state.order, this.props.editing)
+      const reorderedArray = this.state.order.map(element => {
+        element = this.props.goalsList.goals[element]
+        console.log(element)
+        return element;
+      });
+      console.log(reorderedArray)
+    }
   }
 
   render() {
     const { classes, editing, loading, errors } = this.props;
     const { mouseY, isPressed, lastPressed, order, itemsCount } = this.state;
     const { goals } = this.props.goalsList;
+    console.log(order);
     const message = (
       <Typography
           align='center'
@@ -199,7 +200,7 @@ class Dashboard extends Component {
           {nodes => (
             <List className={classes.list} disablePadding style={{height: itemHeight * itemsCount }}>
               {nodes.map(({ key, data, state }) => {
-                const { scale, y } = state;
+                const { scale, y} = state;
                 const transY = lastPressed === data && isPressed ? mouseY : y;
                 return (
                   <ListItem
@@ -219,7 +220,7 @@ class Dashboard extends Component {
                     ) : null}
                     <ListItemText
                       style={{ flexGrow: 1 }}
-                      primary={goals[order.indexOf(data)].title}
+                      primary={goals[data].title}
                     />
                     {editing ? (
                       <DragHandle
