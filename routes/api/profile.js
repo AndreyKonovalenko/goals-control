@@ -53,8 +53,14 @@ router.get(
 // roter: POST api/profile/:id
 // desc: update user goals list
 // access: Privet
-router.post('/',
-  passport.authenticate('jwt', { session: false })
+
+router.post('/:id',
+  passport.authenticate('jwt', { session: false }), (req, res) => {
+    const newGaolsArray = [];
+
+    Profile.findByIdAndUpdate(req.params.id)
+      .then()
+  }
 );
 
 module.exports = router;
