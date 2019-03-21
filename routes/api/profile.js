@@ -50,4 +50,11 @@ router.get(
   }
 );
 
+// roter: POST api/profile/:id
+// desc: update user goals list
+// access: Privet
+router.post('/',
+  passport.authenticate('jwt', { session: false })
+);
+
 module.exports = router;

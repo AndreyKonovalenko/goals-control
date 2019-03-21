@@ -157,7 +157,7 @@ class Dashboard extends Component {
         console.log(element)
         return element;
       });
-      console.log(reorderedArray)
+      console.log(reorderedArray);
     }
   }
 
