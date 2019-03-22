@@ -6,7 +6,7 @@ const passport = require('passport');
 // Optional. Use this if you create a lot of connections and don't want
 // to copy/paste `{ useNewUrlParser: true }`.
 
-mongoose.set('useFindAndModifify', false);
+mongoose.set('useFindAndModify', false);
 
 // Load Profile Model
 const Profile = require('../../models/Profile');
@@ -57,7 +57,7 @@ router.post('/:id',
   passport.authenticate('jwt', { session: false }), (req, res) => {
     const newGaolsArray = {};
     newGaolsArray.goals = req.body;
-    console.log(newGaolsArray)
+    console.log(newGaolsArray);
     // Update
     Profile.findByIdAndUpdate(req.params.id, { $set: newGaolsArray }, { new: true })
       .then(profile => res.json(profile));

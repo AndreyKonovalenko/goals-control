@@ -7,7 +7,7 @@ const daysArrayBuilder = require('../../utils/daysArrayBuilder');
 // Optional. Use this if you create a lot of connections and don't want
 // to copy/paste `{ useNewUrlParser: true }`.
 
-mongoose.set('useFindAndModifify', false);
+mongoose.set('useFindAndModify', false);
 
 // Load Input validaition
 const validateGoalInput = require('../../validation/goal');
