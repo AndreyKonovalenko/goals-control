@@ -57,9 +57,10 @@ router.get(
 router.post('/:id',
   passport.authenticate('jwt', { session: false }), (req, res) => {
     const newGaolsArray = [];
-
-    Profile.findByIdAndUpdate(req.params.id)
-      .then()
+    if (req.body.goals) newGaolsArray.goals = req.body.gaols;
+    // Update
+    Profile.findByIdAndUpdate(req.params.id, { $set: newGaolsArray }, { new: true })
+      .then(profile => res.json(profile));
   }
 );
 
