@@ -25,7 +25,7 @@ router.get('/test', (req, res) =>
   res.json({ msg: 'Profiel route works fine' })
 );
 
-// reote: GET api/profile
+// route: GET api/profile
 // desc: get user's goals List
 // access: Privet
 
@@ -42,7 +42,6 @@ router.get(
           res.status(404).json(errors);
         }
         else {
-          console.log(profile.goals);
           res.json(profile);
         }
       })
@@ -50,14 +49,15 @@ router.get(
   }
 );
 
-// roter: POST api/profile/:id
+// route: POST api/profile/:id
 // desc: update user goals list
 // access: Privet
 
 router.post('/:id',
   passport.authenticate('jwt', { session: false }), (req, res) => {
-    const newGaolsArray = [];
-    if (req.body.goals) newGaolsArray.goals = req.body.gaols;
+    const newGaolsArray = {};
+    newGaolsArray.goals = req.body;
+    console.log(newGaolsArray)
     // Update
     Profile.findByIdAndUpdate(req.params.id, { $set: newGaolsArray }, { new: true })
       .then(profile => res.json(profile));

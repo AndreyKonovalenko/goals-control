@@ -15,7 +15,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Spinner from '../spinner/Spinner';
 
-import { fetchGoalsList } from '../../store/actions/dashboardActions';
+import { fetchGoalsList, updateGaolsOrder } from '../../store/actions/dashboardActions';
 
 const updateOrder = (arr, beg, end) => {
   const copy = arr.slice(0);
@@ -151,12 +151,15 @@ class Dashboard extends Component {
     }
 
     if (this.props.editing === false && prevProps.editing === true) {
+
       console.log(this.state.order, this.props.editing)
       const reorderedArray = this.state.order.map(element => {
         element = this.props.goalsList.goals[element]
         console.log(element)
         return element;
       });
+      const id = this.props.goalsList._id;
+      this.props.updateGaolsOrder(id, reorderedArray)
       console.log(reorderedArray);
     }
   }
@@ -251,7 +254,8 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
   editing: PropTypes.bool.isRequired,
   goalsList: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  updateGaolsOrder: PropTypes.func.isRequired
 };
 
 const mapSateToProps = state => ({
@@ -262,5 +266,5 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps, { fetchGoalsList }
+  mapSateToProps, { fetchGoalsList, updateGaolsOrder }
 )(withStyles(styles)(Dashboard));

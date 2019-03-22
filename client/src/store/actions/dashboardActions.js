@@ -1,4 +1,4 @@
-import { EDIT_GOALS_LIST, GET_GOALS_LIST, GET_ERRORS } from './types';
+import { EDIT_GOALS_LIST, GET_GOALS_LIST, GET_ERRORS, UPDATE_GOALS_ORDER } from './types';
 import { setLoading, endLoading } from '../actions/loadingActions';
 import axios from '../../axios-db';
 
@@ -31,4 +31,21 @@ export const fetchGoalsList = () => dispatch => {
       });
       dispatch(endLoading());
     });
+};
+
+export const updateGaolsOrder = (id, newArray) => dispatch => {
+  axios
+    .post(`api/profile/${id}`, newArray)
+    .then(res => {
+      dispatch({
+        type: UPDATE_GOALS_ORDER
+      });
+      dispatch(fetchGoalsList());
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
 };

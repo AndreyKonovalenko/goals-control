@@ -7,3 +7,4 @@ export const LOADED = 'LOADED';
 export const JWT_EXPIRED = 'JWT_EXPIRED';
 export const LOGOUT = 'LOGOUT';
 export const GET_GOALS_LIST = 'GET_GOALS_LIST';
+export const UPDATE_GOALS_ORDER = 'UPDATE_GOALS_ORDER';
