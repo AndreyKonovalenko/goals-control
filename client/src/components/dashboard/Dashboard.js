@@ -15,7 +15,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Spinner from '../spinner/Spinner';
 
-import { fetchGoalsList, updateGaolsOrder } from '../../store/actions/dashboardActions';
+import {
+  fetchGoalsList,
+  updateGaolsOrder
+} from '../../store/actions/dashboardActions';
 
 const updateOrder = (arr, beg, end) => {
   const copy = arr.slice(0);
@@ -140,26 +143,27 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.props.fetchGoalsList();
-    console.log('did mount!!')
+    console.log('did mount!!');
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.goalsList.goals !== prevProps.goalsList.goals && this.props.goalsList.goals !== undefined) {
+    if (
+      this.props.goalsList.goals !== prevProps.goalsList.goals &&
+      this.props.goalsList.goals !== undefined
+    ) {
       const l = this.props.goalsList.goals.length;
       const listOrder = Array.from({ length: l }, (v, k) => k);
       this.setState({ itemsCount: l, order: listOrder });
     }
 
     if (this.props.editing === false && prevProps.editing === true) {
-
-      console.log(this.state.order, this.props.editing)
+      console.log(this.state.order, this.props.editing);
       const reorderedArray = this.state.order.map(element => {
-        element = this.props.goalsList.goals[element]
-        console.log(element)
+        element = this.props.goalsList.goals[element];
+        console.log(element);
         return element;
       });
-      const id = this.props.goalsList._id;
-      this.props.updateGaolsOrder(id, reorderedArray)
+      this.props.updateGaolsOrder(reorderedArray);
       console.log(reorderedArray);
     }
   }
@@ -170,13 +174,9 @@ class Dashboard extends Component {
     const { goals } = this.props.goalsList;
     console.log(order);
     const message = (
-      <Typography
-          align='center'
-          component='h1'
-          variant='h6'
-        >
-          you have not set goals yet
-        </Typography>
+      <Typography align='center' component='h1' variant='h6'>
+        you have not set goals yet
+      </Typography>
     );
 
     const progress = <Spinner />;
@@ -201,9 +201,13 @@ class Dashboard extends Component {
           }}
         >
           {nodes => (
-            <List className={classes.list} disablePadding style={{height: itemHeight * itemsCount }}>
+            <List
+              className={classes.list}
+              disablePadding
+              style={{ height: itemHeight * itemsCount }}
+            >
               {nodes.map(({ key, data, state }) => {
-                const { scale, y} = state;
+                const { scale, y } = state;
                 const transY = lastPressed === data && isPressed ? mouseY : y;
                 return (
                   <ListItem
@@ -243,10 +247,11 @@ class Dashboard extends Component {
 
     return (
       <React.Fragment>
-      {loading? progress: null}
-      {errors.no_goals ? message: null}
-      {list}
-    </React.Fragment>);
+        {loading ? progress : null}
+        {errors.no_goals ? message : null}
+        {list}
+      </React.Fragment>
+    );
   }
 }
 
@@ -266,5 +271,6 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps, { fetchGoalsList, updateGaolsOrder }
+  mapSateToProps,
+  { fetchGoalsList, updateGaolsOrder }
 )(withStyles(styles)(Dashboard));

@@ -40,8 +40,7 @@ router.get(
         if (profile.goals.length === 0) {
           errors.no_goals = 'User does not have saved goals';
           res.status(404).json(errors);
-        }
-        else {
+        } else {
           res.json(profile);
         }
       })
@@ -53,14 +52,20 @@ router.get(
 // desc: update user goals list
 // access: Privet
 
-router.post('/:id',
-  passport.authenticate('jwt', { session: false }), (req, res) => {
+router.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
     const newGaolsArray = {};
     newGaolsArray.goals = req.body;
-    console.log(newGaolsArray);
+    console.log(req.user.id);
     // Update
-    Profile.findByIdAndUpdate(req.params.id, { $set: newGaolsArray }, { new: true })
-      .then(profile => res.json(profile));
+    Profil;
+    Profile.findByIdAndUpdate(
+      req.user.id,
+      { $set: newGaolsArray },
+      { new: true }
+    ).then(profile => res.json(profile));
   }
 );
 
