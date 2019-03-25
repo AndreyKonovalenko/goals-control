@@ -170,8 +170,10 @@ class Dashboard extends Component {
     }
   }
 
-  onClickHandler = () => {
-    this.props.history.push('/calendar');
+  onClickHandler = (id, event) => {
+    event.preventDefault();
+    console.log('Clicked!!', id);
+    // this.props.history.push('/calendar');
   };
 
   render() {
@@ -220,7 +222,7 @@ class Dashboard extends Component {
                     button
                     divider
                     className={classes.item}
-                    onClick={this.props.onClickHandler}
+                    onClick={event => this.onClickHandler(goals[data].id, event)}
                     key={key}
                     style={{
                       transform: `translate3d(0, ${transY}px, 0) scale(${scale})`,
