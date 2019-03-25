@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { NodeGroup } from 'react-move';
 import { range } from 'd3-array';
 import { easeExpOut } from 'd3-ease';
+import { withRouter } from 'react-router-dom';
 import DragHandle from '@material-ui/icons/DragHandle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
@@ -18,7 +19,8 @@ import Spinner from '../spinner/Spinner';
 import {
   fetchGoalsList,
   updateGaolsOrder
-} from '../../store/actions/dashboardActions';
+}
+from '../../store/actions/dashboardActions';
 
 const updateOrder = (arr, beg, end) => {
   const copy = arr.slice(0);
@@ -168,6 +170,10 @@ class Dashboard extends Component {
     }
   }
 
+  onClickHandler = () => {
+    this.props.history.push('/calendar');
+  };
+
   render() {
     const { classes, editing, loading, errors } = this.props;
     const { mouseY, isPressed, lastPressed, order, itemsCount } = this.state;
@@ -211,8 +217,10 @@ class Dashboard extends Component {
                 const transY = lastPressed === data && isPressed ? mouseY : y;
                 return (
                   <ListItem
+                    button
                     divider
                     className={classes.item}
+                    onClick={this.props.onClickHandler}
                     key={key}
                     style={{
                       transform: `translate3d(0, ${transY}px, 0) scale(${scale})`,
@@ -271,6 +279,5 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps,
-  { fetchGoalsList, updateGaolsOrder }
-)(withStyles(styles)(Dashboard));
+  mapSateToProps, { fetchGoalsList, updateGaolsOrder }
+)(withRouter(withStyles(styles)(Dashboard)));
