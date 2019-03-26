@@ -173,7 +173,7 @@ class Dashboard extends Component {
   onClickHandler = (id, event) => {
     event.preventDefault();
     console.log('Clicked!!', id);
-    // this.props.history.push('/calendar');
+    this.props.history.push('/goal');
   };
 
   render() {
