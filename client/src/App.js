@@ -9,7 +9,7 @@ import Layout from './components/layout/Layout';
 import Register from './components/auth/Register';
 import GoalBuilder from './components/goalbuilder/GoalBuilder';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import CurrentGaol from './components/currentgoal/CurrentGaol';
+import CurrentGoal from './components/currentgoal/CurrentGoal';
 import NotFound from './components/notfound/NotFound';
 import Welcome from './components/welcome/Welcome';
 
@@ -28,7 +28,7 @@ class App extends Component {
           <Route path='/' exact component={Dashboard} />
           <Route path='/add' exact component={GoalBuilder} />
           <Route path='/login' exact component={Login} />
-          <Route path='/goal' exact component={CurrentGaol} />
+          <Route path='/goal' exact component={CurrentGoal} />
           <Route path='/' component={NotFound} />
         </Switch>
       );

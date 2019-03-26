@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import dateFns from 'date-fns';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -33,7 +34,7 @@ const styles = theme => {
     }
   };
 };
-class CurrentGaol extends Component {
+class CurrentGoal extends Component {
   state = {
     currentMonth: new Date()
   };
@@ -52,7 +53,6 @@ class CurrentGaol extends Component {
 
   render() {
     const { classes, loading } = this.props;
-
     const progress = <Spinner />;
     const goal = (
       <div className={classes.root}>
@@ -66,15 +66,21 @@ class CurrentGaol extends Component {
         />
         <WeekDays currentMonth={this.state.currentMonth} />
         <Days currentMonth={this.state.currentMonth} />
-      </div>);
+      </div>
+    );
 
-    return ({ loading ? progress : goal });
+    return (
+      <React.Fragment>
+        { loading ? progress : null }
+        {goal}
+      </React.Fragment>
+    );
 
   }
 }
 
-const mapSateToProps = state => {
+const mapSateToProps = state => ({
   loading: state.loading.loading
-}
+});
 
-export default connect(mapSateToProps)(withStyles(styles)(CurrentGaol));
+export default connect(mapSateToProps)(withRouter(withStyles(styles)(CurrentGoal)));
