@@ -22,6 +22,8 @@ import {
 }
 from '../../store/actions/dashboardActions';
 
+import { fetchSelectedGoal } from '../../store/actions/currentGoalActions';
+
 const updateOrder = (arr, beg, end) => {
   const copy = arr.slice(0);
   const val = copy[beg];
@@ -173,6 +175,7 @@ class Dashboard extends Component {
   onClickHandler = (id, event) => {
     event.preventDefault();
     console.log('Clicked!!', id);
+    this.props.fetchSelectedGoal(id);
     this.props.history.push('/goal');
   };
 
@@ -281,5 +284,5 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps, { fetchGoalsList, updateGaolsOrder }
+  mapSateToProps, { fetchGoalsList, updateGaolsOrder, fetchSelectedGoal }
 )(withRouter(withStyles(styles)(Dashboard)));

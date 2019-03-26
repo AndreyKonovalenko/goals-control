@@ -49,7 +49,7 @@ router.get(
   }
 );
 
-// route: POST api/profile/:id
+// route: POST api/profile/
 // desc: update user goals list
 // access: Privet
 

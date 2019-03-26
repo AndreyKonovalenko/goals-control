@@ -29,7 +29,7 @@ router.get('/test', (req, res) => res.json({ msg: 'Goal route works fine' }));
 
 // router POST api/goal
 // desc   Create goal
-// access Privete
+// access Private
 
 router.post(
   '/',
@@ -69,5 +69,22 @@ router.post(
     });
   }
 );
+
+// route: GET api/goal/:id
+// desc: Fetch selected goal by id
+// access Private
+
+
+router.get(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    console.log(req.params.id)
+    Goal.findById(req.params.id)
+      .then(goal => {
+        res.json(goal);
+      })
+      .catch(err => res.status(404).json(err));
+  });
 
 module.exports = router;
