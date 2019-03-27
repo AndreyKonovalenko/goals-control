@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import dateFns from 'date-fns';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -9,6 +10,7 @@ import Months from './Months';
 import WeekDays from './WeekDays';
 import Days from './Days';
 import Spinner from '../spinner/Spinner';
+import { isEmpty } from '../../utils/is-empty';
 
 const styles = theme => {
   console.log(theme);
@@ -52,12 +54,12 @@ class CurrentGoal extends Component {
   };
 
   render() {
-    const { classes, loading } = this.props;
+    const { classes, loading, currentGoal } = this.props;
     const progress = <Spinner />;
     const goal = (
       <div className={classes.root}>
         <Typography variant={'h6'} align={'center'} className={classes.title}>
-          "Goal.Title from data base"
+          {currentGoal.title}
         </Typography>
         <Months
           currentMonth={this.state.currentMonth}
@@ -71,16 +73,22 @@ class CurrentGoal extends Component {
 
     return (
       <React.Fragment>
-        { loading ? progress : null }
-        {goal}
+        {loading ? progress: null}
+        {!isEmpty(currentGoal) ? goal : null}
       </React.Fragment>
     );
 
   }
 }
 
+CurrentGoal.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  currentGoal: PropTypes.object.isRequired,
+}
+
 const mapSateToProps = state => ({
-  loading: state.loading.loading
+  loading: state.loading.loading,
+  currentGoal: state.currentGoal.currentGoal
 });
 
 export default connect(mapSateToProps)(withRouter(withStyles(styles)(CurrentGoal)));
