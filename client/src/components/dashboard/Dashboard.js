@@ -222,10 +222,10 @@ class Dashboard extends Component {
                 const transY = lastPressed === data && isPressed ? mouseY : y;
                 return (
                   <ListItem
-                    button
+                    button={editing? false: true}
                     divider
                     className={classes.item}
-                    onClick={event => this.onClickHandler(goals[data].id, event)}
+                    onClick={editing? null: event => this.onClickHandler(goals[data].id, event)}
                     key={key}
                     style={{
                       transform: `translate3d(0, ${transY}px, 0) scale(${scale})`,
