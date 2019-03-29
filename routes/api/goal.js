@@ -74,17 +74,38 @@ router.post(
 // desc: Fetch selected goal by id
 // access Private
 
-
 router.get(
   '/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    console.log(req.params.id)
+    console.log(req.params.id);
     Goal.findById(req.params.id)
       .then(goal => {
         res.json(goal);
       })
       .catch(err => res.status(404).json(err));
-  });
+  }
+);
+
+// @router DELETE api/goal/:id
+// @desc   DELETE goal by id
+// @access Privete
+
+router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+
+
+  Post.findById(req.params.id)
+    .then(post => {
+      // Check for post owner
+      if (post.user.toString() !== req.user.id) {
+        // 401 is unauthorised http request status
+        return res.status(401).json({ notauthorized: 'User not authorized' });
+      }
+
+      // Delete
+      post.remove().then(() => res.json({ success: true }));
+    })
+    .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+});
 
 module.exports = router;
