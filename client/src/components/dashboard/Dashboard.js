@@ -179,6 +179,11 @@ class Dashboard extends Component {
     this.props.history.push('/goal');
   };
 
+  onDeleteHandler = (id, event) => {
+    event.preventDefault();
+    // some delete action function
+  }
+
   render() {
     const { classes, editing, loading, errors } = this.props;
     const { mouseY, isPressed, lastPressed, order, itemsCount } = this.state;
