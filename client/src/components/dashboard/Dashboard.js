@@ -18,9 +18,9 @@ import Spinner from '../spinner/Spinner';
 
 import {
   fetchGoalsList,
-  updateGaolsOrder
-}
-from '../../store/actions/dashboardActions';
+  updateGaolsOrder,
+  deleteGoal
+} from '../../store/actions/dashboardActions';
 
 import { fetchSelectedGoal } from '../../store/actions/currentGoalActions';
 
@@ -181,8 +181,9 @@ class Dashboard extends Component {
 
   onDeleteHandler = (id, event) => {
     event.preventDefault();
+    this.props.deleteGoal(id);
     // some delete action function
-  }
+  };
 
   render() {
     const { classes, editing, loading, errors } = this.props;
@@ -227,10 +228,14 @@ class Dashboard extends Component {
                 const transY = lastPressed === data && isPressed ? mouseY : y;
                 return (
                   <ListItem
-                    button={editing? false: true}
+                    button={editing ? false : true}
                     divider
                     className={classes.item}
-                    onClick={editing? null: event => this.onClickHandler(goals[data].id, event)}
+                    onClick={
+                      editing
+                        ? null
+                        : event => this.onClickHandler(goals[data].id, event)
+                    }
                     key={key}
                     style={{
                       transform: `translate3d(0, ${transY}px, 0) scale(${scale})`,
@@ -240,7 +245,11 @@ class Dashboard extends Component {
                   >
                     {editing ? (
                       <IconButton aria-label='Delete' color='secondary'>
-                        <DeleteIcon />
+                        <DeleteIcon
+                          onClick={event =>
+                            this.onDeleteHandler(goals[data].id, event)
+                          }
+                        />
                       </IconButton>
                     ) : null}
                     <ListItemText
@@ -289,5 +298,6 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps, { fetchGoalsList, updateGaolsOrder, fetchSelectedGoal }
+  mapSateToProps,
+  { fetchGoalsList, updateGaolsOrder, fetchSelectedGoal, deleteGoal }
 )(withRouter(withStyles(styles)(Dashboard)));

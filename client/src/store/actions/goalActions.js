@@ -3,7 +3,6 @@ import { setLoading, endLoading } from '../actions/loadingActions';
 
 import { GET_ERRORS } from './types';
 
-
 // Create Profile
 
 export const createGoal = (goalData, history) => dispatch => {

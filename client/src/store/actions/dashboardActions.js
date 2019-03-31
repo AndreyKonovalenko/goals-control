@@ -2,7 +2,8 @@ import {
   EDIT_GOALS_LIST,
   GET_GOALS_LIST,
   GET_ERRORS,
-  UPDATE_GOALS_ORDER
+  UPDATE_GOALS_ORDER,
+  DELETE_GOAL
 } from './types';
 import { setLoading, endLoading } from '../actions/loadingActions';
 import axios from '../../axios-db';
@@ -53,4 +54,19 @@ export const updateGaolsOrder = newArray => dispatch => {
         payload: err.response.data
       })
     );
+};
+
+export const deleteGoal = id => dispatch => {
+  dispatch(setLoading());
+  axios
+    .delete(`api/goal/${id}`)
+    .then(res => {
+      dispatch({
+        type: DELETE_GOAL
+      });
+      dispatch(endLoading());
+    })
+    .catch(err => {
+      dispatch(endLoading());
+    });
 };

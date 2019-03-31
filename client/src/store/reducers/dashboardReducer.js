@@ -1,8 +1,4 @@
-import {
-  EDIT_GOALS_LIST,
-  GET_GOALS_LIST
-}
-from '../actions/types';
+import { EDIT_GOALS_LIST, GET_GOALS_LIST } from '../actions/types';
 
 const initialState = {
   editing: false,
@@ -20,7 +16,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         goalsList: action.payload
-      }
+      };
     default:
       return state;
   }

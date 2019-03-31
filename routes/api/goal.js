@@ -56,15 +56,14 @@ router.post(
     console.log(newGoal);
     newGoal.save().then(goal => {
       // Profile update with new goal id and title;
-      Profile.findOne({ user: req.user.id })
-        .then(profile => {
-          const newGoal = {
-            id: goal._id,
-            title: req.body.title
-          };
-          profile.goals.unshift(newGoal);
-          profile.save();
-        });
+      Profile.findOne({ user: req.user.id }).then(profile => {
+        const newGoal = {
+          id: goal._id,
+          title: req.body.title
+        };
+        profile.goals.unshift(newGoal);
+        profile.save();
+      });
       res.json(goal);
     });
   }
@@ -91,21 +90,23 @@ router.get(
 // @desc   DELETE goal by id
 // @access Privete
 
-router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Goal.findById(req.params.id)
+      .then(goal => {
+        // Check for post owner
+        if (goal.user.toString() !== req.user.id) {
+          // 401 is unauthorised http request status
+          return res.status(401).json({ notauthorized: 'User not authorized' });
+        }
 
-
-  Post.findById(req.params.id)
-    .then(post => {
-      // Check for post owner
-      if (post.user.toString() !== req.user.id) {
-        // 401 is unauthorised http request status
-        return res.status(401).json({ notauthorized: 'User not authorized' });
-      }
-
-      // Delete
-      post.remove().then(() => res.json({ success: true }));
-    })
-    .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-});
+        // Delete
+        goal.remove().then(() => res.json({ success: true }));
+      })
+      .catch(err => res.status(404).json({ goalnotfound: 'No post found' }));
+  }
+);
 
 module.exports = router;
