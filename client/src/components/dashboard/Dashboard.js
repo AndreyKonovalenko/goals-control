@@ -16,11 +16,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Spinner from '../spinner/Spinner';
 
+import arrayExtractor from '../../utils/arrayExtractor';
+
 import {
   fetchGoalsList,
   updateGaolsOrder,
   deleteGoal
-} from '../../store/actions/dashboardActions';
+}
+from '../../store/actions/dashboardActions';
 
 import { fetchSelectedGoal } from '../../store/actions/currentGoalActions';
 
@@ -182,6 +185,7 @@ class Dashboard extends Component {
   onDeleteHandler = (id, event) => {
     event.preventDefault();
     this.props.deleteGoal(id);
+    this.props.updateGaolsOrder(arrayExtractor(this.props.goalsList.goals, id));
     // some delete action function
   };
 
@@ -244,12 +248,14 @@ class Dashboard extends Component {
                     }}
                   >
                     {editing ? (
-                      <IconButton aria-label='Delete' color='secondary'>
-                        <DeleteIcon
-                          onClick={event =>
+                      <IconButton
+                        aria-label='Delete'
+                        onClick={event =>
                             this.onDeleteHandler(goals[data].id, event)
-                          }
-                        />
+                        }
+                        color='secondary'
+                      >
+                        <DeleteIcon />
                       </IconButton>
                     ) : null}
                     <ListItemText
@@ -298,6 +304,5 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps,
-  { fetchGoalsList, updateGaolsOrder, fetchSelectedGoal, deleteGoal }
+  mapSateToProps, { fetchGoalsList, updateGaolsOrder, fetchSelectedGoal, deleteGoal }
 )(withRouter(withStyles(styles)(Dashboard)));
