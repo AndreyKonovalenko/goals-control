@@ -154,6 +154,7 @@ class Dashboard extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log('didUpdate works!!!', this.props.goalsList.goals, prevProps.goalsList.goals);
     if (
       this.props.goalsList.goals !== prevProps.goalsList.goals &&
       this.props.goalsList.goals !== undefined
@@ -186,14 +187,16 @@ class Dashboard extends Component {
     event.preventDefault();
     this.props.deleteGoal(id);
     this.props.updateGaolsOrder(arrayExtractor(this.props.goalsList.goals, id));
-    // some delete action function
+    const l = this.props.goalsList.goals.length;
+    const listOrder = Array.from({ length: l }, (v, k) => k);
+    this.setState({ itemsCount: l, order: listOrder });
   };
 
   render() {
     const { classes, editing, loading, errors } = this.props;
     const { mouseY, isPressed, lastPressed, order, itemsCount } = this.state;
     const { goals } = this.props.goalsList;
-    console.log(order);
+    console.log(order, goals);
     const message = (
       <Typography align='center' component='h1' variant='h6'>
         you have not set goals yet
