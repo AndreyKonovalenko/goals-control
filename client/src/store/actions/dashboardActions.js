@@ -4,9 +4,11 @@ import {
   GET_ERRORS,
   UPDATE_GOALS_ORDER,
   DELETE_GOAL
-} from './types';
+}
+from './types';
 import { setLoading, endLoading } from '../actions/loadingActions';
 import axios from '../../axios-db';
+import arrayExtractor from '../../utils/arrayExtractor';
 
 export const editMode = mode => {
   return {
@@ -56,7 +58,7 @@ export const updateGaolsOrder = newArray => dispatch => {
     );
 };
 
-export const deleteGoal = id => dispatch => {
+export const deleteGoal = (arr, id) => dispatch => {
   dispatch(setLoading());
   axios
     .delete(`api/goal/${id}`)
@@ -64,6 +66,7 @@ export const deleteGoal = id => dispatch => {
       dispatch({
         type: DELETE_GOAL
       });
+      dispatch(updateGaolsOrder(arrayExtractor(arr, id)));
       dispatch(endLoading());
     })
     .catch(err => {

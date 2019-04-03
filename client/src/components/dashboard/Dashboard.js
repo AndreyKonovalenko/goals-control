@@ -16,7 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Spinner from '../spinner/Spinner';
 
-import arrayExtractor from '../../utils/arrayExtractor';
+//import arrayExtractor from '../../utils/arrayExtractor';
 
 import {
   fetchGoalsList,
@@ -160,6 +160,7 @@ class Dashboard extends Component {
       this.props.goalsList.goals !== undefined
     ) {
       const l = this.props.goalsList.goals.length;
+      console.log(l);
       const listOrder = Array.from({ length: l }, (v, k) => k);
       this.setState({ itemsCount: l, order: listOrder });
     }
@@ -183,13 +184,9 @@ class Dashboard extends Component {
     this.props.history.push('/goal');
   };
 
-  onDeleteHandler = (id, event) => {
+  onDeleteHandler = (arr, id, event) => {
     event.preventDefault();
-    this.props.deleteGoal(id);
-    this.props.updateGaolsOrder(arrayExtractor(this.props.goalsList.goals, id));
-    const l = this.props.goalsList.goals.length;
-    const listOrder = Array.from({ length: l }, (v, k) => k);
-    this.setState({ itemsCount: l, order: listOrder });
+    this.props.deleteGoal(arr, id);
   };
 
   render() {
@@ -254,7 +251,7 @@ class Dashboard extends Component {
                       <IconButton
                         aria-label='Delete'
                         onClick={event =>
-                            this.onDeleteHandler(goals[data].id, event)
+                            this.onDeleteHandler(goals, goals[data].id, event)
                         }
                         color='secondary'
                       >
@@ -285,7 +282,7 @@ class Dashboard extends Component {
       <React.Fragment>
         {loading ? progress : null}
         {errors.no_goals ? message : null}
-        {list}
+        {goals !== undefined? list: null}
       </React.Fragment>
     );
   }
