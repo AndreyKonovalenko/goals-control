@@ -187,6 +187,12 @@ class Dashboard extends Component {
   onDeleteHandler = (arr, id, event) => {
     event.preventDefault();
     this.props.deleteGoal(arr, id);
+    const l = this.props.goalsList.goals.length;
+    console.log(l);
+    const listOrder = Array.from({ length: l }, (v, k) => k);
+    console.log('listOreder', listOrder);
+    this.setState({ itemsCount: l, order: listOrder });
+    console.log('order', this.state.order);
   };
 
   render() {
