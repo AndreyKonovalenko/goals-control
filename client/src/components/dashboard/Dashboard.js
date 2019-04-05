@@ -154,26 +154,46 @@ class Dashboard extends Component {
   }
 
   componentDidUpdate(prevProps) {
+
     console.log('didUpdate works!!!', this.props.goalsList.goals, prevProps.goalsList.goals);
+
+    // test for undifinded
+
+    if (this.props.goalsList.goals !== prevProps.goalsList.goals &&
+      this.props.goalsList.goals === undefined) {
+      this.setState({ itemsCount: 0, order: [] })
+    }
+
+    // test for difference length between goals array and order arry
+    // reodrdering here!!!
+
     if (
       this.props.goalsList.goals !== prevProps.goalsList.goals &&
       this.props.goalsList.goals !== undefined
     ) {
+
+      // set up order array
       const l = this.props.goalsList.goals.length;
       console.log(l);
       const listOrder = Array.from({ length: l }, (v, k) => k);
       this.setState({ itemsCount: l, order: listOrder });
     }
 
+    // animation reordering
+
     if (this.props.editing === false && prevProps.editing === true) {
+
       console.log(this.state.order, this.props.editing);
+
       const reorderedArray = this.state.order.map(element => {
         element = this.props.goalsList.goals[element];
         console.log(element);
         return element;
       });
+
       this.props.updateGaolsOrder(reorderedArray);
       console.log(reorderedArray);
+
     }
   }
 
@@ -187,12 +207,6 @@ class Dashboard extends Component {
   onDeleteHandler = (arr, id, event) => {
     event.preventDefault();
     this.props.deleteGoal(arr, id);
-    const l = this.props.goalsList.goals.length;
-    console.log(l);
-    const listOrder = Array.from({ length: l }, (v, k) => k);
-    console.log('listOreder', listOrder);
-    this.setState({ itemsCount: l, order: listOrder });
-    console.log('order', this.state.order);
   };
 
   render() {
@@ -287,12 +301,13 @@ class Dashboard extends Component {
     return (
       <React.Fragment>
         {loading ? progress : null}
-        {errors.no_goals ? message : null}
         {goals !== undefined? list: null}
       </React.Fragment>
     );
   }
 }
+
+// {errors.no_goals ? message : null}
 
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
