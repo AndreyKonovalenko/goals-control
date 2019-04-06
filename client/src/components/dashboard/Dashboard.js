@@ -156,20 +156,21 @@ class Dashboard extends Component {
     console.log(
       'didUpdate works!!!',
       this.props.goalsList.goals,
-      prevProps.goalsList.goals
+      prevProps.goalsList.goals,
+      this.state.order
     );
-
+    // test check
     // Delete case
-    console.log('unequal orders', this.state.order, prevState.order);
     if (
-      this.state.order !== prevState.order &&
       this.props.goalsList.goals !== undefined &&
       this.props.goalsList.goals.length !== this.state.order.length
     ) {
+      console.log('unequal orders', this.state.order, prevState.order);
       const l = this.props.goalsList.goals.length;
       console.log(l);
       const listOrder = Array.from({ length: l }, (v, k) => k);
       this.setState({ itemsCount: l, order: listOrder });
+      console.log('ordrer', this.state.order);
     }
 
     // General case
@@ -198,6 +199,11 @@ class Dashboard extends Component {
         this.props.updateGaolsOrder(reorderedArray);
       }
     }
+    console.log(
+      'didUpdate2 works!!!',
+      this.props.goalsList.goals,
+      prevProps.goalsList.goals
+    );
   }
 
   onClickHandler = (id, event) => {
@@ -210,6 +216,7 @@ class Dashboard extends Component {
   onDeleteHandler = (arr, id, event) => {
     event.preventDefault();
     this.props.deleteGoal(arr, id);
+    console.log('delete goal');
   };
 
   render() {
