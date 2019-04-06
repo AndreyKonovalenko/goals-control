@@ -22,8 +22,7 @@ import {
   fetchGoalsList,
   updateGaolsOrder,
   deleteGoal
-}
-from '../../store/actions/dashboardActions';
+} from '../../store/actions/dashboardActions';
 
 import { fetchSelectedGoal } from '../../store/actions/currentGoalActions';
 
@@ -153,47 +152,51 @@ class Dashboard extends Component {
     console.log('did mount!!');
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
+    console.log(
+      'didUpdate works!!!',
+      this.props.goalsList.goals,
+      prevProps.goalsList.goals
+    );
 
-    console.log('didUpdate works!!!', this.props.goalsList.goals, prevProps.goalsList.goals);
-
-    // test for undifinded
-
-    if (this.props.goalsList.goals !== prevProps.goalsList.goals &&
-      this.props.goalsList.goals === undefined) {
-      this.setState({ itemsCount: 0, order: [] })
-    }
-
-    // test for difference length between goals array and order arry
-    // reodrdering here!!!
-
+    // Delete case
+    console.log('unequal orders', this.state.order, prevState.order);
     if (
-      this.props.goalsList.goals !== prevProps.goalsList.goals &&
-      this.props.goalsList.goals !== undefined
+      this.state.order !== prevState.order &&
+      this.props.goalsList.goals !== undefined &&
+      this.props.goalsList.goals.length !== this.state.order.length
     ) {
-
-      // set up order array
       const l = this.props.goalsList.goals.length;
       console.log(l);
       const listOrder = Array.from({ length: l }, (v, k) => k);
       this.setState({ itemsCount: l, order: listOrder });
     }
 
-    // animation reordering
+    // General case
 
-    if (this.props.editing === false && prevProps.editing === true) {
+    if (
+      this.props.goalsList.goals !== prevProps.goalsList.goals &&
+      this.props.goalsList.goals === undefined
+    ) {
+      this.setState({ itemsCount: 0, order: [] });
+    } else if (
+      this.props.goalsList.goals !== prevProps.goalsList.goals &&
+      this.props.goalsList.goals !== undefined
+    ) {
+      const l = this.props.goalsList.goals.length;
+      console.log(l);
+      const listOrder = Array.from({ length: l }, (v, k) => k);
+      this.setState({ itemsCount: l, order: listOrder });
 
-      console.log(this.state.order, this.props.editing);
-
-      const reorderedArray = this.state.order.map(element => {
-        element = this.props.goalsList.goals[element];
-        console.log(element);
-        return element;
-      });
-
-      this.props.updateGaolsOrder(reorderedArray);
-      console.log(reorderedArray);
-
+      // Editing case
+      if (this.props.editing === false && prevProps.editing === true) {
+        const reorderedArray = this.state.order.map(element => {
+          element = this.props.goalsList.goals[element];
+          console.log(element);
+          return element;
+        });
+        this.props.updateGaolsOrder(reorderedArray);
+      }
     }
   }
 
@@ -271,7 +274,7 @@ class Dashboard extends Component {
                       <IconButton
                         aria-label='Delete'
                         onClick={event =>
-                            this.onDeleteHandler(goals, goals[data].id, event)
+                          this.onDeleteHandler(goals, goals[data].id, event)
                         }
                         color='secondary'
                       >
@@ -301,7 +304,7 @@ class Dashboard extends Component {
     return (
       <React.Fragment>
         {loading ? progress : null}
-        {goals !== undefined? list: null}
+        {goals !== undefined ? list : null}
       </React.Fragment>
     );
   }
@@ -325,5 +328,6 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps, { fetchGoalsList, updateGaolsOrder, fetchSelectedGoal, deleteGoal }
+  mapSateToProps,
+  { fetchGoalsList, updateGaolsOrder, fetchSelectedGoal, deleteGoal }
 )(withRouter(withStyles(styles)(Dashboard)));
