@@ -153,6 +153,7 @@ class Dashboard extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    // need move order state to redux store!!!
     console.log(
       'didUpdate works!!!',
       this.props.goalsList.goals,
