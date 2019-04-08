@@ -3,7 +3,8 @@ import {
   GET_GOALS_LIST,
   GET_ERRORS,
   UPDATE_GOALS_ORDER,
-  DELETE_GOAL
+  DELETE_GOAL,
+  CREATE_ORDER
 }
 from './types';
 import { setLoading, endLoading } from '../actions/loadingActions';
@@ -41,6 +42,8 @@ export const fetchGoalsList = () => dispatch => {
     });
 };
 
+
+// this is update for profile array of goals
 export const updateGaolsOrder = newArray => dispatch => {
   axios
     .post('api/profile', newArray)
@@ -57,6 +60,19 @@ export const updateGaolsOrder = newArray => dispatch => {
       })
     );
 };
+
+// Update local element order;
+
+export const crerateOrder = arr => {
+  const l = arr.lenght;
+  const listOrder = Array.from({ length: l }, (v, k) => k);
+  return {
+    type: CREATE_ORDER,
+    payload: listOrder
+  };
+};
+
+
 
 export const deleteGoal = (arr, id) => dispatch => {
   dispatch(setLoading());
