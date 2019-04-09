@@ -3,9 +3,6 @@ import { EDIT_GOALS_LIST, GET_GOALS_LIST } from '../actions/types';
 const initialState = {
   editing: false,
   goalsList: {},
-  order: [],
-  itemsCount: 0
-
 };
 
 
