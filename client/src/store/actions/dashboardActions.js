@@ -2,14 +2,14 @@ import {
   EDIT_GOALS_LIST,
   GET_GOALS_LIST,
   GET_ERRORS,
-  UPDATE_GOALS_ORDER,
+  //UPDATE_GOALS_ORDER,
   DELETE_GOAL,
   CREATE_ORDER
 }
 from './types';
 import { setLoading, endLoading } from '../actions/loadingActions';
 import axios from '../../axios-db';
-import arrayExtractor from '../../utils/arrayExtractor';
+//import arrayExtractor from '../../utils/arrayExtractor';
 
 export const editMode = mode => {
   return {
