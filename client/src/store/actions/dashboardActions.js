@@ -28,7 +28,7 @@ export const fetchGoalsList = () => dispatch => {
         payload: res.data
       });
       console.log(res.data)
-      dispatch(createOrder(res.data.gaolsList.goals));
+      dispatch(createOrder(res.data.goalsList.goals));
       dispatch(endLoading());
     })
     .catch(err => {
@@ -36,6 +36,7 @@ export const fetchGoalsList = () => dispatch => {
         type: GET_GOALS_LIST,
         payload: {}
       });
+      console.log(err);
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
