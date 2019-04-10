@@ -27,6 +27,8 @@ export const fetchGoalsList = () => dispatch => {
         type: GET_GOALS_LIST,
         payload: res.data
       });
+      console.log(res.data)
+      dispatch(createOrder(res.data.gaolsList.goals));
       dispatch(endLoading());
     })
     .catch(err => {
@@ -42,33 +44,38 @@ export const fetchGoalsList = () => dispatch => {
     });
 };
 
-
-// this is update for profile array of goals
-export const updateGaolsOrder = newArray => dispatch => {
-  axios
-    .post('api/profile', newArray)
-    .then(res => {
-      dispatch({
-        type: UPDATE_GOALS_ORDER
-      });
-      dispatch(fetchGoalsList());
-    })
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
-};
+// // this is update for profile array of goals
+// export const updateGaolsOrder = newArray => dispatch => {
+//   axios
+//     .post('api/profile', newArray)
+//     .then(res => {
+//       dispatch({
+//         type: UPDATE_GOALS_ORDER
+//       });
+//       dispatch(fetchGoalsList());
+//     })
+//     .catch(err =>
+//       dispatch({
+//         type: GET_ERRORS,
+//         payload: err.response.data
+//       })
+//     );
+// };
 
 // Update local element order;
 
-export const crerateOrder = arr => {
+export const createOrder = arr => {
+  console.log(arr);
   const l = arr.lenght;
   const listOrder = Array.from({ length: l }, (v, k) => k);
+  const result = {
+    order: listOrder,
+    itemsCount: l
+  }
+  console.log(result);
   return {
     type: CREATE_ORDER,
-    payload: listOrder
+    payload: result
   };
 };
 
@@ -82,7 +89,7 @@ export const deleteGoal = (arr, id) => dispatch => {
       dispatch({
         type: DELETE_GOAL
       });
-      dispatch(updateGaolsOrder(arrayExtractor(arr, id)));
+      //   dispatch(updateGaolsOrder(arrayExtractor(arr, id)));
       dispatch(endLoading());
     })
     .catch(err => {

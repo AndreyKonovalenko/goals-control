@@ -1,8 +1,10 @@
-import { EDIT_GOALS_LIST, GET_GOALS_LIST } from '../actions/types';
+import { EDIT_GOALS_LIST, GET_GOALS_LIST, CREATE_ORDER } from '../actions/types';
 
 const initialState = {
   editing: false,
   goalsList: {},
+  order: [],
+  itemsCount: 0
 };
 
 
@@ -20,6 +22,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         goalsList: action.payload
       };
+    case CREATE_ORDER:
+      return {
+        ...state,
+        order: action.payload.order,
+        itemsCount: action.payload.itemsCount
+      }
     default:
       return state;
   }

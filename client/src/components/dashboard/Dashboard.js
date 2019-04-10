@@ -20,9 +20,11 @@ import Spinner from '../spinner/Spinner';
 
 import {
   fetchGoalsList,
-  updateGaolsOrder,
-  deleteGoal
-} from '../../store/actions/dashboardActions';
+  // updateGaolsOrder,
+  deleteGoal,
+  createOrder
+}
+from '../../store/actions/dashboardActions';
 
 import { fetchSelectedGoal } from '../../store/actions/currentGoalActions';
 
@@ -76,8 +78,8 @@ const styles = theme => ({
 
 class Dashboard extends Component {
   state = {
-    order: [], // calculated value
-    itemsCount: 0, // calculatd value
+    // order: [], // calculated value
+    // itemsCount: 0, // calculatd value
     topDeltaY: 0, // animation config
     mouseY: 0, // animation config
     isPressed: false, //animatin config
@@ -114,7 +116,8 @@ class Dashboard extends Component {
   };
 
   handleMouseMove = ({ pageY }) => {
-    const { isPressed, topDeltaY, order, lastPressed, itemsCount } = this.state;
+    const { isPressed, topDeltaY, lastPressed } = this.state;
+    const { order, itemsCount } = this.props;
 
     if (isPressed) {
       const mouseY = pageY - topDeltaY;
@@ -148,64 +151,69 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
+    //const { goals } = this.props.goalsList;
     this.props.fetchGoalsList();
+    // if (goals !== undefined) {
+    //   this.props.createOrder(goals);
+    // }
     console.log('did mount!!');
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // need move order state to redux store!!!
-    console.log(
-      'didUpdate works!!!',
-      this.props.goalsList.goals,
-      prevProps.goalsList.goals,
-      this.state.order
-    );
-    // test check
-    // Delete case
-    if (
-      this.props.goalsList.goals !== undefined &&
-      this.props.goalsList.goals.length !== this.state.order.length
-    ) {
-      console.log('unequal orders', this.state.order, prevState.order);
-      const l = this.props.goalsList.goals.length;
-      console.log(l);
-      const listOrder = Array.from({ length: l }, (v, k) => k);
-      this.setState({ itemsCount: l, order: listOrder });
-      console.log('ordrer', this.state.order);
-    }
+  // componentDidUpdate(prevProps, prevState) {
+  //   // need move order state to redux store!!!
+  //   console.log(
+  //     'didUpdate works!!!',
+  //     this.props.goalsList.goals,
+  //     prevProps.goalsList.goals,
+  //     this.state.order
+  //   );
+  //   // test check
+  //   // Delete case
+  //   if (
+  //     this.props.goalsList.goals !== undefined &&
+  //     this.props.goalsList.goals.length !== this.state.order.length
+  //   ) {
+  //     console.log('unequal orders', this.state.order, prevState.order);
+  //     const l = this.props.goalsList.goals.length;
+  //     console.log(l);
+  //     const listOrder = Array.from({ length: l }, (v, k) => k);
+  //     this.setState({ itemsCount: l, order: listOrder });
+  //     console.log('ordrer', this.state.order);
+  //   }
 
-    // General case
+  //   // General case
 
-    if (
-      this.props.goalsList.goals !== prevProps.goalsList.goals &&
-      this.props.goalsList.goals === undefined
-    ) {
-      this.setState({ itemsCount: 0, order: [] });
-    } else if (
-      this.props.goalsList.goals !== prevProps.goalsList.goals &&
-      this.props.goalsList.goals !== undefined
-    ) {
-      const l = this.props.goalsList.goals.length;
-      console.log(l);
-      const listOrder = Array.from({ length: l }, (v, k) => k);
-      this.setState({ itemsCount: l, order: listOrder });
+  //   if (
+  //     this.props.goalsList.goals !== prevProps.goalsList.goals &&
+  //     this.props.goalsList.goals === undefined
+  //   ) {
+  //     this.setState({ itemsCount: 0, order: [] });
+  //   }
+  //   else if (
+  //     this.props.goalsList.goals !== prevProps.goalsList.goals &&
+  //     this.props.goalsList.goals !== undefined
+  //   ) {
+  //     const l = this.props.goalsList.goals.length;
+  //     console.log(l);
+  //     const listOrder = Array.from({ length: l }, (v, k) => k);
+  //     this.setState({ itemsCount: l, order: listOrder });
 
-      // Editing case
-      if (this.props.editing === false && prevProps.editing === true) {
-        const reorderedArray = this.state.order.map(element => {
-          element = this.props.goalsList.goals[element];
-          console.log(element);
-          return element;
-        });
-        this.props.updateGaolsOrder(reorderedArray);
-      }
-    }
-    console.log(
-      'didUpdate2 works!!!',
-      this.props.goalsList.goals,
-      prevProps.goalsList.goals
-    );
-  }
+  //     // Editing case
+  //     if (this.props.editing === false && prevProps.editing === true) {
+  //       const reorderedArray = this.state.order.map(element => {
+  //         element = this.props.goalsList.goals[element];
+  //         console.log(element);
+  //         return element;
+  //       });
+  //       this.props.updateGaolsOrder(reorderedArray);
+  //     }
+  //   }
+  //   console.log(
+  //     'didUpdate2 works!!!',
+  //     this.props.goalsList.goals,
+  //     prevProps.goalsList.goals
+  //   );
+  // }
 
   onClickHandler = (id, event) => {
     event.preventDefault();
@@ -221,8 +229,8 @@ class Dashboard extends Component {
   };
 
   render() {
-    const { classes, editing, loading, errors } = this.props;
-    const { mouseY, isPressed, lastPressed, order, itemsCount } = this.state;
+    const { classes, editing, loading, errors, order, itemsCount } = this.props;
+    const { mouseY, isPressed, lastPressed, } = this.state;
     const { goals } = this.props.goalsList;
     console.log(order, goals);
     const message = (
@@ -325,17 +333,20 @@ Dashboard.propTypes = {
   editing: PropTypes.bool.isRequired,
   goalsList: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
-  updateGaolsOrder: PropTypes.func.isRequired
+  // updateGaolsOrder: PropTypes.func.isRequired,
+  order: PropTypes.array.isRequired,
+  itemsCount: PropTypes.number.isRequired
 };
 
 const mapSateToProps = state => ({
   errors: state.errors,
   editing: state.dashboard.editing,
   goalsList: state.dashboard.goalsList,
-  loading: state.loading.loading
+  loading: state.loading.loading,
+  order: state.dashboard.order,
+  itemsCount: state.dashboard.itemsCount
 });
 
 export default connect(
-  mapSateToProps,
-  { fetchGoalsList, updateGaolsOrder, fetchSelectedGoal, deleteGoal }
+  mapSateToProps, { fetchGoalsList, fetchSelectedGoal, deleteGoal, createOrder }
 )(withRouter(withStyles(styles)(Dashboard)));
