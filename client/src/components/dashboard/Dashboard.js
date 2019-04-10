@@ -23,8 +23,7 @@ import {
   // updateGaolsOrder,
   deleteGoal,
   createOrder
-}
-from '../../store/actions/dashboardActions';
+} from '../../store/actions/dashboardActions';
 
 import { fetchSelectedGoal } from '../../store/actions/currentGoalActions';
 
@@ -230,7 +229,7 @@ class Dashboard extends Component {
 
   render() {
     const { classes, editing, loading, errors, order, itemsCount } = this.props;
-    const { mouseY, isPressed, lastPressed, } = this.state;
+    const { mouseY, isPressed, lastPressed } = this.state;
     const { goals } = this.props.goalsList;
     console.log(order, goals);
     const message = (
@@ -348,5 +347,6 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps, { fetchGoalsList, fetchSelectedGoal, deleteGoal, createOrder }
+  mapSateToProps,
+  { fetchGoalsList, fetchSelectedGoal, deleteGoal, createOrder }
 )(withRouter(withStyles(styles)(Dashboard)));

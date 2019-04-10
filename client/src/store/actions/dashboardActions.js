@@ -5,8 +5,7 @@ import {
   //UPDATE_GOALS_ORDER,
   DELETE_GOAL,
   CREATE_ORDER
-}
-from './types';
+} from './types';
 import { setLoading, endLoading } from '../actions/loadingActions';
 import axios from '../../axios-db';
 //import arrayExtractor from '../../utils/arrayExtractor';
@@ -27,8 +26,8 @@ export const fetchGoalsList = () => dispatch => {
         type: GET_GOALS_LIST,
         payload: res.data
       });
-      console.log(res.data)
-      dispatch(createOrder(res.data.goalsList.goals));
+      console.log(res.data);
+      dispatch(createOrder(res.data.goals));
       dispatch(endLoading());
     })
     .catch(err => {
@@ -36,10 +35,10 @@ export const fetchGoalsList = () => dispatch => {
         type: GET_GOALS_LIST,
         payload: {}
       });
-      console.log(err);
+      console.log('error is ', err);
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err
       });
       dispatch(endLoading());
     });
@@ -67,20 +66,18 @@ export const fetchGoalsList = () => dispatch => {
 
 export const createOrder = arr => {
   console.log(arr);
-  const l = arr.lenght;
+  const l = arr.length;
   const listOrder = Array.from({ length: l }, (v, k) => k);
   const result = {
     order: listOrder,
     itemsCount: l
-  }
+  };
   console.log(result);
   return {
     type: CREATE_ORDER,
     payload: result
   };
 };
-
-
 
 export const deleteGoal = (arr, id) => dispatch => {
   dispatch(setLoading());
