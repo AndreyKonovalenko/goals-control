@@ -86,6 +86,8 @@ export const deleteGoal = (arr, id) => dispatch => {
 
 //Middleware actions not exported
 
+// CreateOrder is only fron-end action !!!
+// it work independent from back-end DB
 const createOrder = arr => {
   console.log(arr);
   const l = arr.length;
