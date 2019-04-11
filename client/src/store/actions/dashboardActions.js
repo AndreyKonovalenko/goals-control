@@ -2,13 +2,14 @@ import {
   EDIT_GOALS_LIST,
   GET_GOALS_LIST,
   GET_ERRORS,
-  //UPDATE_GOALS_ORDER,
+  UPDATE_GOALS_LIST,
   DELETE_GOAL,
   CREATE_ORDER
-} from './types';
+}
+from './types';
 import { setLoading, endLoading } from '../actions/loadingActions';
 import axios from '../../axios-db';
-//import arrayExtractor from '../../utils/arrayExtractor';
+import arrayExtractor from '../../utils/arrayExtractor';
 
 export const editMode = mode => {
   return {
@@ -45,26 +46,44 @@ export const fetchGoalsList = () => dispatch => {
 };
 
 // // this is update for profile array of goals
-// export const updateGaolsOrder = newArray => dispatch => {
-//   axios
-//     .post('api/profile', newArray)
-//     .then(res => {
-//       dispatch({
-//         type: UPDATE_GOALS_ORDER
-//       });
-//       dispatch(fetchGoalsList());
-//     })
-//     .catch(err =>
-//       dispatch({
-//         type: GET_ERRORS,
-//         payload: err.response.data
-//       })
-//     );
-// };
 
-// Update local element order;
+export const updateGaolsList = newArray => dispatch => {
+  axios
+    .post('api/profile', newArray)
+    .then(res => {
+      dispatch({
+        type: UPDATE_GOALS_LIST
+      });
+      dispatch(fetchGoalsList());
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
 
-export const createOrder = arr => {
+
+export const deleteGoal = (arr, id) => dispatch => {
+  dispatch(setLoading());
+  axios
+    .delete(`api/goal/${id}`)
+    .then(res => {
+      dispatch({
+        type: DELETE_GOAL
+      });
+      dispatch(updateGaolsList(arrayExtractor(arr, id)));
+      dispatch(endLoading());
+    })
+    .catch(err => {
+      dispatch(endLoading());
+    });
+};
+
+//Middleware actions not exported
+
+const createOrder = arr => {
   console.log(arr);
   const l = arr.length;
   const listOrder = Array.from({ length: l }, (v, k) => k);
@@ -77,20 +96,4 @@ export const createOrder = arr => {
     type: CREATE_ORDER,
     payload: result
   };
-};
-
-export const deleteGoal = (arr, id) => dispatch => {
-  dispatch(setLoading());
-  axios
-    .delete(`api/goal/${id}`)
-    .then(res => {
-      dispatch({
-        type: DELETE_GOAL
-      });
-      //   dispatch(updateGaolsOrder(arrayExtractor(arr, id)));
-      dispatch(endLoading());
-    })
-    .catch(err => {
-      dispatch(endLoading());
-    });
 };

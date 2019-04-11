@@ -20,10 +20,10 @@ import Spinner from '../spinner/Spinner';
 
 import {
   fetchGoalsList,
-  // updateGaolsOrder,
+  // updateGaolsList,
   deleteGoal,
-  createOrder
-} from '../../store/actions/dashboardActions';
+}
+from '../../store/actions/dashboardActions';
 
 import { fetchSelectedGoal } from '../../store/actions/currentGoalActions';
 
@@ -150,11 +150,8 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    //const { goals } = this.props.goalsList;
     this.props.fetchGoalsList();
-    // if (goals !== undefined) {
-    //   this.props.createOrder(goals);
-    // }
+
     console.log('did mount!!');
   }
 
@@ -347,6 +344,5 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps,
-  { fetchGoalsList, fetchSelectedGoal, deleteGoal, createOrder }
+  mapSateToProps, { fetchGoalsList, fetchSelectedGoal, deleteGoal }
 )(withRouter(withStyles(styles)(Dashboard)));
