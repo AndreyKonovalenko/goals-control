@@ -27,15 +27,15 @@ export const fetchGoalsList = () => dispatch => {
         type: GET_GOALS_LIST,
         payload: res.data
       });
-      console.log(res.data);
+      console.log('fetchGaols', res.data);
       dispatch(createOrder(res.data.goals));
       dispatch(endLoading());
     })
     .catch(err => {
-      dispatch({
-        type: GET_GOALS_LIST,
-        payload: {}
-      });
+      // dispatch({
+      //   type: GET_GOALS_LIST,
+      //   payload: {}
+      // });
       console.log('error is ', err);
       dispatch({
         type: GET_ERRORS,
@@ -54,6 +54,7 @@ export const updateGaolsList = newArray => dispatch => {
       dispatch({
         type: UPDATE_GOALS_LIST
       });
+      console.log('udatedGoalsList!!', newArray);
       dispatch(fetchGoalsList());
     })
     .catch(err =>
@@ -73,7 +74,9 @@ export const deleteGoal = (arr, id) => dispatch => {
       dispatch({
         type: DELETE_GOAL
       });
-      dispatch(updateGaolsList(arrayExtractor(arr, id)));
+      const slisedArr = arrayExtractor(arr, id);
+      dispatch(updateGaolsList(slisedArr));
+      dispatch(createOrder(slisedArr));
       dispatch(endLoading());
     })
     .catch(err => {
@@ -91,7 +94,7 @@ const createOrder = arr => {
     order: listOrder,
     itemsCount: l
   };
-  console.log(result);
+  console.log('creatingOrder', result);
   return {
     type: CREATE_ORDER,
     payload: result
