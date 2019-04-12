@@ -4,7 +4,8 @@ import {
   GET_ERRORS,
   UPDATE_GOALS_LIST,
   DELETE_GOAL,
-  CREATE_ORDER
+  CREATE_ORDER,
+  REORDER
 }
 from './types';
 import { setLoading, endLoading } from '../actions/loadingActions';
@@ -88,7 +89,7 @@ export const deleteGoal = (arr, id) => dispatch => {
 
 // CreateOrder is only fron-end action !!!
 // it work independent from back-end DB
-const createOrder = arr => {
+export const createOrder = arr => {
   console.log(arr);
   const l = arr.length;
   const listOrder = Array.from({ length: l }, (v, k) => k);
@@ -102,3 +103,10 @@ const createOrder = arr => {
     payload: result
   };
 };
+
+export const reorder = arr => {
+  return {
+    type: REORDER,
+    payload: arr
+  }
+}

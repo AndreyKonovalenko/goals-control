@@ -20,8 +20,9 @@ import Spinner from '../spinner/Spinner';
 
 import {
   fetchGoalsList,
-  // updateGaolsList,
+  updateGaolsList,
   deleteGoal,
+  reorder
 }
 from '../../store/actions/dashboardActions';
 
@@ -129,9 +130,10 @@ class Dashboard extends Component {
 
       if (currentRow !== order.indexOf(lastPressed)) {
         newOrder = updateOrder(order, order.indexOf(lastPressed), currentRow);
-      }
 
-      this.setState({ mouseY, order: newOrder });
+      }
+      this.props.reorder(newOrder);
+      this.setState({ mouseY });
     }
   };
 
@@ -155,61 +157,18 @@ class Dashboard extends Component {
     console.log('did mount!!');
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   // need move order state to redux store!!!
-  //   console.log(
-  //     'didUpdate works!!!',
-  //     this.props.goalsList.goals,
-  //     prevProps.goalsList.goals,
-  //     this.state.order
-  //   );
-  //   // test check
-  //   // Delete case
-  //   if (
-  //     this.props.goalsList.goals !== undefined &&
-  //     this.props.goalsList.goals.length !== this.state.order.length
-  //   ) {
-  //     console.log('unequal orders', this.state.order, prevState.order);
-  //     const l = this.props.goalsList.goals.length;
-  //     console.log(l);
-  //     const listOrder = Array.from({ length: l }, (v, k) => k);
-  //     this.setState({ itemsCount: l, order: listOrder });
-  //     console.log('ordrer', this.state.order);
-  //   }
+  componentDidUpdate(prevProps) {
+    // Editing case
+    if (this.props.editing === false && prevProps.editing === true) {
+      const reorderedArray = this.props.order.map(element => {
+        element = this.props.goalsList.goals[element];
+        console.log(element);
+        return element;
+      });
+      this.props.updateGaolsList(reorderedArray);
+    }
+  }
 
-  //   // General case
-
-  //   if (
-  //     this.props.goalsList.goals !== prevProps.goalsList.goals &&
-  //     this.props.goalsList.goals === undefined
-  //   ) {
-  //     this.setState({ itemsCount: 0, order: [] });
-  //   }
-  //   else if (
-  //     this.props.goalsList.goals !== prevProps.goalsList.goals &&
-  //     this.props.goalsList.goals !== undefined
-  //   ) {
-  //     const l = this.props.goalsList.goals.length;
-  //     console.log(l);
-  //     const listOrder = Array.from({ length: l }, (v, k) => k);
-  //     this.setState({ itemsCount: l, order: listOrder });
-
-  //     // Editing case
-  //     if (this.props.editing === false && prevProps.editing === true) {
-  //       const reorderedArray = this.state.order.map(element => {
-  //         element = this.props.goalsList.goals[element];
-  //         console.log(element);
-  //         return element;
-  //       });
-  //       this.props.updateGaolsOrder(reorderedArray);
-  //     }
-  //   }
-  //   console.log(
-  //     'didUpdate2 works!!!',
-  //     this.props.goalsList.goals,
-  //     prevProps.goalsList.goals
-  //   );
-  // }
 
   onClickHandler = (id, event) => {
     event.preventDefault();
@@ -344,5 +303,5 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps, { fetchGoalsList, fetchSelectedGoal, deleteGoal }
+  mapSateToProps, { fetchGoalsList, fetchSelectedGoal, deleteGoal, updateGaolsList, reorder }
 )(withRouter(withStyles(styles)(Dashboard)));
