@@ -23,8 +23,7 @@ import {
   updateGaolsList,
   deleteGoal,
   reorder
-}
-from '../../store/actions/dashboardActions';
+} from '../../store/actions/dashboardActions';
 
 import { fetchSelectedGoal } from '../../store/actions/currentGoalActions';
 
@@ -130,7 +129,6 @@ class Dashboard extends Component {
 
       if (currentRow !== order.indexOf(lastPressed)) {
         newOrder = updateOrder(order, order.indexOf(lastPressed), currentRow);
-
       }
       this.props.reorder(newOrder);
       this.setState({ mouseY });
@@ -168,7 +166,6 @@ class Dashboard extends Component {
       this.props.updateGaolsList(reorderedArray);
     }
   }
-
 
   onClickHandler = (id, event) => {
     event.preventDefault();
@@ -275,13 +272,12 @@ class Dashboard extends Component {
     return (
       <React.Fragment>
         {loading ? progress : null}
-        {goals !== undefined ? list : null}
+        {errors.no_goals ? message : null}
+        {!errors.no_goals ? list : null}
       </React.Fragment>
     );
   }
 }
-
-// {errors.no_goals ? message : null}
 
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -303,5 +299,6 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps, { fetchGoalsList, fetchSelectedGoal, deleteGoal, updateGaolsList, reorder }
+  mapSateToProps,
+  { fetchGoalsList, fetchSelectedGoal, deleteGoal, updateGaolsList, reorder }
 )(withRouter(withStyles(styles)(Dashboard)));
