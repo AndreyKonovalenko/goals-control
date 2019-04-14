@@ -16,6 +16,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Spinner from '../spinner/Spinner';
 
+import { isEmpty } from '../../utils/is-empty';
+
 //import arrayExtractor from '../../utils/arrayExtractor';
 
 import {
@@ -268,12 +270,10 @@ class Dashboard extends Component {
         </NodeGroup>
       </div>
     );
-
     return (
       <React.Fragment>
         {loading ? progress : null}
-        {errors.no_goals ? message : null}
-        {!errors.no_goals ? list : null}
+        {errors.no_goals || isEmpty(goals) ? message : list}
       </React.Fragment>
     );
   }

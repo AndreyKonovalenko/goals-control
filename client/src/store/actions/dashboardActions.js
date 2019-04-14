@@ -6,8 +6,7 @@ import {
   DELETE_GOAL,
   CREATE_ORDER,
   REORDER
-}
-from './types';
+} from './types';
 import { setLoading, endLoading } from '../actions/loadingActions';
 import axios from '../../axios-db';
 import arrayExtractor from '../../utils/arrayExtractor';
@@ -33,14 +32,10 @@ export const fetchGoalsList = () => dispatch => {
       dispatch(endLoading());
     })
     .catch(err => {
-      // dispatch({
-      //   type: GET_GOALS_LIST,
-      //   payload: {}
-      // });
       console.log('error is ', err);
       dispatch({
         type: GET_ERRORS,
-        payload: err
+        payload: err.response.data
       });
       dispatch(endLoading());
     });
@@ -65,7 +60,6 @@ export const updateGaolsList = newArray => dispatch => {
       })
     );
 };
-
 
 export const deleteGoal = (arr, id) => dispatch => {
   dispatch(setLoading());
@@ -108,5 +102,5 @@ export const reorder = arr => {
   return {
     type: REORDER,
     payload: arr
-  }
-}
+  };
+};
