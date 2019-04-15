@@ -28,12 +28,10 @@ export const fetchGoalsList = () => dispatch => {
         type: GET_GOALS_LIST,
         payload: res.data
       });
-      console.log('fetchGaols', res.data);
       dispatch(createOrder(res.data.goals));
       dispatch(endLoading());
     })
     .catch(err => {
-      console.log('error is ', err);
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
@@ -51,7 +49,6 @@ export const updateGaolsList = newArray => dispatch => {
       dispatch({
         type: UPDATE_GOALS_LIST
       });
-      console.log('udatedGoalsList!!', newArray);
       dispatch(fetchGoalsList());
     })
     .catch(err =>
@@ -77,14 +74,13 @@ export const deleteGoal = (arr, id) => dispatch => {
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
+      });
     });
 };
 
-//Middleware actions not exported
-
 // CreateOrder is only fron-end action !!!
 // it work independent from back-end DB
+
 export const createOrder = arr => {
   console.log(arr);
   const l = arr.length;

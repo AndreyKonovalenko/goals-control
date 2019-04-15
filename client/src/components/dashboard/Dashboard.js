@@ -18,14 +18,13 @@ import Spinner from '../spinner/Spinner';
 
 import { isEmpty } from '../../utils/is-empty';
 
-//import arrayExtractor from '../../utils/arrayExtractor';
-
 import {
   fetchGoalsList,
   updateGaolsList,
   deleteGoal,
   reorder
-} from '../../store/actions/dashboardActions';
+}
+from '../../store/actions/dashboardActions';
 
 import { fetchSelectedGoal } from '../../store/actions/currentGoalActions';
 
@@ -162,7 +161,6 @@ class Dashboard extends Component {
     if (this.props.editing === false && prevProps.editing === true) {
       const reorderedArray = this.props.order.map(element => {
         element = this.props.goalsList.goals[element];
-        console.log(element);
         return element;
       });
       this.props.updateGaolsList(reorderedArray);
@@ -171,7 +169,6 @@ class Dashboard extends Component {
 
   onClickHandler = (id, event) => {
     event.preventDefault();
-    console.log('Clicked!!', id);
     this.props.fetchSelectedGoal(id);
     this.props.history.push('/goal');
   };
@@ -179,14 +176,12 @@ class Dashboard extends Component {
   onDeleteHandler = (arr, id, event) => {
     event.preventDefault();
     this.props.deleteGoal(arr, id);
-    console.log('delete goal');
   };
 
   render() {
     const { classes, editing, loading, errors, order, itemsCount } = this.props;
     const { mouseY, isPressed, lastPressed } = this.state;
     const { goals } = this.props.goalsList;
-    console.log(order, goals);
     const message = (
       <Typography align='center' component='h1' variant='h6'>
         you have not set goals yet
@@ -299,6 +294,5 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps,
-  { fetchGoalsList, fetchSelectedGoal, deleteGoal, updateGaolsList, reorder }
+  mapSateToProps, { fetchGoalsList, fetchSelectedGoal, deleteGoal, updateGaolsList, reorder }
 )(withRouter(withStyles(styles)(Dashboard)));
