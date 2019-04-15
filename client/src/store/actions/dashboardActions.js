@@ -6,7 +6,8 @@ import {
   DELETE_GOAL,
   CREATE_ORDER,
   REORDER
-} from './types';
+}
+from './types';
 import { setLoading, endLoading } from '../actions/loadingActions';
 import axios from '../../axios-db';
 import arrayExtractor from '../../utils/arrayExtractor';
@@ -62,7 +63,6 @@ export const updateGaolsList = newArray => dispatch => {
 };
 
 export const deleteGoal = (arr, id) => dispatch => {
-  dispatch(setLoading());
   axios
     .delete(`api/goal/${id}`)
     .then(res => {
@@ -72,10 +72,12 @@ export const deleteGoal = (arr, id) => dispatch => {
       const slisedArr = arrayExtractor(arr, id);
       dispatch(updateGaolsList(slisedArr));
       dispatch(createOrder(slisedArr));
-      dispatch(endLoading());
     })
     .catch(err => {
-      dispatch(endLoading());
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
     });
 };
 
