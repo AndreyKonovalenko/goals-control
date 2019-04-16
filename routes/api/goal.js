@@ -53,7 +53,6 @@ router.post(
       limitation: req.body.limitation,
       days: days
     });
-    console.log(newGoal);
     newGoal.save().then(goal => {
       // Profile update with new goal id and title;
       Profile.findOne({ user: req.user.id }).then(profile => {
@@ -77,7 +76,6 @@ router.get(
   '/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    console.log(req.params.id);
     Goal.findById(req.params.id)
       .then(goal => {
         res.json(goal);
