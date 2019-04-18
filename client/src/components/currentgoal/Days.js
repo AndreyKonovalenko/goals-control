@@ -7,6 +7,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import classNames from 'classnames';
 
+import { connect } from 'react-redux';
+
 const styles = theme => ({
   root: {
     display: 'grid',
@@ -32,6 +34,8 @@ const styles = theme => ({
 
 class Days extends Component {
   render() {
+    console.log(this.props.currentGoal.days);
+
     const { currentMonth, classes } = this.props;
     const monthStart = dateFns.startOfMonth(currentMonth);
     const monthEnd = dateFns.endOfMonth(monthStart);
@@ -71,4 +75,9 @@ class Days extends Component {
   }
 }
 
-export default withStyles(styles)(Days);
+const mapSateToProps = state => ({
+  currentGoal: state.currentGoal.currentGoal
+});
+
+
+export default connect(mapSateToProps)(withStyles(styles)(Days));
