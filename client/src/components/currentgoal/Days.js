@@ -8,6 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import classNames from 'classnames';
 
 import { connect } from 'react-redux';
+import { isDayInDayArray } from '../../utils/isDayInDayArray';
 
 const styles = theme => ({
   root: {
@@ -46,6 +47,7 @@ class Days extends Component {
 
     const days = daysArr.map(element => {
       const currentDay = dateFns.addDays(startDate, element);
+      isDayInDayArray(currentDay, this.props.currentGoal.days);
       return (
         <ListItem
           key={element}
