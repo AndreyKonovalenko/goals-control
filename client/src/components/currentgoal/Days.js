@@ -47,6 +47,7 @@ class Days extends Component {
 
     const days = daysArr.map(element => {
       const currentDay = dateFns.addDays(startDate, element);
+      // need to add onClick Handler here
       isDayInDayArray(currentDay, this.props.currentGoal.days);
       return (
         <ListItem
