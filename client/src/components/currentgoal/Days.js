@@ -8,7 +8,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import classNames from 'classnames';
 
 import { connect } from 'react-redux';
-import { isDayInDayArray } from '../../utils/isDayInDayArray';
 
 const styles = theme => ({
   root: {
@@ -34,9 +33,12 @@ const styles = theme => ({
 });
 
 class Days extends Component {
-  render() {
-    console.log(this.props.currentGoal.days);
+  onClickHandler = event => {
+    event.preventDefault();
+    console.log('click');
+  };
 
+  render() {
     const { currentMonth, classes } = this.props;
     const monthStart = dateFns.startOfMonth(currentMonth);
     const monthEnd = dateFns.endOfMonth(monthStart);
@@ -45,13 +47,21 @@ class Days extends Component {
     const daysRange = dateFns.differenceInDays(endDate, startDate) + 1;
     const daysArr = Array.from({ length: daysRange }, (v, k) => k);
 
+    const dateArray = this.props.currentGoal.days.map(element =>
+      dateFns.format(element.date, 'DD.MM.YYYY')
+    );
+    console.log(dateArray);
+
     const days = daysArr.map(element => {
       const currentDay = dateFns.addDays(startDate, element);
-      // need to add onClick Handler here
-      isDayInDayArray(currentDay, this.props.currentGoal.days);
+      const inGoal = dateArray.includes(
+        dateFns.format(currentDay, 'DD.MM.YYYY')
+      );
+
       return (
         <ListItem
           key={element}
+          onClick={inGoal ? event => this.onClickHandler(event) : null}
           className={
             currentDay < monthStart || currentDay > monthEnd
               ? classNames(classes.item, classes.outOfMonth)
@@ -81,6 +91,5 @@ class Days extends Component {
 const mapSateToProps = state => ({
   currentGoal: state.currentGoal.currentGoal
 });
-
 
 export default connect(mapSateToProps)(withStyles(styles)(Days));
