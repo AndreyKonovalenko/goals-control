@@ -33,9 +33,9 @@ const styles = theme => ({
 });
 
 class Days extends Component {
-  onClickHandler = event => {
+  onClickHandler = (element, event) => {
     event.preventDefault();
-    console.log('click');
+    console.log(element);
   };
 
   render() {
@@ -61,7 +61,9 @@ class Days extends Component {
       return (
         <ListItem
           key={element}
-          onClick={inGoal ? event => this.onClickHandler(event) : null}
+          onClick={
+            inGoal ? event => this.onClickHandler(currentDay, event) : null
+          }
           className={
             currentDay < monthStart || currentDay > monthEnd
               ? classNames(classes.item, classes.outOfMonth)
