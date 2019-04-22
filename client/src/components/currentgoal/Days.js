@@ -38,6 +38,8 @@ class Days extends Component {
     console.log(element);
   };
 
+  // Need to add function that will check store state
+
   render() {
     const { currentMonth, classes } = this.props;
     const monthStart = dateFns.startOfMonth(currentMonth);
