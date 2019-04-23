@@ -29,6 +29,12 @@ const styles = theme => ({
   },
   text: {
     padding: 0
+  },
+  success: {
+    backgroundColor: 'green'
+  },
+  failed: {
+    backgroundColor: 'red'
   }
 });
 
@@ -60,11 +66,23 @@ class Days extends Component {
       const dayVariable = dateFns.format(currentDay, 'DD.MM.YYYY');
       const inGoal = dateArray.includes(dayVariable);
 
+
+      let styleConfig = classes.item;
+
+      if (currentDay < monthStart || currentDay > monthEnd) {
+        styleConfig = classNames(classes.item, classes.outOfMonth);
+      }
+
       if (inGoal) {
         elementIndex = dateArray.indexOf(dayVariable);
-        console.log(currentGoal.days[elementIndex].touched, currentGoal.days[elementIndex].success);
+        // fro testing logic only
+        if (currentGoal.days[elementIndex].touched && !currentGoal.days[elementIndex].success) {
+          styleConfig = classNames(classes.item, classes.failed);
+        }
+        if (currentGoal.days[elementIndex].touched && currentGoal.days[elementIndex].success) {
+          styleConfig = classNames(classes.item, classes.success);
+        }
       }
-      console.log(elementIndex);
 
       return (
         <ListItem
@@ -72,11 +90,7 @@ class Days extends Component {
           onClick={
             inGoal ? event => this.onClickHandler(currentDay, event) : null
           }
-          className={
-            currentDay < monthStart || currentDay > monthEnd
-              ? classNames(classes.item, classes.outOfMonth)
-              : classes.item
-          }
+          className={styleConfig}
           disableGutters={true}
         >
           <ListItemText
