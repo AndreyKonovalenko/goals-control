@@ -41,7 +41,7 @@ class Days extends Component {
   // Need to add function that will check store state
 
   render() {
-    const { currentMonth, classes } = this.props;
+    const { currentMonth, classes, currentGoal } = this.props;
     const monthStart = dateFns.startOfMonth(currentMonth);
     const monthEnd = dateFns.endOfMonth(monthStart);
     const startDate = dateFns.startOfWeek(monthStart, { weekStartsOn: 1 });
@@ -55,10 +55,16 @@ class Days extends Component {
     console.log(dateArray);
 
     const days = daysArr.map(element => {
+      let elementIndex = null;
       const currentDay = dateFns.addDays(startDate, element);
-      const inGoal = dateArray.includes(
-        dateFns.format(currentDay, 'DD.MM.YYYY')
-      );
+      const dayVariable = dateFns.format(currentDay, 'DD.MM.YYYY');
+      const inGoal = dateArray.includes(dayVariable);
+
+      if (inGoal) {
+        elementIndex = dateArray.indexOf(dayVariable);
+        console.log(currentGoal.days[elementIndex].touched, currentGoal.days[elementIndex].success);
+      }
+      console.log(elementIndex);
 
       return (
         <ListItem
