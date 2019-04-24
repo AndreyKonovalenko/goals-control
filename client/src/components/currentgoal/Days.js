@@ -20,7 +20,7 @@ const styles = theme => ({
     paddingBottom: '0.5em'
   },
   item: {
-    border: '1px solid #eaeaea;',
+    border: '1px solid #eaeaea',
     textAlign: 'center',
     borderRadius: '0.5em'
   },
@@ -35,6 +35,10 @@ const styles = theme => ({
   },
   failed: {
     backgroundColor: 'red'
+  },
+  clickable: {
+    borderWidth: '3px',
+    cursor: 'pointer'
   }
 });
 
@@ -76,11 +80,16 @@ class Days extends Component {
       if (inGoal) {
         elementIndex = dateArray.indexOf(dayVariable);
         // fro testing logic only
+
+        if (!currentGoal.days[elementIndex].touched) {
+          styleConfig = classNames(classes.item, classes.clickable);
+        }
+
         if (currentGoal.days[elementIndex].touched && !currentGoal.days[elementIndex].success) {
-          styleConfig = classNames(classes.item, classes.failed);
+          styleConfig = classNames(classes.item, classes.failed, classes.clickable);
         }
         if (currentGoal.days[elementIndex].touched && currentGoal.days[elementIndex].success) {
-          styleConfig = classNames(classes.item, classes.success);
+          styleConfig = classNames(classes.item, classes.success, classes.clickable);
         }
       }
 
