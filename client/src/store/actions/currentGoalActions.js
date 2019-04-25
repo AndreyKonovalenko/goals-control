@@ -1,13 +1,9 @@
-import {
-  FETCH_SELECTED_GOAL,
-}
-from './types';
+import { FETCH_SELECTED_GOAL } from './types';
 
 import { setLoading, endLoading } from '../actions/loadingActions';
 import axios from '../../axios-db';
 
-
-export const fetchSelectedGoal = (id) => dispatch => {
+export const fetchSelectedGoal = id => dispatch => {
   dispatch(setLoading());
   axios
     .get(`api/goal/${id}`)
@@ -26,3 +22,9 @@ export const fetchSelectedGoal = (id) => dispatch => {
       dispatch(endLoading());
     });
 };
+
+// export const checkUpGoalDay = (index) => {
+//   return {
+//     type:
+//   }
+// }

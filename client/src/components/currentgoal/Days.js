@@ -70,7 +70,6 @@ class Days extends Component {
       const dayVariable = dateFns.format(currentDay, 'DD.MM.YYYY');
       const inGoal = dateArray.includes(dayVariable);
 
-
       let styleConfig = classes.item;
 
       if (currentDay < monthStart || currentDay > monthEnd) {
@@ -85,11 +84,25 @@ class Days extends Component {
           styleConfig = classNames(classes.item, classes.clickable);
         }
 
-        if (currentGoal.days[elementIndex].touched && !currentGoal.days[elementIndex].success) {
-          styleConfig = classNames(classes.item, classes.failed, classes.clickable);
+        if (
+          currentGoal.days[elementIndex].touched &&
+          !currentGoal.days[elementIndex].success
+        ) {
+          styleConfig = classNames(
+            classes.item,
+            classes.failed,
+            classes.clickable
+          );
         }
-        if (currentGoal.days[elementIndex].touched && currentGoal.days[elementIndex].success) {
-          styleConfig = classNames(classes.item, classes.success, classes.clickable);
+        if (
+          currentGoal.days[elementIndex].touched &&
+          currentGoal.days[elementIndex].success
+        ) {
+          styleConfig = classNames(
+            classes.item,
+            classes.success,
+            classes.clickable
+          );
         }
       }
 
