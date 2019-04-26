@@ -1,4 +1,4 @@
-import { FETCH_SELECTED_GOAL } from './types';
+import { FETCH_SELECTED_GOAL, CHECK_UP_GOAL_DAY } from './types';
 
 import { setLoading, endLoading } from '../actions/loadingActions';
 import axios from '../../axios-db';
@@ -23,8 +23,22 @@ export const fetchSelectedGoal = id => dispatch => {
     });
 };
 
-// export const checkUpGoalDay = (index) => {
-//   return {
-//     type:
-//   }
-// }
+export const checkUpGoalDay = (incomeIndex, arr) => {
+  arr = arr.map((element, index) => {
+    if (index === incomeIndex) {
+      return {
+        ...element,
+        success: !element.success,
+        touched: !element.touched ? true : true
+      }
+    }
+    else {
+      return element;
+    }
+  });
+  console.log(arr);
+  return {
+    type: CHECK_UP_GOAL_DAY,
+    payload: arr
+  }
+}

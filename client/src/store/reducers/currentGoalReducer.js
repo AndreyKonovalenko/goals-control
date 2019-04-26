@@ -1,5 +1,6 @@
 import {
-  FETCH_SELECTED_GOAL
+  FETCH_SELECTED_GOAL,
+  CHECK_UP_GOAL_DAY
 }
 from '../actions/types';
 
@@ -13,11 +14,18 @@ const reducer = (state = inititalState, action) => {
       return {
         ...state,
         currentGoal: action.payload
-      }
+      };
+    case CHECK_UP_GOAL_DAY:
+      return {
+        ...state,
+        currentGoal: {
+          ...state.currentGoal,
+          days: action.payload
+        }
+      };
     default:
       return state;
   }
-
-}
+};
 
 export default reducer;
