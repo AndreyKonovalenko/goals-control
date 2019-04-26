@@ -9,6 +9,8 @@ import classNames from 'classnames';
 
 import { connect } from 'react-redux';
 
+import { checkUpGoalDay } from '../../store/actions/currentGoalActions';
+
 const styles = theme => ({
   root: {
     display: 'grid',
@@ -43,9 +45,18 @@ const styles = theme => ({
 });
 
 class Days extends Component {
-  onClickHandler = (element, event) => {
+
+  onClickHandler = (date, event) => {
     event.preventDefault();
-    console.log(element);
+    console.log("income date", date);
+    // Need to update income date to find index of arry!!!!
+    this.props.currentGoal.days.find((element, index) => {
+      if (element.date === date) {
+        console.log(index);
+        this.props.checkUpGoalDay(index, this.props.currentGoal.days);
+      }
+    });
+    console.log(date);
   };
 
   // Need to add function that will check store state
@@ -138,4 +149,4 @@ const mapSateToProps = state => ({
   currentGoal: state.currentGoal.currentGoal
 });
 
-export default connect(mapSateToProps)(withStyles(styles)(Days));
+export default connect(mapSateToProps, { checkUpGoalDay })(withStyles(styles)(Days));
