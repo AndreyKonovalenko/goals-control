@@ -45,17 +45,22 @@ const styles = theme => ({
 });
 
 class Days extends Component {
-
   onClickHandler = (date, event) => {
     event.preventDefault();
-    console.log("income date", date);
+    date = dateFns.format(date, 'DD.MM.YYYY');
+    console.log('income date', date);
     // Need to update income date to find index of arry!!!!
-    this.props.currentGoal.days.find((element, index) => {
+    const dayIndex = this.props.currentGoal.days.find((element, index) => {
       if (element.date === date) {
         console.log(index);
-        this.props.checkUpGoalDay(index, this.props.currentGoal.days);
+        return index;
+      } else {
+        return null;
       }
     });
+    if (dayIndex !== null) {
+      this.props.checkUpGoalDay(dayIndex, this.props.currentGoal.days);
+    }
     console.log(date);
   };
 
@@ -70,17 +75,15 @@ class Days extends Component {
     const daysRange = dateFns.differenceInDays(endDate, startDate) + 1;
     const daysArr = Array.from({ length: daysRange }, (v, k) => k);
 
-    const dateArray = this.props.currentGoal.days.map(element =>
-      dateFns.format(element.date, 'DD.MM.YYYY')
-    );
+    const dateArray = this.props.currentGoal.days.map(element => element.date);
     console.log(dateArray);
 
     const days = daysArr.map(element => {
       let elementIndex = null;
       const currentDay = dateFns.addDays(startDate, element);
-      const dayVariable = dateFns.format(currentDay, 'DD.MM.YYYY');
-      const inGoal = dateArray.includes(dayVariable);
-
+      const dayVar = dateFns.format(currentDay, 'DD.MM.YYYY');
+      const inGoal = dateArray.includes(dayVar);
+      console.log(dayVar);
       let styleConfig = classes.item;
 
       if (currentDay < monthStart || currentDay > monthEnd) {
@@ -88,7 +91,7 @@ class Days extends Component {
       }
 
       if (inGoal) {
-        elementIndex = dateArray.indexOf(dayVariable);
+        elementIndex = dateArray.indexOf(dayVar);
         // fro testing logic only
 
         if (!currentGoal.days[elementIndex].touched) {
@@ -149,4 +152,7 @@ const mapSateToProps = state => ({
   currentGoal: state.currentGoal.currentGoal
 });
 
-export default connect(mapSateToProps, { checkUpGoalDay })(withStyles(styles)(Days));
+export default connect(
+  mapSateToProps,
+  { checkUpGoalDay }
+)(withStyles(styles)(Days));

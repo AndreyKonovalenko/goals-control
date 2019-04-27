@@ -7,6 +7,7 @@ const daysArrayBuilder = (from, limitation) => {
   let n = 0;
   while (n < limitation) {
     let currentDay = dateFns.addDays(start, n);
+    currentDay = dateFns.format(currentDay, 'DD.MM.YYYY');
     days.push({
       date: currentDay,
       touched: false,
@@ -16,6 +17,5 @@ const daysArrayBuilder = (from, limitation) => {
   }
   return days;
 };
-
 
 module.exports = daysArrayBuilder;
