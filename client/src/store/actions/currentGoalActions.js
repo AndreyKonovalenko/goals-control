@@ -25,14 +25,14 @@ export const fetchSelectedGoal = id => dispatch => {
 
 export const checkUpGoalDay = (incomeIndex, arr) => {
   arr = arr.map((element, index) => {
+    console.log(incomeIndex);
     if (index === incomeIndex) {
       return {
         ...element,
         success: !element.success,
         touched: !element.touched ? true : true
-      }
-    }
-    else {
+      };
+    } else {
       return element;
     }
   });
@@ -40,5 +40,5 @@ export const checkUpGoalDay = (incomeIndex, arr) => {
   return {
     type: CHECK_UP_GOAL_DAY,
     payload: arr
-  }
-}
+  };
+};

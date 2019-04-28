@@ -49,22 +49,13 @@ class Days extends Component {
     event.preventDefault();
     date = dateFns.format(date, 'DD.MM.YYYY');
     console.log('income date', date);
-    // Need to update income date to find index of arry!!!!
-    const dayIndex = this.props.currentGoal.days.find((element, index) => {
+    this.props.currentGoal.days.find((element, index) => {
       if (element.date === date) {
         console.log(index);
-        return index;
-      } else {
-        return null;
+        this.props.checkUpGoalDay(index, this.props.currentGoal.days);
       }
     });
-    if (dayIndex !== null) {
-      this.props.checkUpGoalDay(dayIndex, this.props.currentGoal.days);
-    }
-    console.log(date);
   };
-
-  // Need to add function that will check store state
 
   render() {
     const { currentMonth, classes, currentGoal } = this.props;
@@ -76,14 +67,12 @@ class Days extends Component {
     const daysArr = Array.from({ length: daysRange }, (v, k) => k);
 
     const dateArray = this.props.currentGoal.days.map(element => element.date);
-    console.log(dateArray);
 
     const days = daysArr.map(element => {
       let elementIndex = null;
       const currentDay = dateFns.addDays(startDate, element);
       const dayVar = dateFns.format(currentDay, 'DD.MM.YYYY');
       const inGoal = dateArray.includes(dayVar);
-      console.log(dayVar);
       let styleConfig = classes.item;
 
       if (currentDay < monthStart || currentDay > monthEnd) {
