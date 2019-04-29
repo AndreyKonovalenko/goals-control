@@ -62,60 +62,64 @@ class NavBar extends Component {
     const edit = (
       <FormControlLabel
         classes={{ label: classes.label }}
-        control={<Switch onChange={() => this.onSwitchHandler(editing)} />
+        label = 'EDIT'
+        labelPlacement = 'start'
+        control= {
+          <Switch
+            onChange={() => this.onSwitchHandler(editing)}
+          />
     }
-    label = 'EDIT'
-    labelPlacement = 'start' /
-      >
+    />
   );
+
   const add = (
     <IconButton
-        onClick={event => this.onClickHandler('/add', event)}
-        color='inherit'
-      >
-        <AddCircle />
-      </IconButton>
+          onClick={event => this.onClickHandler('/add', event)}
+          color='inherit'
+        >
+          <AddCircle />
+        </IconButton>
   );
   const register = (
     <Button
-        onClick={event => this.onClickHandler('/register', event)}
-        color='inherit'
-      >
-        Sign Up
-      </Button>
+          onClick={event => this.onClickHandler('/register', event)}
+          color='inherit'
+        >
+          Sign Up
+        </Button>
   );
   const login = (
     <Button
-        onClick={event => this.onClickHandler('/login', event)}
-        color='inherit'
-      >
-        Login
-      </Button>
+          onClick={event => this.onClickHandler('/login', event)}
+          color='inherit'
+        >
+          Login
+        </Button>
   );
   const logout = (
     <Button onClick={this.onLogoutHandler} color='inherit'>
-        Logout
-      </Button>
+          Logout
+        </Button>
   );
 
   return (
     <AppBar className={classes.root}>
-        <Toolbar className={classes.toolbar}>
-          <Typography color='inherit' className={classes.grow}>
-            <Button
-              onClick={event => this.onClickHandler('/', event)}
-              color='inherit'
-            >
-              Goals App
-            </Button>
-          </Typography>
-          {isAuthenticated ? edit : null}
-          {isAuthenticated ? add : null}
-          {!isAuthenticated ? register : null}
-          {!isAuthenticated ? login : null}
-          {isAuthenticated ? logout : null}
-        </Toolbar>
-      </AppBar>
+          <Toolbar className={classes.toolbar}>
+            <Typography color='inherit' className={classes.grow}>
+              <Button
+                onClick={event => this.onClickHandler('/', event)}
+                color='inherit'
+              >
+                Goals App
+              </Button>
+            </Typography>
+            {((isAuthenticated && this.props.location.pathname !== '/goal') && (isAuthenticated && this.props.location.pathname !== '/add')) ? edit : null}
+            {isAuthenticated ? add : null}
+            {!isAuthenticated ? register : null}
+            {!isAuthenticated ? login : null}
+            {isAuthenticated ? logout : null}
+          </Toolbar>
+        </AppBar>
   );
 }
 }

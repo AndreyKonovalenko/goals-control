@@ -15,7 +15,7 @@ import arrayExtractor from '../../utils/arrayExtractor';
 export const editMode = mode => {
   return {
     type: EDIT_GOALS_LIST,
-    payload: !mode
+    payload: !mode ? true : false
   };
 };
 

@@ -7,10 +7,10 @@ import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import Layout from './components/layout/Layout';
 import Register from './components/auth/Register';
-import GoalBuilder from './components/goalbuilder/GoalBuilder';
+import GoalBuilder from './components/goalBuilder/GoalBuilder';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import CurrentGoal from './components/currentgoal/CurrentGoal';
-import NotFound from './components/notfound/NotFound';
+import CurrentGoal from './components/currentGoal/CurrentGoal';
+import NotFound from './components/notFound/NotFound';
 import Welcome from './components/welcome/Welcome';
 
 import { autoLogin } from './store/actions/authActions';
