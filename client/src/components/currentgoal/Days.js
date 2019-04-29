@@ -33,10 +33,10 @@ const styles = theme => ({
     padding: 0
   },
   success: {
-    backgroundColor: 'green'
+    backgroundColor: '#7cb342'
   },
   failed: {
-    backgroundColor: 'red'
+    backgroundColor: '#f44336'
   },
   clickable: {
     borderWidth: '3px',
@@ -49,9 +49,8 @@ class Days extends Component {
     event.preventDefault();
     date = dateFns.format(date, 'DD.MM.YYYY');
     console.log('income date', date);
-    this.props.currentGoal.days.find((element, index) => {
+    this.props.currentGoal.days.forEach((element, index) => {
       if (element.date === date) {
-        console.log(index);
         this.props.checkUpGoalDay(index, this.props.currentGoal.days);
       }
     });
@@ -142,6 +141,5 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps,
-  { checkUpGoalDay }
+  mapSateToProps, { checkUpGoalDay }
 )(withStyles(styles)(Days));

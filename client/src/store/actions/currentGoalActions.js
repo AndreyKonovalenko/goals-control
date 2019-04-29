@@ -27,12 +27,32 @@ export const checkUpGoalDay = (incomeIndex, arr) => {
   arr = arr.map((element, index) => {
     console.log(incomeIndex);
     if (index === incomeIndex) {
+      let touchedConfig = element.touched;
+      let successConfig = element.success;
+
+      if (element.touched === false && element.success === false) {
+        // success option
+        touchedConfig = true;
+        successConfig = true;
+      }
+      else if (element.touched === true && element.success === true) {
+        // failed option
+        touchedConfig = true;
+        successConfig = false;
+      }
+      else if (element.touched === true && element.success === false) {
+        //reset option
+        touchedConfig = false;
+        successConfig = false;
+      }
+
       return {
         ...element,
-        success: !element.success,
-        touched: !element.touched ? true : true
+        success: successConfig,
+        touched: touchedConfig
       };
-    } else {
+    }
+    else {
       return element;
     }
   });
