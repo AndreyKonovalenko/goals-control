@@ -56,7 +56,7 @@ class GoalBuilder extends Component {
       from: this.state.from,
     }
     console.log('this is new', newGoal);
-    this.props.createGoal(newGoal, this.props.history);
+    this.props.createGoal(newGoal,this.props.history);
   }
 
   onCancleHundler = () => {

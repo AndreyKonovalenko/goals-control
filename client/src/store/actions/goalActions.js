@@ -3,7 +3,7 @@ import { setLoading, endLoading } from '../actions/loadingActions';
 
 import { GET_ERRORS } from './types';
 
-// Create Profile
+// Create new Goal
 
 export const createGoal = (goalData, history) => dispatch => {
   dispatch(setLoading());
@@ -12,6 +12,7 @@ export const createGoal = (goalData, history) => dispatch => {
     .then(res => {
       dispatch(endLoading());
       history.push('/');
+      console.log('after creating new goal history object is:', history);
     })
     .catch(error => {
       dispatch(endLoading());

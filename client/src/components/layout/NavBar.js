@@ -58,12 +58,14 @@ class NavBar extends Component {
   };
 
   render() {
+    console.log('location is', this.props.location.pathname);
     const { classes, editing, isAuthenticated } = this.props;
     const edit = (
       <FormControlLabel
         classes={{ label: classes.label }}
         label = 'EDIT'
         labelPlacement = 'start'
+        disabled = {this.props.location.pathname === '/'? false: true}
         control= {
           <Switch
             onChange={() => this.onSwitchHandler(editing)}
@@ -74,11 +76,12 @@ class NavBar extends Component {
 
   const add = (
     <IconButton
-          onClick={event => this.onClickHandler('/add', event)}
-          color='inherit'
-        >
-          <AddCircle />
-        </IconButton>
+      onClick={event => this.onClickHandler('/add', event)}
+      color='inherit'
+      disabled={this.props.editing ? true : false}
+    >
+        <AddCircle />
+    </IconButton>
   );
   const register = (
     <Button
@@ -113,7 +116,7 @@ class NavBar extends Component {
                 Goals App
               </Button>
             </Typography>
-            {((isAuthenticated && this.props.location.pathname !== '/goal') && (isAuthenticated && this.props.location.pathname !== '/add')) ? edit : null}
+            {isAuthenticated ? edit : null}
             {isAuthenticated ? add : null}
             {!isAuthenticated ? register : null}
             {!isAuthenticated ? login : null}
