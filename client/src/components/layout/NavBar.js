@@ -65,6 +65,7 @@ class NavBar extends Component {
         classes={{ label: classes.label }}
         label='EDIT'
         labelPlacement='start'
+        // use her location from parent componet work more consistent
         disabled={this.props.mainLocation === '/' ? false : true}
         control={<Switch onChange={() => this.onSwitchHandler(editing)} />}
       />
