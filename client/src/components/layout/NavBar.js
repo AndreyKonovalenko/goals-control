@@ -46,7 +46,6 @@ class NavBar extends Component {
     event.preventDefault();
     this.props.clearErrors();
     this.props.history.push(to);
-
   };
 
   onSwitchHandler = mode => {
@@ -58,73 +57,70 @@ class NavBar extends Component {
   };
 
   render() {
-    console.log('location is', this.props.location.pathname);
+    console.log('location from layout', this.props.mainLocation);
+    console.log('location from navBar', this.props.location.pathname);
     const { classes, editing, isAuthenticated } = this.props;
     const edit = (
       <FormControlLabel
         classes={{ label: classes.label }}
-        label = 'EDIT'
-        labelPlacement = 'start'
-        disabled = {this.props.location.pathname === '/'? false: true}
-        control= {
-          <Switch
-            onChange={() => this.onSwitchHandler(editing)}
-          />
-    }
-    />
-  );
+        label='EDIT'
+        labelPlacement='start'
+        disabled={this.props.mainLocation === '/' ? false : true}
+        control={<Switch onChange={() => this.onSwitchHandler(editing)} />}
+      />
+    );
 
-  const add = (
-    <IconButton
-      onClick={event => this.onClickHandler('/add', event)}
-      color='inherit'
-      disabled={this.props.editing ? true : false}
-    >
+    const add = (
+      <IconButton
+        onClick={event => this.onClickHandler('/add', event)}
+        color='inherit'
+        disabled={this.props.editing ? true : false}
+      >
         <AddCircle />
-    </IconButton>
-  );
-  const register = (
-    <Button
-          onClick={event => this.onClickHandler('/register', event)}
-          color='inherit'
-        >
-          Sign Up
-        </Button>
-  );
-  const login = (
-    <Button
-          onClick={event => this.onClickHandler('/login', event)}
-          color='inherit'
-        >
-          Login
-        </Button>
-  );
-  const logout = (
-    <Button onClick={this.onLogoutHandler} color='inherit'>
-          Logout
-        </Button>
-  );
+      </IconButton>
+    );
+    const register = (
+      <Button
+        onClick={event => this.onClickHandler('/register', event)}
+        color='inherit'
+      >
+        Sign Up
+      </Button>
+    );
+    const login = (
+      <Button
+        onClick={event => this.onClickHandler('/login', event)}
+        color='inherit'
+      >
+        Login
+      </Button>
+    );
+    const logout = (
+      <Button onClick={this.onLogoutHandler} color='inherit'>
+        Logout
+      </Button>
+    );
 
-  return (
-    <AppBar className={classes.root}>
-          <Toolbar className={classes.toolbar}>
-            <Typography color='inherit' className={classes.grow}>
-              <Button
-                onClick={event => this.onClickHandler('/', event)}
-                color='inherit'
-              >
-                Goals App
-              </Button>
-            </Typography>
-            {isAuthenticated ? edit : null}
-            {isAuthenticated ? add : null}
-            {!isAuthenticated ? register : null}
-            {!isAuthenticated ? login : null}
-            {isAuthenticated ? logout : null}
-          </Toolbar>
-        </AppBar>
-  );
-}
+    return (
+      <AppBar className={classes.root}>
+        <Toolbar className={classes.toolbar}>
+          <Typography color='inherit' className={classes.grow}>
+            <Button
+              onClick={event => this.onClickHandler('/', event)}
+              color='inherit'
+            >
+              Goals App
+            </Button>
+          </Typography>
+          {isAuthenticated ? edit : null}
+          {isAuthenticated ? add : null}
+          {!isAuthenticated ? register : null}
+          {!isAuthenticated ? login : null}
+          {isAuthenticated ? logout : null}
+        </Toolbar>
+      </AppBar>
+    );
+  }
 }
 
 NavBar.propTypes = {
@@ -140,5 +136,6 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps, { editMode, logoutUser, clearErrors }
+  mapSateToProps,
+  { editMode, logoutUser, clearErrors }
 )(withRouter(withStyles(styles)(NavBar)));

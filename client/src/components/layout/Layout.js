@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import NavBar from './NavBar';
+import { withRouter } from 'react-router-dom';
 import lightBlue from '@material-ui/core/colors/lightBlue';
 import pink from '@material-ui/core/colors/pink';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,13 +11,12 @@ const styles = theme => ({
   root: {
     paddingTop: 64,
     [theme.breakpoints.down('xs')]: {
-      paddingTop: 56, // for screens smaller then 600 use 100%
-    },
+      paddingTop: 56 // for screens smaller then 600 use 100%
+    }
   }
 });
 
 class Layout extends Component {
-
   render() {
     const { classes } = this.props;
     const theme = createMuiTheme({
@@ -35,13 +35,11 @@ class Layout extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <NavBar />
-        <div className={classes.root}>
-          {this.props.children}
-        </div>
+        <NavBar mainLocation={this.props.location.pathname} />
+        <div className={classes.root}>{this.props.children}</div>
       </MuiThemeProvider>
     );
   }
 }
 
-export default withStyles(styles)(Layout);
+export default withRouter(withStyles(styles)(Layout));
