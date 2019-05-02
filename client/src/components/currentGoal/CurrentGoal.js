@@ -3,9 +3,9 @@ import dateFns from 'date-fns';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import Months from './Months';
 import WeekDays from './WeekDays';
 import Days from './Days';
@@ -53,6 +53,10 @@ class CurrentGoal extends Component {
     });
   };
 
+  onSaveHandler = () => {
+    console.log('saved');
+  };
+
   render() {
     const { classes, loading, currentGoal } = this.props;
     const progress = <Spinner />;
@@ -68,27 +72,31 @@ class CurrentGoal extends Component {
         />
         <WeekDays currentMonth={this.state.currentMonth} />
         <Days currentMonth={this.state.currentMonth} />
+        <Button size='small' onClick={this.onSaveHandler}>
+          Save
+        </Button>
       </div>
     );
 
     return (
       <React.Fragment>
-        {loading ? progress: null}
+        {loading ? progress : null}
         {!isEmpty(currentGoal) ? goal : null}
       </React.Fragment>
     );
-
   }
 }
 
 CurrentGoal.propTypes = {
   loading: PropTypes.bool.isRequired,
-  currentGoal: PropTypes.object.isRequired,
-}
+  currentGoal: PropTypes.object.isRequired
+};
 
 const mapSateToProps = state => ({
   loading: state.loading.loading,
   currentGoal: state.currentGoal.currentGoal
 });
 
-export default connect(mapSateToProps)(withRouter(withStyles(styles)(CurrentGoal)));
+export default connect(mapSateToProps)(
+  withRouter(withStyles(styles)(CurrentGoal))
+);
