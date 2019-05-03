@@ -33,6 +33,9 @@ const styles = theme => {
       borderRadius: '0.5em',
       marginLeft: '0.5em',
       marginRight: '0.5em'
+    },
+    button: {
+      alignSelf: 'center'
     }
   };
 };
@@ -72,9 +75,11 @@ class CurrentGoal extends Component {
         />
         <WeekDays currentMonth={this.state.currentMonth} />
         <Days currentMonth={this.state.currentMonth} />
-        <Button size='small' onClick={this.onSaveHandler}>
-          Save
-        </Button>
+        <div className={classes.button}>
+          <Button onClick={this.onSaveHandler} size={'large'}>
+            Save
+          </Button>
+        </div>
       </div>
     );
 
