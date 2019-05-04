@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { loginUser } from '../../store/actions/authActions';
 import { isEmpty } from '../../utils/is-empty';
 
-
 import Avatar from '@material-ui/core/Avatar';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import { withStyles } from '@material-ui/core/styles';
@@ -26,8 +25,7 @@ const styles = theme => ({
     [theme.breakpoints.down('xs')]: {
       width: '100%' // for screens smaller then 600 use 100%
     },
-    backgroundColor: theme.palette.background.paper,
-
+    backgroundColor: theme.palette.background.paper
   },
   container: {
     display: 'flex',
@@ -57,6 +55,7 @@ class Login extends Component {
       [event.target.name]: event.target.value
     });
   };
+
   onSubmitHundler = event => {
     event.preventDefault();
     const userData = {
@@ -65,6 +64,12 @@ class Login extends Component {
     };
 
     this.props.loginUser(userData, this.props.history);
+  };
+
+  keyPressed = event => {
+    if (event.key === 'Enter') {
+      this.onSubmitHundler(event);
+    }
   };
 
   componentDidMount() {
@@ -122,6 +127,7 @@ class Login extends Component {
             variant='contained'
             color='primary'
             onClick={this.onSubmitHundler}
+            onKeyPress={this.keyPressed}
           >
             Submit
           </Button>
@@ -144,5 +150,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps, { loginUser }
+  mapStateToProps,
+  { loginUser }
 )(withStyles(styles)(Login));
