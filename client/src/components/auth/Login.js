@@ -66,12 +66,6 @@ class Login extends Component {
     this.props.loginUser(userData, this.props.history);
   };
 
-  keyPressed = event => {
-    if (event.key === 'Enter') {
-      this.onSubmitHundler(event);
-    }
-  };
-
   componentDidMount() {
     if (this.props.isAuthenticated) {
       this.props.history.push('/');
@@ -122,14 +116,14 @@ class Login extends Component {
             variant='outlined'
           />
           <Button
+            type='submit'
             fullWidth
             className={classes.button}
             variant='contained'
             color='primary'
             onClick={this.onSubmitHundler}
-            onKeyPress={this.keyPressed}
           >
-            Submit
+            Login
           </Button>
         </form>
       </Paper>
