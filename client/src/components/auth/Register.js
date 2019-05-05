@@ -122,6 +122,7 @@ class Register extends Component {
             variant='outlined'
           />
           <Button
+            type='submit'
             className={classes.button}
             fullWidth
             variant='contained'
@@ -147,5 +148,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps, { registerUser }
+  mapStateToProps,
+  { registerUser }
 )(withStyles(styles)(Register));

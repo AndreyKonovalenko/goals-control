@@ -76,7 +76,7 @@ class CurrentGoal extends Component {
         <WeekDays currentMonth={this.state.currentMonth} />
         <Days currentMonth={this.state.currentMonth} />
         <div className={classes.button}>
-          <Button onClick={this.onSaveHandler} size={'large'}>
+          <Button onClick={this.onSaveHandler} type='submit' size={'large'}>
             Save
           </Button>
         </div>
