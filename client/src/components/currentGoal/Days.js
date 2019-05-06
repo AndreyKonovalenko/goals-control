@@ -15,16 +15,16 @@ const styles = theme => ({
   root: {
     display: 'grid',
     gridTemplateColumns: 'repeat(7, 1fr)',
-    gridGap: '0.5em',
     justifyItems: 'space-between',
-    paddingLeft: '0.5em',
-    paddingRight: '0.5em',
-    paddingBottom: '0.5em'
+    gridGap: '8px',
+    marginBottom: theme.spacing.unit,
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit
   },
   item: {
     border: '1px solid #eaeaea',
     textAlign: 'center',
-    borderRadius: '0.5em'
+    borderRadius: theme.spacing.unit,
   },
   outOfMonth: {
     backgroundColor: theme.palette.background.default

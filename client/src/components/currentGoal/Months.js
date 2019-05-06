@@ -9,8 +9,8 @@ const dateFormat = 'MMMM YYYY';
 
 const styles = theme => ({
   root: {
-    marginTop: '1em',
-    marginBottom: '1em',
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
     width: '100%',
     display: 'flex',
     justifyContent: 'space-around',
@@ -27,7 +27,7 @@ const Months = props => {
     <div className={classes.root}>
       <ChevronLeft
         aria-label='prev month'
-        color='secondary'
+        color='primary'
         onClick={props.prevMonth}
       />
       <Typography variant='subtitle1' className={classes.text}>
@@ -35,7 +35,7 @@ const Months = props => {
       </Typography>
       <ChevronRight
         aria-label='next month'
-        color='secondary'
+        color='primary'
         onClick={props.nextMonth}
       />
     </div>

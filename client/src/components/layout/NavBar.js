@@ -57,8 +57,6 @@ class NavBar extends Component {
   };
 
   render() {
-    console.log('location from layout', this.props.mainLocation);
-    console.log('location from navBar', this.props.location.pathname);
     const { classes, editing, isAuthenticated } = this.props;
     const edit = (
       <FormControlLabel
@@ -67,43 +65,44 @@ class NavBar extends Component {
         labelPlacement='start'
         // use her location from parent componet work more consistent
         disabled={this.props.mainLocation === '/' ? false : true}
-        control={<Switch onChange={() => this.onSwitchHandler(editing)} />}
-      />
-    );
+        control={<Switch onChange={() => this.onSwitchHandler(editing)} />
+    }
+    />
+  );
 
-    const add = (
-      <IconButton
+  const add = (
+    <IconButton
         onClick={event => this.onClickHandler('/add', event)}
         color='inherit'
         disabled={this.props.editing ? true : false}
       >
         <AddCircle />
       </IconButton>
-    );
-    const register = (
-      <Button
+  );
+  const register = (
+    <Button
         onClick={event => this.onClickHandler('/register', event)}
         color='inherit'
       >
         Sign Up
       </Button>
-    );
-    const login = (
-      <Button
+  );
+  const login = (
+    <Button
         onClick={event => this.onClickHandler('/login', event)}
         color='inherit'
       >
         Login
       </Button>
-    );
-    const logout = (
-      <Button onClick={this.onLogoutHandler} color='inherit'>
+  );
+  const logout = (
+    <Button onClick={this.onLogoutHandler} color='inherit'>
         Logout
       </Button>
-    );
+  );
 
-    return (
-      <AppBar className={classes.root}>
+  return (
+    <AppBar className={classes.root}>
         <Toolbar className={classes.toolbar}>
           <Typography color='inherit' className={classes.grow}>
             <Button
@@ -120,8 +119,8 @@ class NavBar extends Component {
           {isAuthenticated ? logout : null}
         </Toolbar>
       </AppBar>
-    );
-  }
+  );
+}
 }
 
 NavBar.propTypes = {
@@ -137,6 +136,5 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps,
-  { editMode, logoutUser, clearErrors }
+  mapSateToProps, { editMode, logoutUser, clearErrors }
 )(withRouter(withStyles(styles)(NavBar)));

@@ -28,14 +28,17 @@ const styles = theme => {
     },
     title: {
       backgroundColor: theme.palette.background.default,
-      paddingTop: '0.5em',
-      paddingBottom: '0.5em',
-      borderRadius: '0.5em',
-      marginLeft: '0.5em',
-      marginRight: '0.5em'
+      borderRadius: theme.spacing.unit,
+      paddingTop: theme.spacing.unit,
+      paddingBottom: theme.spacing.unit,
+      marginTop: theme.spacing.unit,
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit
     },
     button: {
-      alignSelf: 'center'
+      alignSelf: 'center',
+      marginBottom: theme.spacing.unit,
+      borderRadius: theme.spacing.unit,
     }
   };
 };
@@ -76,7 +79,7 @@ class CurrentGoal extends Component {
         <WeekDays currentMonth={this.state.currentMonth} />
         <Days currentMonth={this.state.currentMonth} />
         <div className={classes.button}>
-          <Button onClick={this.onSaveHandler} type='submit' size={'large'}>
+          <Button onClick={this.onSaveHandler} type='submit' size={'large'} color='primary' variant='contained' >
             Save
           </Button>
         </div>
