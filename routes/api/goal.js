@@ -107,4 +107,29 @@ router.delete(
   }
 );
 
+// @router UPDATE api/gaol/:id
+// @desc UPDATE goal by id
+// @access Private
+
+// router.post(
+    //   '/:id',
+    //   passport.authenticate('jwt', { session: false }),
+    //   (req, res) => {
+    //     Goal.findById(req.params.id)
+    //       .then(goal => {
+
+    //         updateOne({ size: 'large' }, { name: 'T-90' }, function(err, res) {
+
+
+
+
+    //         res.json(goal);
+    //       })
+    //       .catch(err => res.status(404).json(err));
+    //   }
+    // );
+
+
+
+
 module.exports = router;
