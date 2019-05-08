@@ -111,23 +111,19 @@ router.delete(
 // @desc UPDATE goal by id
 // @access Private
 
-// router.post(
-    //   '/:id',
-    //   passport.authenticate('jwt', { session: false }),
-    //   (req, res) => {
-    //     Goal.findById(req.params.id)
-    //       .then(goal => {
-
-    //         updateOne({ size: 'large' }, { name: 'T-90' }, function(err, res) {
-
-
-
-
-    //         res.json(goal);
-    //       })
-    //       .catch(err => res.status(404).json(err));
-    //   }
-    // );
+router.post(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Goal.findById(req.params.id)
+      .then(goal => {
+        console.log(req.body.days);
+        //         updateOne({ size: 'large' }, { name: 'T-90' }, function(err, res) {
+        res.json(goal);
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
 
 
 

@@ -1,4 +1,4 @@
-import { FETCH_SELECTED_GOAL, CHECK_UP_GOAL_DAY } from './types';
+import { FETCH_SELECTED_GOAL, CHECK_UP_GOAL_DAY, PROGRESS_SAVED } from './types';
 
 import { setLoading, endLoading } from '../actions/loadingActions';
 import axios from '../../axios-db';
@@ -56,9 +56,24 @@ export const checkUpGoalDay = (incomeIndex, arr) => {
       return element;
     }
   });
-  console.log(arr);
   return {
     type: CHECK_UP_GOAL_DAY,
     payload: arr
   };
+};
+
+export const saveNewDaysArr = (id, daysArr) => dispatch => {
+  dispatch(setLoading());
+  axios
+    .post(`api/goal/${id}`, daysArr)
+    .then(res => {
+      dispatch({
+        type: PROGRESS_SAVED
+      })
+      dispatch(endLoading());
+    })
+    .catch(err => {
+      dispatch(endLoading());
+      console.log("your progress has not been saved");
+    });
 };

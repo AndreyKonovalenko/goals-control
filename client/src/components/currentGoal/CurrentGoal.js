@@ -11,6 +11,7 @@ import WeekDays from './WeekDays';
 import Days from './Days';
 import Spinner from '../spinner/Spinner';
 import { isEmpty } from '../../utils/is-empty';
+import { saveNewDaysArr } from '../../../store/actions/currentGoalActons';
 
 const styles = theme => {
   console.log(theme);
@@ -59,7 +60,8 @@ class CurrentGoal extends Component {
     });
   };
 
-  onSaveHandler = () => {
+  onSaveHandler = (daysArr) => {
+    this.props.saveNewDaysArr(daysArr);
     console.log('saved');
   };
 
@@ -79,7 +81,7 @@ class CurrentGoal extends Component {
         <WeekDays currentMonth={this.state.currentMonth} />
         <Days currentMonth={this.state.currentMonth} />
         <div className={classes.button}>
-          <Button onClick={this.onSaveHandler} type='submit' size={'large'} color='primary' variant='contained' >
+          <Button onClick={this.onSaveHandler(this.props.currentGoal.days)} type='submit' size={'large'} color='primary' variant='contained' >
             Save
           </Button>
         </div>
@@ -105,6 +107,6 @@ const mapSateToProps = state => ({
   currentGoal: state.currentGoal.currentGoal
 });
 
-export default connect(mapSateToProps)(
+export default connect(mapSateToProps, { saveNewDaysArr })(
   withRouter(withStyles(styles)(CurrentGoal))
 );
