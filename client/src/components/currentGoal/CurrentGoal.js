@@ -11,7 +11,7 @@ import WeekDays from './WeekDays';
 import Days from './Days';
 import Spinner from '../spinner/Spinner';
 import { isEmpty } from '../../utils/is-empty';
-import { saveNewDaysArr } from '../../../store/actions/currentGoalActons';
+import { saveNewDaysArr } from '../../store/actions/currentGoalActions';
 
 const styles = theme => {
   console.log(theme);
@@ -39,7 +39,7 @@ const styles = theme => {
     button: {
       alignSelf: 'center',
       marginBottom: theme.spacing.unit,
-      borderRadius: theme.spacing.unit,
+      borderRadius: theme.spacing.unit
     }
   };
 };
@@ -60,7 +60,9 @@ class CurrentGoal extends Component {
     });
   };
 
-  onSaveHandler = (daysArr) => {
+  onSaveHandler = (daysArr, event) => {
+    event.preventDefault();
+
     this.props.saveNewDaysArr(daysArr);
     console.log('saved');
   };
@@ -81,7 +83,15 @@ class CurrentGoal extends Component {
         <WeekDays currentMonth={this.state.currentMonth} />
         <Days currentMonth={this.state.currentMonth} />
         <div className={classes.button}>
-          <Button onClick={this.onSaveHandler(this.props.currentGoal.days)} type='submit' size={'large'} color='primary' variant='contained' >
+          <Button
+            onClick={event =>
+              this.onSaveHandler(this.props.currentGoal.days, event)
+            }
+            type='submit'
+            size={'large'}
+            color='primary'
+            variant='contained'
+          >
             Save
           </Button>
         </div>
@@ -107,6 +117,7 @@ const mapSateToProps = state => ({
   currentGoal: state.currentGoal.currentGoal
 });
 
-export default connect(mapSateToProps, { saveNewDaysArr })(
-  withRouter(withStyles(styles)(CurrentGoal))
-);
+export default connect(
+  mapSateToProps,
+  { saveNewDaysArr }
+)(withRouter(withStyles(styles)(CurrentGoal)));
