@@ -60,10 +60,10 @@ class CurrentGoal extends Component {
     });
   };
 
-  onSaveHandler = (daysArr, event) => {
+  onSaveHandler = (id, daysArr, event) => {
     event.preventDefault();
 
-    this.props.saveNewDaysArr(daysArr);
+    this.props.saveNewDaysArr(id, daysArr);
     console.log('saved');
   };
 
@@ -85,7 +85,11 @@ class CurrentGoal extends Component {
         <div className={classes.button}>
           <Button
             onClick={event =>
-              this.onSaveHandler(this.props.currentGoal.days, event)
+              this.onSaveHandler(
+                this.props.currentGoal._id,
+                this.props.currentGoal.days,
+                event
+              )
             }
             type='submit'
             size={'large'}

@@ -1,4 +1,8 @@
-import { FETCH_SELECTED_GOAL, CHECK_UP_GOAL_DAY, PROGRESS_SAVED } from './types';
+import {
+  FETCH_SELECTED_GOAL,
+  CHECK_UP_GOAL_DAY,
+  PROGRESS_SAVED
+} from './types';
 
 import { setLoading, endLoading } from '../actions/loadingActions';
 import axios from '../../axios-db';
@@ -34,13 +38,11 @@ export const checkUpGoalDay = (incomeIndex, arr) => {
         // success option
         touchedConfig = true;
         successConfig = true;
-      }
-      else if (element.touched === true && element.success === true) {
+      } else if (element.touched === true && element.success === true) {
         // failed option
         touchedConfig = true;
         successConfig = false;
-      }
-      else if (element.touched === true && element.success === false) {
+      } else if (element.touched === true && element.success === false) {
         //reset option
         touchedConfig = false;
         successConfig = false;
@@ -51,8 +53,7 @@ export const checkUpGoalDay = (incomeIndex, arr) => {
         success: successConfig,
         touched: touchedConfig
       };
-    }
-    else {
+    } else {
       return element;
     }
   });
@@ -63,17 +64,18 @@ export const checkUpGoalDay = (incomeIndex, arr) => {
 };
 
 export const saveNewDaysArr = (id, daysArr) => dispatch => {
+  console.log(id, daysArr);
   dispatch(setLoading());
   axios
     .post(`api/goal/${id}`, daysArr)
     .then(res => {
       dispatch({
         type: PROGRESS_SAVED
-      })
+      });
       dispatch(endLoading());
     })
     .catch(err => {
       dispatch(endLoading());
-      console.log("your progress has not been saved");
+      console.log('your progress has not been saved');
     });
 };
