@@ -115,17 +115,16 @@ router.post(
   '/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    console.log(req.body);
+    console.log(req.params.id);
     Goal.findById(req.params.id)
       .then(goal => {
-        console.log(req.body.days);
-        //         updateOne({ size: 'large' }, { name: 'T-90' }, function(err, res) {
+        console.log(goal);
+        //  updateOne({ size: 'large' }, { name: 'T-90' }, function(err, res) {
         res.json(goal);
       })
       .catch(err => res.status(404).json(err));
   }
 );
-
-
-
 
 module.exports = router;
