@@ -115,12 +115,15 @@ router.post(
   '/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    console.log(req.body);
+    console.log('this body:', req.body);
     console.log(req.params.id);
+    const newDayArr = req.body;
     Goal.findById(req.params.id)
       .then(goal => {
-        console.log(goal);
+        console.log(goal.days);
+        goal.days = newDayArr;
         //  updateOne({ size: 'large' }, { name: 'T-90' }, function(err, res) {
+        console.log(goal.days);
         res.json(goal);
       })
       .catch(err => res.status(404).json(err));
