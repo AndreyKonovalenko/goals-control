@@ -118,14 +118,8 @@ router.post(
     console.log('this body:', req.body);
     console.log(req.params.id);
     const newDayArr = req.body;
-    Goal.findById(req.params.id)
-      .then(goal => {
-        console.log(goal.days);
-        goal.days = newDayArr;
-        //  updateOne({ size: 'large' }, { name: 'T-90' }, function(err, res) {
-        console.log(goal.days);
-        res.json(goal);
-      })
+    Goal.findOneAndUpdate({ _id: req.params.id }, { $set: { days: newDayArr } })
+      .then(goal => res.json(goal))
       .catch(err => res.status(404).json(err));
   }
 );
