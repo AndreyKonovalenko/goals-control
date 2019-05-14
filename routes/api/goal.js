@@ -115,8 +115,6 @@ router.post(
   '/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    console.log('this body:', req.body);
-    console.log(req.params.id);
     const newDayArr = req.body;
     Goal.findOneAndUpdate({ _id: req.params.id }, { $set: { days: newDayArr } })
       .then(goal => res.json(goal))

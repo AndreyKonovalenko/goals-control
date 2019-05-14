@@ -14,7 +14,6 @@ import { isEmpty } from '../../utils/is-empty';
 import { saveNewDaysArr } from '../../store/actions/currentGoalActions';
 
 const styles = theme => {
-  console.log(theme);
   return {
     root: {
       width: '80%',

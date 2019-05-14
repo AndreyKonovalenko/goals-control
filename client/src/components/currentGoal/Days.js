@@ -24,7 +24,7 @@ const styles = theme => ({
   item: {
     border: '1px solid #eaeaea',
     textAlign: 'center',
-    borderRadius: theme.spacing.unit,
+    borderRadius: theme.spacing.unit
   },
   outOfMonth: {
     backgroundColor: theme.palette.background.default
@@ -141,5 +141,6 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps, { checkUpGoalDay }
+  mapSateToProps,
+  { checkUpGoalDay }
 )(withStyles(styles)(Days));
