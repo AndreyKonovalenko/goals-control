@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import dateFns from 'date-fns';
 import List from '@material-ui/core/List';
@@ -135,6 +136,11 @@ class Days extends Component {
     );
   }
 }
+
+Days.propTypes = {
+  currentGoal: PropTypes.object.isRequired,
+  checkUpGoalDay: PropTypes.func.isRequired
+};
 
 const mapSateToProps = state => ({
   currentGoal: state.currentGoal.currentGoal
