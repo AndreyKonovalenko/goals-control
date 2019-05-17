@@ -66,8 +66,16 @@ class CurrentGoal extends Component {
     console.log('saved');
   };
 
+  componentDidMount() {
+    console.log(this.props.currentGoal, this.props.loading)
+    if (this.props.currentGoal === {} && this.props.loading === false) {
+      console.log('componentDidMount works');
+    }
+  }
+
   render() {
     const { classes, loading, currentGoal } = this.props;
+    console.log(this.state.currentMonth);
     const progress = <Spinner />;
     console.log(typeof this.state.currentMonth);
     const goal = (
@@ -123,6 +131,5 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps,
-  { saveNewDaysArr }
+  mapSateToProps, { saveNewDaysArr }
 )(withRouter(withStyles(styles)(CurrentGoal)));
