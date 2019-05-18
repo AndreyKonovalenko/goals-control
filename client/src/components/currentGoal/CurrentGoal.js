@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import dateFns from 'date-fns';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
@@ -67,7 +68,7 @@ class CurrentGoal extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.currentGoal, this.props.loading)
+    console.log(this.props.currentGoal, this.props.loading);
     if (this.props.currentGoal === {} && this.props.loading === false) {
       console.log('componentDidMount works');
     }
@@ -113,7 +114,7 @@ class CurrentGoal extends Component {
     return (
       <React.Fragment>
         {loading ? progress : null}
-        {!isEmpty(currentGoal) ? goal : null}
+        {!isEmpty(currentGoal) ? goal : <Redirect to='/' />}
       </React.Fragment>
     );
   }
@@ -131,5 +132,6 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps, { saveNewDaysArr }
+  mapSateToProps,
+  { saveNewDaysArr }
 )(withRouter(withStyles(styles)(CurrentGoal)));
