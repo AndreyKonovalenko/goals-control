@@ -37,8 +37,7 @@ router.post('/register', (req, res) => {
     if (user) {
       errors.email = 'Email already exists';
       return res.status(400).json(errors);
-    }
-    else {
+    } else {
       const newUser = new User({
         email: req.body.email,
         password: req.body.password
@@ -103,7 +102,8 @@ router.post('/login', (req, res) => {
         // Sign Token
         jwt.sign(
           payload,
-          keys.secretOrKey, { expiresIn: 3600 },
+          keys.secretOrKey,
+          { expiresIn: 3600 },
           (err, token) => {
             res.json({
               success: true,
@@ -111,8 +111,7 @@ router.post('/login', (req, res) => {
             });
           }
         );
-      }
-      else {
+      } else {
         errors.password = 'Password incorrect';
         return res.status(400).json(errors);
       }

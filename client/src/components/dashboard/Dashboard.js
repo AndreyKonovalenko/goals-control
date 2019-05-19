@@ -23,8 +23,7 @@ import {
   updateGaolsList,
   deleteGoal,
   reorder
-}
-from '../../store/actions/dashboardActions';
+} from '../../store/actions/dashboardActions';
 
 import { fetchSelectedGoal } from '../../store/actions/currentGoalActions';
 
@@ -152,8 +151,6 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.props.fetchGoalsList();
-
-    console.log('did mount!!');
   }
 
   componentDidUpdate(prevProps) {
@@ -294,5 +291,6 @@ const mapSateToProps = state => ({
 });
 
 export default connect(
-  mapSateToProps, { fetchGoalsList, fetchSelectedGoal, deleteGoal, updateGaolsList, reorder }
+  mapSateToProps,
+  { fetchGoalsList, fetchSelectedGoal, deleteGoal, updateGaolsList, reorder }
 )(withRouter(withStyles(styles)(Dashboard)));

@@ -9,7 +9,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import classNames from 'classnames';
 
 import { connect } from 'react-redux';
-
 import { checkUpGoalDay } from '../../store/actions/currentGoalActions';
 
 const styles = theme => ({
@@ -49,7 +48,6 @@ class Days extends Component {
   onClickHandler = (date, event) => {
     event.preventDefault();
     date = dateFns.format(date, 'DD.MM.YYYY');
-    console.log('income date', date);
     this.props.currentGoal.days.forEach((element, index) => {
       if (element.date === date) {
         this.props.checkUpGoalDay(index, this.props.currentGoal.days);

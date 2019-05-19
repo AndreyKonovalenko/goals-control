@@ -6,8 +6,7 @@ import {
   DELETE_GOAL,
   CREATE_ORDER,
   REORDER
-}
-from './types';
+} from './types';
 import { setLoading, endLoading } from '../actions/loadingActions';
 import axios from '../../axios-db';
 import arrayExtractor from '../../utils/arrayExtractor';
@@ -82,14 +81,12 @@ export const deleteGoal = (arr, id) => dispatch => {
 // it work independent from back-end DB
 
 export const createOrder = arr => {
-  console.log(arr);
   const l = arr.length;
   const listOrder = Array.from({ length: l }, (v, k) => k);
   const result = {
     order: listOrder,
     itemsCount: l
   };
-  console.log('creatingOrder', result);
   return {
     type: CREATE_ORDER,
     payload: result

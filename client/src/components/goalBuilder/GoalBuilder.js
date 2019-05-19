@@ -49,15 +49,14 @@ class GoalBuilder extends Component {
     });
   };
 
-  onSaveHandler = () => {;
+  onSaveHandler = () => {
     const newGoal = {
       title: this.state.title,
       limitation: this.state.limitation,
-      from: this.state.from,
-    }
-    console.log('this is new', newGoal);
-    this.props.createGoal(newGoal,this.props.history);
-  }
+      from: this.state.from
+    };
+    this.props.createGoal(newGoal, this.props.history);
+  };
 
   onCancleHundler = () => {
     this.props.clearErrors();
@@ -65,8 +64,8 @@ class GoalBuilder extends Component {
       title: '',
       limitation: '',
       from: ''
-    })
-  }
+    });
+  };
 
   render() {
     const { classes, errors, loading } = this.props;
@@ -79,31 +78,38 @@ class GoalBuilder extends Component {
       <Paper className={classes.root}>
         {loading ? progress : null}
         <form className={classes.container} noValidate>
-          <Typography align='center' variant='h6' className={classes.margin} color='secondary'>
-          NEW GOAL
+          <Typography
+            align='center'
+            variant='h6'
+            className={classes.margin}
+            color='secondary'
+          >
+            NEW GOAL
           </Typography>
           <TextField
-            error = {errorTitle}
+            error={errorTitle}
             label={errorTitle ? 'Error' : 'Enter Goal Name'}
             helperText={errors.title}
             fullWidth
-            name="title"
+            name='title'
             value={this.state.title}
             onChange={this.onChangeHandler}
-            margin="normal"
+            margin='normal'
           />
           <TextField
-            error = {errorLimitation}
-            label={errorLimitation ? 'Error' : 'How many days to reach the goal?'}
+            error={errorLimitation}
+            label={
+              errorLimitation ? 'Error' : 'How many days to reach the goal?'
+            }
             helperText={errors.limitation}
-            name="limitation"
+            name='limitation'
             fullWidth
             value={this.state.limitation}
             onChange={this.onChangeHandler}
-            margin="normal"
+            margin='normal'
           />
           <TextField
-            error = {errorFrom}
+            error={errorFrom}
             label={errorFrom ? 'Error' : 'Start Date'}
             helperText={errors.from}
             type='date'
@@ -113,17 +119,20 @@ class GoalBuilder extends Component {
             InputLabelProps={{
               shrink: true
             }}
-            margin="normal"
+            margin='normal'
           />
           <div>
-            <Button size="small"
+            <Button
+              size='small'
               onClick={this.onCancleHundler}
-              className={classes.button}>
+              className={classes.button}
+            >
               Cancle
             </Button>
-            <Button size = "small"
+            <Button
+              size='small'
               onClick={this.onSaveHandler}
-              className = { classes.button }
+              className={classes.button}
             >
               Save
             </Button>
@@ -142,6 +151,9 @@ GoalBuilder.propTyeps = {
 const mapStateToProps = state => ({
   errors: state.errors,
   loading: state.loading.loading
-})
+});
 
-export default connect(mapStateToProps, { createGoal, clearErrors })(withStyles(styles)(GoalBuilder));
+export default connect(
+  mapStateToProps,
+  { createGoal, clearErrors }
+)(withStyles(styles)(GoalBuilder));

@@ -16,16 +16,19 @@ const styles = theme => ({
   },
   text: {
     margin: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-
-  },
+    paddingBottom: theme.spacing.unit
+  }
 });
-const NotFound = (props) => {
+const NotFound = props => {
   const { classes } = props;
   return (
     <Paper className={classes.root}>
-      <Typography className={classes.text} align='center' variant='h6' >Page Not Found</Typography>
-      <Typography className={classes.text} align='center' variant='body1'>Sorry, this page does not exist!</Typography>
+      <Typography className={classes.text} align='center' variant='h6'>
+        Page Not Found
+      </Typography>
+      <Typography className={classes.text} align='center' variant='body1'>
+        Sorry, this page does not exist!
+      </Typography>
     </Paper>
   );
 };

@@ -12,7 +12,6 @@ export const createGoal = (goalData, history) => dispatch => {
     .then(res => {
       dispatch(endLoading());
       history.push('/');
-      console.log('after creating new goal history object is:', history);
     })
     .catch(error => {
       dispatch(endLoading());

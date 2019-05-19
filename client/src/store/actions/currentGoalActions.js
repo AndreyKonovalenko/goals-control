@@ -29,7 +29,6 @@ export const fetchSelectedGoal = id => dispatch => {
 
 export const checkUpGoalDay = (incomeIndex, arr) => {
   arr = arr.map((element, index) => {
-    console.log(incomeIndex);
     if (index === incomeIndex) {
       let touchedConfig = element.touched;
       let successConfig = element.success;
@@ -64,7 +63,6 @@ export const checkUpGoalDay = (incomeIndex, arr) => {
 };
 
 export const saveNewDaysArr = (id, daysArr) => dispatch => {
-  console.log(id, daysArr);
   dispatch(setLoading());
   axios
     .post(`api/goal/${id}`, daysArr)
@@ -76,6 +74,5 @@ export const saveNewDaysArr = (id, daysArr) => dispatch => {
     })
     .catch(err => {
       dispatch(endLoading());
-      console.log('your progress has not been saved');
     });
 };

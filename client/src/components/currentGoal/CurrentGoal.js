@@ -62,23 +62,12 @@ class CurrentGoal extends Component {
 
   onSaveHandler = (id, daysArr, event) => {
     event.preventDefault();
-
     this.props.saveNewDaysArr(id, daysArr);
-    console.log('saved');
   };
-
-  componentDidMount() {
-    console.log(this.props.currentGoal, this.props.loading);
-    if (this.props.currentGoal === {} && this.props.loading === false) {
-      console.log('componentDidMount works');
-    }
-  }
 
   render() {
     const { classes, loading, currentGoal } = this.props;
-    console.log(this.state.currentMonth);
     const progress = <Spinner />;
-    console.log(typeof this.state.currentMonth);
     const goal = (
       <div className={classes.root}>
         <Typography variant={'h6'} align={'center'} className={classes.title}>
@@ -123,7 +112,7 @@ class CurrentGoal extends Component {
 CurrentGoal.propTypes = {
   loading: PropTypes.bool.isRequired,
   currentGoal: PropTypes.object.isRequired,
-  currentMonth: PropTypes.object.isRequired
+  saveNewDaysArr: PropTypes.func.isRequired
 };
 
 const mapSateToProps = state => ({

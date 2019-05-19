@@ -40,8 +40,7 @@ router.get(
         if (profile.goals.length === 0) {
           errors.no_goals = 'User does not have saved goals';
           res.status(404).json(errors);
-        }
-        else {
+        } else {
           res.json(profile);
         }
       })
@@ -60,7 +59,11 @@ router.post(
     const newGaolsArray = {};
     newGaolsArray.goals = req.body;
     // Update
-    Profile.findOneAndUpdate({ user: req.user.id }, { $set: newGaolsArray }, { new: true }).then(profile => res.json(profile));
+    Profile.findOneAndUpdate(
+      { user: req.user.id },
+      { $set: newGaolsArray },
+      { new: true }
+    ).then(profile => res.json(profile));
   }
 );
 

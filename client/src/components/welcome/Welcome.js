@@ -15,19 +15,27 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper
   },
   text: {
-    margin: theme.spacing.unit,
-
+    margin: theme.spacing.unit
   }
-
 });
-const Welcome = (props) => {
+const Welcome = props => {
   const { classes } = props;
   return (
     <Paper className={classes.root}>
-      <Typography className={classes.text} align='center' variant='h4' >Welcome! </Typography>
-      <Typography className={classes.text} align='left' variant='body1'>This simple application has created to help you to track your progress of your new goal or habit.</Typography>
-      <Typography className={classes.text} align='left' variant='subtitle1'>Please login or create new account to start using it!</Typography>
-      <Typography className={classes.text} align='left' variant='subtitle1'>For your account you can use email as login or any login name your want !</Typography>
+      <Typography className={classes.text} align='center' variant='h4'>
+        Welcome!{' '}
+      </Typography>
+      <Typography className={classes.text} align='left' variant='body1'>
+        This simple application has created to help you to track your progress
+        of your new goal or habit.
+      </Typography>
+      <Typography className={classes.text} align='left' variant='subtitle1'>
+        Please login or create new account to start using it!
+      </Typography>
+      <Typography className={classes.text} align='left' variant='subtitle1'>
+        For your account you can use email as login or any login name your want
+        !
+      </Typography>
     </Paper>
   );
 };

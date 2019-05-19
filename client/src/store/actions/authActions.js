@@ -54,7 +54,6 @@ export const loginUser = (userData, history) => dispatch => {
 // Set logged in user
 
 export const setCurrentUser = decoded => {
-  console.log(decoded);
   return {
     type: SET_CURRENT_USER,
     payload: decoded
@@ -64,14 +63,14 @@ export const setCurrentUser = decoded => {
 export const logouted = () => {
   return {
     type: LOGOUT
-  }
-}
+  };
+};
 
 export const autoLoginFailed = () => {
   return {
     type: JWT_EXPIRED
-  }
-}
+  };
+};
 
 // Log user out
 export const logoutUser = () => dispatch => {

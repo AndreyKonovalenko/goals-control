@@ -1,8 +1,4 @@
-import {
-  FETCH_SELECTED_GOAL,
-  CHECK_UP_GOAL_DAY
-}
-from '../actions/types';
+import { FETCH_SELECTED_GOAL, CHECK_UP_GOAL_DAY } from '../actions/types';
 
 const inititalState = {
   currentGoal: {}

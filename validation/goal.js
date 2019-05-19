@@ -18,8 +18,7 @@ module.exports = function validateGoalInput(data) {
 
   if (Validator.isEmpty(data.limitation)) {
     errors.limitation = 'Limitation field is required';
-  }
-  else {
+  } else {
     if (!Validator.isNumeric(data.limitation)) {
       errors.limitation = 'Limitation field must contain only numbers';
     }

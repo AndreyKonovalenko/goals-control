@@ -12,6 +12,8 @@ const styles = theme => ({
   }
 });
 
-const Spinner = (props) => (<CircularProgress className={props.classes.progress} />);
+const Spinner = props => (
+  <CircularProgress className={props.classes.progress} />
+);
 
 export default withStyles(styles)(Spinner);
