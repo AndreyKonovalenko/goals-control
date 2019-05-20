@@ -9,6 +9,7 @@ package-lock.json
 
 # development
 /config/keys_dev.js
+/config/keys_prod.js
 
 # production
 /build
