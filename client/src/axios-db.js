@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'development') {
 // host on Heroku
 
 if (process.env.NODE_ENV === 'production') {
-  server_url = 'https://goals.herokuapp.com/';
+  server_url = 'https://goals-control.herokuapp.com/';
 }
 
 const instance = axios.create({
