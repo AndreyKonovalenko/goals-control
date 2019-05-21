@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'development') {
     server_url = process.env.REACT_APP_URL;
   } else {
     //  this is for local development
-    server_url = 'http://localhost:5000';
+    server_url = 'http://port-5000.mern-andreinew835394.codeanyapp.com'
   }
 }
 

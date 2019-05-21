@@ -34,7 +34,6 @@ mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log('MongoDB Connected !'))
   .catch(err => console.log(err));
-
 //Passport middleware
 
 app.use(passport.initialize());
@@ -61,11 +60,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // Settings for correct development on local machine and on ide.c9, remember that webpack web server runs on port 3000
 
-let port = process.env.PORT || 5000;
-if (port === '8080') {
-  port = 8081;
-}
-
+let port = 5000;
 app.listen(port, () => {
   const msg = 'Server running on address: '.cyan.bold;
   console.log(process.env.C9_HOSTNAME);
